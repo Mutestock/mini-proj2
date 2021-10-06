@@ -1,10 +1,10 @@
-from server.grpc_server import serve
+from server.server import run_app
 import logging
 
 
 def main() -> None:
     logging.basicConfig()
-    serve()
+    run_app()
 
 
 if __name__ == "__main__":

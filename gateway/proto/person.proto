@@ -1,0 +1,45 @@
+syntax = "proto3";
+package person;
+
+service Person {
+  rpc CreatePerson(CreatePersonRequest) returns (CreatePersonResponse) {}
+  rpc ReadPerson(ReadPersonRequest) returns (ReadPersonResponse) {}
+  rpc UpdatePerson(UpdatePersonRequest) returns (UpdatePersonResponse) {}
+  rpc DeletePerson(DeletePersonRequest) returns (DeletePersonResponse) {}
+  rpc ReadPersonList(ReadPersonListRequest) returns (ReadPersonListResponse) {}
+}
+
+message CreatePersonRequest {
+  string first_name = 1;
+  string last_name = 2;
+  string phone_number = 3;
+  string email = 4;
+  string role = 5;
+}
+
+message ReadPersonResponse {
+  string first_name = 1;
+  string last_name = 2;
+  string phone_number = 3;
+  string email = 4;
+  string role = 5;
+}
+
+message UpdatePersonRequest {
+  int32 id = 1;
+  CreatePersonRequest new_person = 2;
+}
+
+message DeletePersonRequest{ int32 id = 1;}
+
+message ReadPersonRequest {int32 id = 1;}
+
+message ReadPersonListRequest{}
+
+message CreatePersonResponse { string message = 1; }
+
+message ReadPersonListResponse { repeated ReadPersonResponse person_list = 1; }
+
+message UpdatePersonResponse { string message = 1; }
+
+message DeletePersonResponse { string message = 1; }

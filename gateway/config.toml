@@ -18,3 +18,5 @@ port=10040
 
 [clients.grpc]
 [clients.grpc.mini-proj]
+host="localhost"
+port=10030
