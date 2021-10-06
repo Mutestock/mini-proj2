@@ -1,0 +1,20 @@
+[server]
+host="localhost"
+port=10000
+
+[clients]
+
+[clients.rest]
+[clients.rest.mini-proj]
+host = "127.0.0.1"
+port = 10020
+
+
+[clients.soap]
+[clients.soap.mini-proj]
+host="localhost"
+port=10040
+
+
+[clients.grpc]
+[clients.grpc.mini-proj]

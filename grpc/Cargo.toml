@@ -1,0 +1,38 @@
+
+[package]
+name = "mini_project_1"
+version = "0.1.0"
+authors = ["= <doublenegative@protonmail.com>"]
+edition = "2018"
+
+[[bin]]
+name = "mini-proj-server"
+path = "src/server.rs"
+
+[[bin]]
+name = "mini-proj-client"
+path = "src/client.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+#primary
+tonic ="0.5.2"
+toml ="0.5.8"
+tokio = { version="1.11.0", features = ["macros", "rt-multi-thread"] }
+prost ="0.8.0"
+sqlx =  {version="0.5.7", features = ["runtime-tokio-rustls", "postgres", "chrono"]}
+anyhow="1.0.44"
+chrono = "0.4.19"
+
+#utils
+lazy_static = "1.4.0"
+
+# serde
+serde_derive = "1.0.130"
+serde = "1.0.130"
+
+
+[build-dependencies]
+tonic-build = "0.5.2"

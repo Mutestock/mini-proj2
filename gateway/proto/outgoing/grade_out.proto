@@ -1,0 +1,33 @@
+syntax = "proto3";
+package grade_out;
+
+service GradeOut {
+  rpc CreateGrade(CreateGradeRequest) returns (CreateGradeResponse) {}
+  rpc ReadGrade(ReadGradeRequest) returns (ReadGradeResponse) {}
+  rpc ReadGradeList(ReadGradeListRequest) returns (ReadGradeListResponse) {}
+  rpc UpdateGrade(UpdateGradeRequest) returns (UpdateGradeResponse) {}
+  rpc DeleteGrade(DeleteGradeRequest) returns (DeleteGradeResponse) {}
+}
+
+message CreateGradeRequest { string name = 1; }
+
+message CreateGradeResponse { string msg = 1; }
+
+message ReadGradeRequest { int32 id = 1; }
+
+message ReadGradeResponse { string name = 1; }
+
+message UpdateGradeRequest {
+  int32 id = 1;
+  string name = 2;
+}
+
+message UpdateGradeResponse { string msg = 1; }
+
+message DeleteGradeRequest { int32 id = 1; }
+
+message DeleteGradeResponse { string msg = 1; }
+
+message ReadGradeListRequest {}
+
+message ReadGradeListResponse { repeated ReadGradeResponse grades = 1; }

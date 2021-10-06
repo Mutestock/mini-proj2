@@ -1,0 +1,38 @@
+
+[production]
+[production.server]
+port=35100
+host="0.0.0.0"
+
+[production.database]
+pg_port=35200
+pg_user="test_user"
+pg_pass="test_pass"
+pg_db ="test_db"
+pg_host="localhost"
+
+[containerized]
+[containerized.server]
+port=13000
+host="0.0.0.0"
+
+[containerized.database]
+pg_port=5432
+pg_user="test_user"
+pg_pass="test_pass"
+pg_db ="test_db"
+pg_host="primary_db_dev"
+
+[development]
+[development.server]
+port=45000
+host="[::1]"
+
+[development.database]
+pg_port=15100
+pg_user="test_user"
+pg_pass="test_pass"
+pg_db ="test_db"
+pg_host="localhost"
+
+

@@ -1,0 +1,102 @@
+version: "3"
+
+services:
+  primary_db:
+    image: postgres:alpine
+    restart: always
+    container_name: primary_db_dev
+    environment:
+      - POSTGRES_USER=test_user
+      - POSTGRES_PASSWORD=test_pass
+      - POSTGRES_DB=test_db
+      - PGDATA=/var/lib/postgresql/data
+    ports:
+      - 10010:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data    
+    networks: 
+      - app-network
+    
+  rest:
+    build: ./rest
+    container_name: deno-deploy
+    environment:
+      - CONTAINERIZED=1
+    ports:
+      - "10020:15000"
+    depends_on:
+      - primary_db
+    networks:
+      - app-network
+
+  grpc:
+    restart: always
+    build: ./grpc
+    container_name: grpc_dev
+    environment:
+      - CONTAINERIZED=1
+    ports:
+      - 10030:13000
+    depends_on:
+      - primary_db
+    networks:
+      - app-network
+
+  migrator:
+    build: ./migration
+    container_name: migration_dev
+    environment:
+      - CONTAINERIZED=True
+    networks:
+      - app-network
+
+  soap:
+    build: ./soap
+    container_name: soap_dev
+    ports:
+      - 10040:5000
+    depends_on:
+      - primary_db
+    networks:
+      - app-network
+  
+  teacher_rest:
+    build: ./teacher_rest
+    container_name: rest_teacher_dev
+    ports:
+      - 10060:5000
+    depends_on:
+      - soap
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - 33333:80
+    depends_on:
+      - teacher_rest
+      - grpc_proxy
+    networks:
+      - app-network
+
+  grpc_proxy:
+    restart: always
+    image: envoyproxy/envoy-alpine:v1.19.1
+    container_name: grpc_proxy
+    ports:
+      - 10050:8080
+    depends_on:
+      - grpc
+    volumes:
+      - ./proxy/envoy.yaml:/etc/envoy/envoy.yaml
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: "bridge"
+
+
+# Primarily only includes technologies vital to development
