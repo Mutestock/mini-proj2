@@ -1,5 +1,5 @@
 import { oak } from "../../deps.ts"
-import { runQuery } from "../connection/pg_connection.ts"
+import { runQuery } from "../connection/sqlite_connection.ts"
 import { config } from "../utils/config.ts";
 
 
