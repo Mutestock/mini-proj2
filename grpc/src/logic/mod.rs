@@ -1,1 +1,1 @@
-pub mod student_handler;
+pub mod person_handler;

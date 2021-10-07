@@ -1,0 +1,6 @@
+{
+    "python.linting.pylintEnabled": false,
+    "python.linting.enabled": true,
+    "python.linting.banditEnabled": true,
+    "python.venvPath": "~/.cache/pypoetry/virtualenvs/migration-qUF9G40p-py3.9/"
+}

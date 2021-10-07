@@ -1,2 +1,2 @@
-pub mod pg_connection;
+pub mod sqlite_connection;
 

@@ -8,11 +8,11 @@ class Person():
         self.role = role
         
     @classmethod
-    def from_request(request):
+    def from_request(data):
         return Person(
-            first_name=request.first_name,
-            last_name=request.last_name,
-            phone_number=request.phone_number,
-            email=request.email,
-            role=request.role
+            first_name=data['first_name'],
+            last_name=data['last_name'],
+            phone_number=data['phone_number'],
+            email=data['email'],
+            role=data['role']
         )

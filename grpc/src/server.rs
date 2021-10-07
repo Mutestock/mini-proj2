@@ -1,5 +1,5 @@
-use student::student_server::{Student, StudentServer};
-use student::{CreateStudentRequest, CreateStudentResponse};
+use person::person_server::{Person, PersonServer};
+use person::{CreatePersonRequest, CreatePersonResponse};
 use tonic::{transport::Server, Request, Response, Status};
 
 #[macro_use]
@@ -10,126 +10,90 @@ mod entities;
 mod logic;
 mod utils;
 
-use entities::student;
-
-use logic::student_handler;
-use utils::config::{is_containerized_development_mode, is_production_mode, CONFIG};
-
-//pub mod student {
-//    tonic::include_proto!("student");
-//}
+use entities::person;
+use logic::person_handler;
+use utils::config::CONFIG;
 
 #[derive(Default)]
-pub struct StudentCon {}
+pub struct PersonCon {}
 
 #[tonic::async_trait]
-impl Student for StudentCon {
-    async fn create_student(
+impl Person for PersonCon {
+    async fn create_person(
         &self,
-        request: Request<CreateStudentRequest>,
-    ) -> Result<Response<CreateStudentResponse>, Status> {
+        request: Request<CreatePersonRequest>,
+    ) -> Result<Response<CreatePersonResponse>, Status> {
         println!("Got a request from {:?}", request.remote_addr());
 
         Ok(Response::new(
-            student_handler::create(request.into_inner())
+            person_handler::create(request.into_inner())
                 .await
-                .expect("Student Creation failed"),
+                .expect("Person Creation failed"),
         ))
     }
 
-    async fn read_student(
+    async fn read_person(
         &self,
-        request: tonic::Request<student::ReadStudentRequest>,
-    ) -> Result<tonic::Response<student::ReadStudentResponse>, tonic::Status> {
+        request: tonic::Request<person::ReadPersonRequest>,
+    ) -> Result<tonic::Response<person::ReadPersonResponse>, tonic::Status> {
         println!("Got a request from {:?}", request.remote_addr());
 
         Ok(Response::new(
-            student_handler::read(request.into_inner())
+            person_handler::read(request.into_inner())
                 .await
-                .expect("Student Read failed"),
+                .expect("Person Read failed"),
         ))
     }
 
-    async fn update_student(
+    async fn update_person(
         &self,
-        request: tonic::Request<student::UpdateStudentRequest>,
-    ) -> Result<tonic::Response<student::UpdateStudentResponse>, tonic::Status> {
+        request: tonic::Request<person::UpdatePersonRequest>,
+    ) -> Result<tonic::Response<person::UpdatePersonResponse>, tonic::Status> {
         println!("Got a request from {:?}", request.remote_addr());
 
         Ok(Response::new(
-            student_handler::update(request.into_inner())
+            person_handler::update(request.into_inner())
                 .await
-                .expect("Student Update failed"),
+                .expect("Person Update failed"),
         ))
     }
 
-    async fn delete_student(
+    async fn delete_person(
         &self,
-        request: tonic::Request<student::DeleteStudentRequest>,
-    ) -> Result<tonic::Response<student::DeleteStudentResponse>, tonic::Status> {
+        request: tonic::Request<person::DeletePersonRequest>,
+    ) -> Result<tonic::Response<person::DeletePersonResponse>, tonic::Status> {
         println!("Got a request from {:?}", request.remote_addr());
 
         Ok(Response::new(
-            student_handler::delete(request.into_inner())
+            person_handler::delete(request.into_inner())
                 .await
-                .expect("Student Delete failed"),
+                .expect("Person Delete failed"),
         ))
     }
 
-    async fn read_student_list(
+    async fn read_person_list(
         &self,
-        request: tonic::Request<student::ReadStudentListRequest>,
-    ) -> Result<tonic::Response<student::ReadStudentListResponse>, tonic::Status> {
+        request: tonic::Request<person::ReadPersonListRequest>,
+    ) -> Result<tonic::Response<person::ReadPersonListResponse>, tonic::Status> {
         println!("Got a request from {:?}", request.remote_addr());
 
         Ok(Response::new(
-            student_handler::read_list(request.into_inner())
+            person_handler::read_list(request.into_inner())
                 .await
-                .expect("Student Read List failed"),
+                .expect("Person Read List failed"),
         ))
     }
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = match is_production_mode() {
-        true => {
-            let formatted_addr_string: &str = &format!(
-                "{}:{}",
-                CONFIG.production.server.host, CONFIG.production.server.port
-            );
-            formatted_addr_string
-                .parse()
-                .expect("Tonic ain't working =|")
-        }
-        false => match is_containerized_development_mode() {
-            true => {
-                let formatted_addr_string: &str = &format!(
-                    "{}:{}",
-                    CONFIG.containerized.server.host, CONFIG.containerized.server.port
-                );
-                formatted_addr_string
-                    .parse()
-                    .expect("Tonic ain't working =|")
-            }
-            false => {
-                let formatted_addr_string: &str = &format!(
-                    "{}:{}",
-                    CONFIG.development.server.host, CONFIG.development.server.port
-                );
-                formatted_addr_string
-                    .parse()
-                    .expect("Tonic ain't working =|")
-            }
-        },
-    };
-
-    let student_ = StudentCon::default();
-
-    println!("gRPC server listening on {}", addr);
+    let addr = format!("{}:{}", CONFIG.server.host, CONFIG.server.port)
+        .parse()
+        .unwrap();
+    let person_con = PersonCon::default();
 
     Server::builder()
-        .add_service(StudentServer::new(student_))
+        .add_service(PersonServer::new(person_con))
         .serve(addr)
         .await?;
 

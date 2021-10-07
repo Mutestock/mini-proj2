@@ -1,16 +1,23 @@
 from aiohttp import web
+from clients.grpc.grpc_person import create_person, read_person, update_person, delete_person, read_person_list
+from entities.person import Person
+
 
 routes = web.RouteTableDef()
 
 
 @routes.post('/person')
 async def create(request):
-    return web.Response(text="Hello, world")
+    data = request.post()
+    create_person(Person.from_request(data))
+    return web.Response(text="200")
 
 
 @routes.get('/person/{id}')
 async def read(request):
-    return web.Response(text="Hello, world")
+    data = request.match_info
+    person = read_person(Person.from_request(data))
+    return web.json_response(person)
 
 
 @routes.put('/person/{id}')
