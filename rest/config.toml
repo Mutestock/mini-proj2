@@ -1,29 +1,13 @@
-[development]
-target_uri="localhost"
 
-[development.server]
-port=20000
-hostname="127.0.0.1"
+[server]
+port=10050
+host="localhost"
 
-[development.database]
-pg_port=10010
-pg_user="test_user"
-pg_pass="test_pass"
-pg_db ="test_db"
-pg_host="localhost"
-max_pool_connections=20
+[database]
+port=15100
+user="test_user"
+pass="test_pass"
+db ="person"
+host="localhost"
 
-[containerized]
-target_uri="localhost"
 
-[containerized.server]
-port=15000
-hostname="0.0.0.0"
-
-[containerized.database]
-pg_port=5432
-pg_user="test_user"
-pg_pass="test_pass"
-pg_db ="test_db"
-pg_host="primary_db_dev"
-max_pool_connections=20

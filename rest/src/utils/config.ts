@@ -5,19 +5,11 @@ import { toml } from "../../deps.ts";
 // Run from root of program
 const CONFIG_PATH = "./config.toml";
 const CONFIG = await Deno.readTextFile(CONFIG_PATH);
-const CONTAINERIZED = Deno.env.get("CONTAINERIZED");
 
 let config: any;
 
 try {
-    if(CONTAINERIZED=="1"){
-        config = toml.parse(CONFIG).containerized;
-        console.log("Rest running in containerized mode");
-    }
-    else{
-        config = toml.parse(CONFIG).development;
-        console.log("Rest running in development mode");
-    }
+    config = toml.parse(CONFIG);
     
 } catch (e) {
     console.error("Parsing error on line " + e.line + ", column " + e.column +
