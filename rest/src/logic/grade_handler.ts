@@ -1,29 +1,29 @@
 
-import { NewGrade, Grade, GradeLinked } from "../entities/grade.ts";
-import { queryInsertObject, queryBodyGuard, queryReadObject, queryDeleteObject, queryUpdateObject, queryReadObjectList } from "./shared_behaviour.ts";
+import { NewExam, Exam, ExamLinked } from "../entities/exam.ts";
+import { queryBodyGuard} from "./shared_behaviour.ts";
 import { oak } from "../../deps.ts";
-import { runQuery } from "../connection/pg_connection.ts";
+import { makeSqliteConnection } from "../connection/sqlite_connection.ts";
 
 
 
-// Expected input = newGrade
+// Expected input = newExam
 async function create(context: oak.RouterContext) {
     queryBodyGuard(context);
-    const newGrade = await context
+    const newExam = await context
         .request
         .body()
-        .value as NewGrade;
-    await queryInsertObject(newGrade, "grades");
+        .value as NewExam;
+    await queryInsertObject(newExam, "exams");
 }
 
 // Expected input = id
 async function read(id: string) {
-    const rawQueryGrade = await queryReadObject("grades", id);
-    const gradeParsed = JSON.parse(JSON.stringify(rawQueryGrade.rows[0]));
-    return JSON.stringify(GradeLinked.fromParsedObject(gradeParsed));
+    const rawQueryExam = await queryReadObject("exams", id);
+    const examParsed = JSON.parse(JSON.stringify(rawQueryExam.rows[0]));
+    return JSON.stringify(ExamLinked.fromParsedObject(examParsed));
 }
 
-// Expected input = id, newGrade
+// Expected input = id, newExam
 async function update(context: oak.RouterContext<{ id: string }, Record<string, any>>) {
     queryBodyGuard(context);
     let id = "";
@@ -31,36 +31,36 @@ async function update(context: oak.RouterContext<{ id: string }, Record<string, 
         id = context.params.id
     }
 
-    const updateGrade = await context
+    const updateExam = await context
         .request
         .body()
-        .value as NewGrade
-    await queryUpdateObject(updateGrade, "grades", id);
+        .value as NewExam
+    await queryUpdateObject(updateExam, "exams", id);
 }
 
 // Expected input = id
 async function _delete(id: string) {
-    await queryDeleteObject("grades", id);
+    await queryDeleteObject("exams", id);
 }
 
 // Expected input = None
 async function readList() {
-    const rawQueryGradeList = await queryReadObjectList("grades")    
-    const gradeListParsed = JSON.parse(JSON.stringify(rawQueryGradeList.rows));
+    const rawQueryExamList = await queryReadObjectList("exams")    
+    const examListParsed = JSON.parse(JSON.stringify(rawQueryExamList.rows));
     
-    const gradeList: GradeLinked[] = [];
-    gradeListParsed.forEach(function (grade: Object) {
-        gradeList.push(GradeLinked.fromParsedObject(grade));
+    const examList: ExamLinked[] = [];
+    examListParsed.forEach(function (exam: Object) {
+        examList.push(ExamLinked.fromParsedObject(exam));
     });
 
-    return JSON.stringify(gradeList);
+    return JSON.stringify(examList);
 }
 
-async function getTeachersByGradeId(id: string){
+async function getTeachersByExamId(id: string){
     const query = `
         select t.first_name, t.last_name, t.phone_number, t.email from teachers t 
-	        join grades_teachers gt on t.id = gt.teacher_id
-	        join grades g on gt.grade_id = g.id
+	        join exams_teachers gt on t.id = gt.teacher_id
+	        join exams g on gt.exam_id = g.id
 	        where g.id = ${id}
     `;
     const res = await runQuery(query);
@@ -68,11 +68,11 @@ async function getTeachersByGradeId(id: string){
 }
 
 
-async function getStudentsByGradeId(id: string){
+async function getStudentsByExamId(id: string){
     const query = `
         select s.first_name, s.last_name, s.phone_number, s.email from students s 
-	        join grades_students gs on s.id = gs.student_id
-	        join grades g on gs.grade_id = g.id
+	        join exams_students gs on s.id = gs.student_id
+	        join exams g on gs.exam_id = g.id
 	        where g.id = ${id}
     `;
     const res = await runQuery(query);
@@ -80,5 +80,5 @@ async function getStudentsByGradeId(id: string){
 }
 
 export {
-    create, read, update, _delete, readList, getStudentsByGradeId, getTeachersByGradeId
+    create, read, update, _delete, readList, getStudentsByExamId, getTeachersByExamId
 }
