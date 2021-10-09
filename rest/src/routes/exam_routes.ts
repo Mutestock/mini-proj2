@@ -1,9 +1,9 @@
 import {oak} from "../../deps.ts";
 import {create, read, update, _delete, readList} from "../logic/exam_handler.ts"
 
-const routePrefix = "/grade"
+const routePrefix = "/exam"
 
-function gradeRoutes(router: oak.Router): oak.Router { 
+function examRoutes(router: oak.Router): oak.Router { 
     router
         .get(routePrefix, (context) => {
             context.response.body = readList();
@@ -27,5 +27,5 @@ function gradeRoutes(router: oak.Router): oak.Router {
 }
 
 export {
-    gradeRoutes,
+    examRoutes,
 }
