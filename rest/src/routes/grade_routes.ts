@@ -1,12 +1,12 @@
 import {oak} from "../../deps.ts";
-import {create, read, update, _delete, readList} from "../logic/grade_handler.ts"
+import {create, read, update, _delete, readList} from "../logic/exam_handler.ts"
 
 const routePrefix = "/grade"
 
 function gradeRoutes(router: oak.Router): oak.Router { 
     router
-        .get(routePrefix, async (context) => {
-            context.response.body = await (await readList());
+        .get(routePrefix, (context) => {
+            context.response.body = readList();
         })
         .get<{id: string}>(routePrefix+"/:id", async (context) => {
             context.response.body = await read(context.params.id);

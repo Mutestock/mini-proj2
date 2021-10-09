@@ -20,12 +20,18 @@ class NewExam {
     create(){
         const conn = makeSqliteConnection();
         const insertQuery = conn.prepareQuery(
-            "INSERT INTO exams (name, examination_date) VALUES (:name, :examination_date)",
+            "INSERT INTO exam (name, examination_date) VALUES (:name, :examination_date)",
         );
         insertQuery.execute({
             name: this._name,
             examination_date: this._examinationDate
         });
+    }
+    name(){
+        return this._name;
+    }
+    examinationDate(): Date{
+        return this._examinationDate;
     }
 
 }
@@ -49,37 +55,46 @@ class Exam {
 
     static read(id: number): Exam{
         const conn = makeSqliteConnection();
-        const readQuery = conn.prepareQuery(
-            "SELECT * FROM exams WHERE ID = :id"
+        const readQuery = conn.prepareQuery<[number, string, Date, string, string]>(
+            "SELECT * FROM exam WHERE ID = :id"
         );
-        return readQuery.one({id:id});
+        const examValues = readQuery.one({id:id});
+        return new Exam(examValues[0], examValues[1], examValues[2], examValues[3], examValues[4]);
     }
 
-    static update(id: number, exam: Exam){
+    static update(id: number, exam: NewExam){
         const conn = makeSqliteConnection();
         const updateQuery = conn.prepareQuery(
-            "UPDATE SET "
+            "UPDATE exam SET examination_date = :examination_date, name = :name WHERE id = :id"
         )
+        return updateQuery.execute({
+            examination_date: exam.examinationDate(),
+            name: exam.name(),
+            id: id,
+        })
     }
 
     static delete(id: number){
         const conn = makeSqliteConnection();
         const deleteQuery = conn.prepareQuery(
-            "DELETE FROM exams WHERE ID = :id"
+            "DELETE FROM exam WHERE ID = :id"
         )
         deleteQuery.execute({id:id});
     }
 
     static readList(): Exam[]{
         const conn = makeSqliteConnection();
-        const readListQuery = conn.prepareQuery(
-            "SELECT * FROM exams"
+        const readListQuery = conn.prepareQuery<[number, string, Date, string, string]>(
+            "SELECT * FROM exam"
         );
-        return readListQuery.execute().
 
+        const examList: Exam[] = [];
+        // deno-lint-ignore camelcase
+        for (const[id, name, examination_date, created_at, updated_at] of readListQuery.iter()) {
+            examList.push(new Exam(id, name, examination_date, created_at, updated_at))
+        };
+        return examList
     }
-
-
 }
 
 

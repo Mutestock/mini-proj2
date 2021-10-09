@@ -1,12 +1,13 @@
-import { oak } from "../../deps.ts"
-import { runQuery } from "../connection/sqlite_connection.ts"
+import { makeSqliteConnection } from "../connection/sqlite_connection.ts"
 import { config } from "../utils/config.ts";
 
 
 // Doesn't need bodyGuard. No input values
-async function queryHealthCheck() {
-    const query = `SELECT * FROM ${config.database.test_db};`
-    await runQuery(query);
+function queryHealthCheck() {
+    const conn = makeSqliteConnection();
+    const query = `SELECT * FROM ${config.database.db};`
+    conn.query(query);
+    conn.close();
 }
 
 export {
