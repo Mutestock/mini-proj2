@@ -12,5 +12,3 @@ services:
     networks:
       - app-network
 
-
-# Primarily only includes technologies vital to development

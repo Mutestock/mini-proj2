@@ -1,21 +1,6 @@
 version: "3"
 
 services:
-  primary_db:
-    image: postgres:alpine
-    restart: always
-    container_name: primary_db_dev
-    environment:
-      - POSTGRES_USER=test_user
-      - POSTGRES_PASSWORD=test_pass
-      - POSTGRES_DB=test_db
-      - PGDATA=/var/lib/postgresql/data
-    ports:
-      - 10010:5432
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data    
-    networks: 
-      - app-network
     
   rest:
     build: ./rest
@@ -28,6 +13,8 @@ services:
       - primary_db
     networks:
       - app-network
+    volumes:
+      - ./rest/person.db:/app/person.db
 
   grpc:
     restart: always
@@ -41,6 +28,8 @@ services:
       - primary_db
     networks:
       - app-network
+    volumes:
+      - ./grpc/person.db:/usr/src/backend/person.db
 
   migrator:
     build: ./migration
