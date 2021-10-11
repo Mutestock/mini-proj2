@@ -25,7 +25,6 @@ namespace SoapService.Persistency
             });
             modelBuilder.Entity<Person>(builder =>
             {
-                builder.HasData(new Person { Id = 1 });
                 builder.HasMany(p => p.Classes).WithMany(c => c.People);
             });
         }
