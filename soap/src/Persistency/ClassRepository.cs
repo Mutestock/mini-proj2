@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SoapService.Models;
 
 namespace SoapService.Persistency
@@ -25,7 +26,7 @@ namespace SoapService.Persistency
 
 
         public SchoolClass Get(int id)
-            => _context.Classes.FirstOrDefault(c => c.Id == id);
+            => _context.Classes.Include(c => c.People).FirstOrDefault(c => c.Id == id);
 
         public List<SchoolClass> Get()
             => _context.Classes.ToList();
@@ -43,7 +44,8 @@ namespace SoapService.Persistency
 
         public void AddPeople(int classId, params Person[] people)
         {
-            SchoolClass schoolClass = Get(classId);
+            SchoolClass schoolClass = _context.Classes.Include(c => c.People).First();
+
             foreach(Person p in people)
                 if(schoolClass.People.All(x => x.Id != p.Id))
                     schoolClass.People.Add(p);

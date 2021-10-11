@@ -18,7 +18,7 @@ namespace SoapService.Models
         public DateTime CreatedAt { get; set; }
         [DataMember]
         public DateTime UpdatedAt { get; set; }
-        
+        [DataMember]
         public List<Person> People { get; set; } = new List<Person>();
     }
 }
