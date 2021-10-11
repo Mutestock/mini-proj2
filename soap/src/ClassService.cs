@@ -12,41 +12,39 @@ namespace SoapService
     public interface IClassService
     {
         [OperationContract]
-        void CreateNewClass(SchoolClass teacher);
+        int CreateNewClass(string classSubject);
         [OperationContract]
         SchoolClass GetClass(int teacherId);
         [OperationContract]
         List<SchoolClass> GetAllClasses();
         [OperationContract]
-        void AddPersonClass(int personId, int classId);
+        void AddPersonClass(int classId, int personId);
+        [OperationContract]
+        void AddPeopleClass(int classId, params int[] peopleIds);
     }
 
     public class ClassService : IClassService
     {
+        private readonly IClassRepository _repository;
 
-        public ClassService()
+        public ClassService(IClassRepository repository)
         {
+            _repository = repository;
         }
 
-
-        public void CreateNewClass(SchoolClass teacher)
-        {
-            throw new NotImplementedException();
-        }
+        public int CreateNewClass(string classSubject)
+            => _repository.CreateNew(new() {Subject = classSubject});
 
         public SchoolClass GetClass(int teacherId)
-        {
-            throw new NotImplementedException();
-        }
+            => _repository.Get(teacherId);
 
         public List<SchoolClass> GetAllClasses()
-        {
-            throw new NotImplementedException();
-        }
+            => _repository.Get();
 
-        public void AddPersonClass(int personId, int classId)
-        {
-            throw new NotImplementedException();
-        }
+        public void AddPersonClass(int classId, int personId)
+            => _repository.AddPeople(classId, new Person { Id = personId });
+
+        public void AddPeopleClass(int classId, params int[] peopleIds)
+            => _repository.AddPeople(classId, peopleIds.Select(pId => new Person { Id = pId}).ToArray());
     }
 }

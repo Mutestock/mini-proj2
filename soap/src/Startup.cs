@@ -29,7 +29,12 @@ namespace SoapService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSoapCore();
-            services.AddDbContext<SchoolClassContext>(options => options.UseSqlite(Configuration.GetConnectionString("ClassContext")));
+            services.AddScoped<IClassService, ClassService>();
+            services.AddScoped<IClassRepository, ClassRepository>();
+
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string dbPath = $"{path}{System.IO.Path.DirectorySeparatorChar}blogging.db";
+            services.AddDbContext<SchoolClassContext>(options => options.UseSqlite($"Data Source={dbPath}"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

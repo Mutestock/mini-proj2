@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace SoapService.Models
 {
-    [DataContract]
+    [DataContract, Table("Classes")]
     public class SchoolClass
     {
         [DataMember]
@@ -17,7 +18,7 @@ namespace SoapService.Models
         public DateTime CreatedAt { get; set; }
         [DataMember]
         public DateTime UpdatedAt { get; set; }
-        [DataMember]
+        
         public List<Person> People { get; set; } = new List<Person>();
     }
 }
