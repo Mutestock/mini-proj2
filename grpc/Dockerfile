@@ -12,7 +12,9 @@ COPY . .
 #EXPOSE 13000
 #RUN cargo install --path .
 RUN rustup component add rustfmt
-
+RUN cargo install sqlx-cli --no-default-features --features sqlite
+RUN sqlx database create
+RUN sqlx migrate run
 RUN cargo b
 
-CMD ["cargo","r","--bin","mini-proj-server"]
+CMD ["cargo","r","--bin","server"]

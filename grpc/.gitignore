@@ -1,1 +1,9 @@
 /target
+
+# === sqlite ===
+*.db
+**.db
+*-shm
+**-shm
+*-wal
+**wal

@@ -10,7 +10,7 @@ pub async fn create(
     sqlx::query(
         r#"
         INSERT INTO people (first_name, last_name, phone_number, email, role)
-        VALUES( $1, $2, $3, $4 )
+        VALUES( $1, $2, $3, $4, $5 )
         "#,
     )
     .bind(request.first_name)
@@ -60,7 +60,7 @@ pub async fn update(
 
     sqlx::query(
         r#"
-        UPDATE people SET (first_name, last_name, phone_number, email) = ( $1, $2, $3, $4)
+        UPDATE people SET (first_name, last_name, phone_number, email, role) = ( $1, $2, $3, $4, $5)
         WHERE ID = $5
         "#,
     )

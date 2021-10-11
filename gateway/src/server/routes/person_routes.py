@@ -1,7 +1,8 @@
 from aiohttp import web
-from clients.grpc.grpc_person import create_person, read_person, update_person, delete_person, read_person_list
+from clients.grpc.grpc_person import (create_person, delete_person,
+                                      read_person, read_person_list,
+                                      update_person)
 from entities.person import Person
-
 
 routes = web.RouteTableDef()
 
@@ -22,6 +23,7 @@ async def read(request):
 
 @routes.put('/person/{id}')
 async def update(request):
+    data = request.
     return web.Response(text="Hello, world")
 
 
