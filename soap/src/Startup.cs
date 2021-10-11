@@ -29,12 +29,7 @@ namespace SoapService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSoapCore();
-            services.AddScoped<ITeacherService, TeacherService>();
-            services.AddScoped<ITeacherRepository, TeacherRepository>();
-            services.AddDbContext<TeacherContext>(options 
-                => options
-                .UseNpgsql(Configuration.GetConnectionString("TeacherContext"))
-                .UseSnakeCaseNamingConvention());
+            services.AddDbContext<SchoolClassContext>(options => options.UseSqlite(Configuration.GetConnectionString("ClassContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,8 +48,8 @@ namespace SoapService
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
-                endpoints.UseSoapEndpoint<ITeacherService>("/Service.svc", new SoapEncoderOptions(), SoapSerializer.DataContractSerializer);
-                endpoints.UseSoapEndpoint<ITeacherService>("/Service.asmx", new SoapEncoderOptions(), SoapSerializer.XmlSerializer);
+                endpoints.UseSoapEndpoint<IClassService>("/Service.svc", new SoapEncoderOptions(), SoapSerializer.DataContractSerializer);
+                endpoints.UseSoapEndpoint<IClassService>("/Service.asmx", new SoapEncoderOptions(), SoapSerializer.XmlSerializer);
             });
         }
     }
