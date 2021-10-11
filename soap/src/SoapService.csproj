@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\**" />
-    <Content Remove="Migrations\**" />
-    <EmbeddedResource Remove="Migrations\**" />
-    <None Remove="Migrations\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="20211011192244_InitialCreate.cs" />
     <Compile Remove="20211011192244_InitialCreate.Designer.cs" />
     <Compile Remove="SchoolClassContextModelSnapshot.cs" />
