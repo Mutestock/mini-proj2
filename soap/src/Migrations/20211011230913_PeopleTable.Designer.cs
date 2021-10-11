@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoapService.Persistency;
 
 namespace SoapService.Migrations
 {
     [DbContext(typeof(SchoolClassContext))]
-    partial class SchoolClassContextModelSnapshot : ModelSnapshot
+    [Migration("20211011230913_PeopleTable")]
+    partial class PeopleTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
