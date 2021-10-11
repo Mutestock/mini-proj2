@@ -10,4 +10,5 @@ pass="test_pass"
 db ="person"
 host="localhost"
 
-
+[misc]
+gateway_uri="localhost"

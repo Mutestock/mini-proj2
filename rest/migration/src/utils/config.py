@@ -19,9 +19,10 @@ with open(_filename) as f:
 CONFIG = toml.loads(_content)
 DATABASE_CONFIG = CONFIG["database"]
     
-    
-MIGRATIONS_FOLDER_PATH = ROOT_DIR + CONFIG["misc"]["migrations_folder"]
 
-PEOPLE_MIGRATIONS = MIGRATIONS_FOLDER_PATH+"/people"
+MIGRATIONS_FOLDER_PATH = ROOT_DIR + CONFIG["misc"]["migrations_folder"]
+EXAM_MIGRATIONS = MIGRATIONS_FOLDER_PATH+"/people"
+GRADE_MIGRATIONS = MIGRATIONS_FOLDER_PATH+"/exam"
+
 
 

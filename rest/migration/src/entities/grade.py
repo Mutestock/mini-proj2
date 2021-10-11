@@ -1,26 +1,27 @@
 
-from sqlite3.dbapi2 import Date
 from entities.entity_abstract import AbstractEntity
 from connection.sqlite_connection import make_sqlite_connection
-from utils.config import EXAM_MIGRATIONS
+from utils.config import GRADE_MIGRATIONS
 from utils.query_utils import get_down_sql, get_up_sql
 
-# Student references new EXAM. All timestamps won't be represented.
-# Date: https://docs.python.org/3/library/sqlite3.html#sqlite3.Row
+# Student references new GRADE. All timestamps won't be represented.
 
-class Exam(AbstractEntity):
-    name: str
-    examination_date: Date
 
-    def __init__(self, name):
-        self.name = name
-        self.examination_date
+class Grade(AbstractEntity):
+    person_id: int
+    exam_id: int
+    symbol: str
+
+    def __init__(self, person_id, exam_id, symbol):
+        self.person_id = person_id
+        self.exam_id = exam_id
+        self.symbol = symbol
 
     def insert_query(self) -> None:
         conn = make_sqlite_connection()
         cursor = conn.cursor()
         try:
-            query = f"INSERT INTO EXAM (name, examination_date) VALUES ('{self.name}','{self.examination_date}');"
+            query = f"INSERT INTO GRADE (person_id, exam_id, symbol) VALUES ('{self.person_id}', '{self.exam_id}', '{self.symbol}');"
             cursor.execute(query)
             conn.commit()
         except Exception as e:
@@ -34,7 +35,7 @@ class Exam(AbstractEntity):
         conn = make_sqlite_connection()
         cursor = conn.cursor()
         try:
-            cursor.execute(get_up_sql(EXAM_MIGRATIONS))
+            cursor.execute(get_up_sql(GRADE_MIGRATIONS))
             conn.commit()
         except Exception as e:
             print(e)
@@ -47,7 +48,7 @@ class Exam(AbstractEntity):
         conn = make_sqlite_connection()
         cursor = conn.cursor()
         try:
-            cursor.execute(get_down_sql(EXAM_MIGRATIONS))
+            cursor.execute(get_down_sql(GRADE_MIGRATIONS))
             conn.commit()
         except Exception as e:
             print(e)
