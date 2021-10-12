@@ -27,27 +27,11 @@ services:
     volumes:
       - ./grpc/person.db:/usr/src/backend/person.db
 
-  migrator:
-    build: ./migration
-    container_name: migration_dev
-    environment:
-      - CONTAINERIZED=True
-    networks:
-      - app-network
-
   soap:
     build: ./soap
     container_name: soap_dev
     ports:
       - 10040:5000
-    networks:
-      - app-network
-
-  frontend:
-    build: ./frontend
-    container_name: frontend
-    ports:
-      - 33333:80
     networks:
       - app-network
 
