@@ -8,7 +8,7 @@ from clients.rest.rest_grade import (
     delete_grade_by_exam_id, delete_by_person_id
 )
 
-from entites.grade import Grade
+from entities.grade import Grade
 
 
 @view_defaults(route_name="grade", renderer="json")

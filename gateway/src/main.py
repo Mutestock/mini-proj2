@@ -1,10 +1,10 @@
-from server.server import run_app
+from server.server import run_server
 import logging
 
 
 def main() -> None:
     logging.basicConfig()
-    run_app()
+    run_server()
 
 
 if __name__ == "__main__":

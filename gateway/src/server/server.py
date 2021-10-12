@@ -1,13 +1,17 @@
 from waitress import serve
 from pyramid.config import Configurator
-from server.routes import basic, exam_routes, person_routes, school_class_routes
+from server.routes import school_class_routes
+from utils.config import CONFIG
 
 route_configurator = Configurator
 
-def app_setup():
+
+def run_server():
     try:
         with Configurator as config:
-            config.
-            return app
+            config = school_class_routes(config)
+            app = config.make_wsgi_app()
+        serve(app, host=config["server"]["host"],
+              port=config['server']["port"])
     except Exception as e:
         print(e)

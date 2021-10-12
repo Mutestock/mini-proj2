@@ -1,3 +1,5 @@
+from pyramid.view import view_defaults, view_config
+from pyramid.response import Response
 
 from entities.school_class import SchoolClass
 from clients.soap.soap_school_class import(
@@ -54,3 +56,4 @@ class SchoolClassIDView():
 def collect_routes(configurator):
     configurator.add_route('school-class', '/school-class/{id:\d+}')
     configurator.add_route('school-class', '/school-class')
+    return configurator
