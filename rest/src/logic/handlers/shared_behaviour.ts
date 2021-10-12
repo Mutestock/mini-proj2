@@ -1,5 +1,5 @@
 
-import { oak } from "../../deps.ts"
+import { oak } from "../../../deps.ts"
 
 
 function queryBodyGuard(context: oak.RouterContext | oak.RouterContext<{ id: string }, Record<string, any>>) {

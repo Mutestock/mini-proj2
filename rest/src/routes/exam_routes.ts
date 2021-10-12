@@ -1,5 +1,5 @@
 import {oak} from "../../deps.ts";
-import {create, read, update, _delete, readList} from "../logic/exam_handler.ts"
+import {create, read, update, _delete, readList} from "../logic/handlers/exam_handler.ts"
 
 const routePrefix = "/exam"
 

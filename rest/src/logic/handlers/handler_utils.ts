@@ -1,5 +1,5 @@
-import { makeSqliteConnection } from "../connection/sqlite_connection.ts"
-import { config } from "../utils/config.ts";
+import { makeSqliteConnection } from "../../connection/sqlite_connection.ts"
+import { config } from "../../utils/config.ts";
 
 
 // Doesn't need bodyGuard. No input values
