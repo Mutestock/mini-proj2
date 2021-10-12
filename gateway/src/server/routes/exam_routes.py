@@ -1,4 +1,5 @@
 from aiohttp import web
+from clients.rest.rest_exam import create_exam, read_exam, update_exam, delete_exam, read_list_exam
 
 routes = web.RouteTableDef()
 
@@ -26,4 +27,3 @@ async def delete(request):
 @routes.get('/exam')
 async def read_list(request):
     return web.Response(text="Hello, world")
-
