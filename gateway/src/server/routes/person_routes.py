@@ -6,6 +6,14 @@ from entities.person import Person
 
 routes = web.RouteTableDef()
 
+class PersonView():
+    pass
+
+class PersonIDView():
+    pass
+
+
+
 
 @routes.post('/person')
 async def create(request):
@@ -23,16 +31,16 @@ async def read(request):
 
 @routes.put('/person/{id}')
 async def update(request):
-    data = request.
+    data = dir(request)
     return web.Response(text="Hello, world")
 
 
 @routes.delete('/person/{id}')
 async def delete(request):
+    dir(request)
     return web.Response(text="Hello, world")
 
 
 @routes.get('/person')
 async def read_list(request):
     return web.Response(text="Hello, world")
-

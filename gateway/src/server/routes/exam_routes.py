@@ -1,29 +1,41 @@
-from aiohttp import web
+from pyramid.response import Response
 from clients.rest.rest_exam import create_exam, read_exam, update_exam, delete_exam, read_list_exam
 
-routes = web.RouteTableDef()
+# https://stackoverflow.com/questions/32615167/restful-design-in-pyramid-view-configuration
+
+BASE_URL = '/exam'
+
+class ExamViews():
+    pass
+
+class ExamIdViews():
+    pass
+
+def create(request):
+    return web.Response(text="Hello, world")
+
+
+def read(request):
+    return web.Response(text="Hello, world")
+
+
+def update(request):
+    return web.Response(text="Hello, world")
+
+
+def delete(request):
+    return web.Response(text="Hello, world")
+
+
+def read_list(request):
+    return web.Response(text="Hello, world")
+
+def collect_exam_routes(configurator):
+    configurator.add_route("create",f'{BASE_URL}/')
 
 
 @routes.post('/exam')
-async def create(request):
-    return web.Response(text="Hello, world")
-
-
 @routes.get('/exam/{id}')
-async def read(request):
-    return web.Response(text="Hello, world")
-
-
 @routes.put('/exam/{id}')
-async def update(request):
-    return web.Response(text="Hello, world")
-
-
 @routes.delete('/exam/{id}')
-async def delete(request):
-    return web.Response(text="Hello, world")
-
-
 @routes.get('/exam')
-async def read_list(request):
-    return web.Response(text="Hello, world")

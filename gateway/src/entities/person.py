@@ -16,3 +16,13 @@ class Person():
             email=data['email'],
             role=data['role']
         )
+
+    @classmethod
+    def from_pyramid_request(request):
+        return Person(
+            first_name = request.POST.get('first_name'),
+            last_name = request.POST.get('last_name'),
+            phone_number= request.POST.get('phone_number'),
+            email = request.POST.get('email'),
+            role = request.POST.get('role')
+        )

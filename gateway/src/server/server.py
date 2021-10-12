@@ -1,17 +1,13 @@
-from aiohttp import web
-from routes import basic, exam_routes, person_routes, school_class_routes
+from waitress import serve
+from pyramid.config import Configurator
+from server.routes import basic, exam_routes, person_routes, school_class_routes
 
+route_configurator = Configurator
 
 def app_setup():
-    app = web.Application()
-    app.add_routes([
-        basic.routes,
-        exam_routes.routes,
-        person_routes.routes,
-        school_class_routes.routes
-    ])
-    return app
-
-def run_app():
-    web.run_app(app_setup())    
-
+    try:
+        with Configurator as config:
+            config.
+            return app
+    except Exception as e:
+        print(e)

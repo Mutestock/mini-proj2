@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import person_pb2 as person__pb2
+import logic.protogen.person_pb2 as person__pb2
 
 
 class PersonStub(object):

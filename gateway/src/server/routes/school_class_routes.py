@@ -1,29 +1,56 @@
-from aiohttp import web
 
-routes = web.RouteTableDef()
-
-
-@routes.post('/school-class')
-async def create(request):
-    return web.Response(text="Hello, world")
-
-
-@routes.get('/school-class/{id}')
-async def read(request):
-    return web.Response(text="Hello, world")
+from entities.school_class import SchoolClass
+from clients.soap.soap_school_class import(
+    create_school_class,
+    delete_school_class,
+    read_school_class, read_list_school_class,
+    update_school_class,
+    delete_school_class
+)
 
 
-@routes.put('/school-class/{id}')
-async def update(request):
-    return web.Response(text="Hello, world")
+# Routes that only require base
+@view_defaults(route_name="school-class", renderer="json")
+class SchoolClassView():
+    def __init__(self, request) -> None:
+        self.request = request
+
+    @view_config(request_method='POST')
+    def create(self):
+        create_school_class(SchoolClass.from_pyramid_request(self.request))
+        return Response("200")
 
 
-@routes.delete('/school-class/{id}')
-async def delete(request):
-    return web.Response(text="Hello, world")
+    #Still pretty unknown here
+    @view_config(request_method="GET")
+    def read_list(self):
+        return Response(read_list_school_class(SchoolClass.from_request_list(self.request)))
 
 
-@routes.get('/school-class')
-async def read_list(request):
-    return web.Response(text="Hello, world")
+# Routes that require id
+@view_defaults(route_name="school-class", renderer="json")
+class SchoolClassIDView():
+    def __init__(self, request) -> None:
+        self.request = request
 
+    @view_config(request_method='PUT')
+    def create(self):
+        update_school_class(SchoolClass.from_pyramid_request(some_id_from_somewhere, self.request))
+        return Response("200")
+
+
+    @view_config(request_method='DELETE')
+    def delete(self):
+        delete_school_class(some_id_from_somewhere)
+        return Response("200")
+
+    
+    #Still pretty unknown here
+    @view_config(request_method="GET")
+    def read(self):
+        return Response(read_school_class(SchoolClass.from_pyramid_request(self.request)))
+
+
+def collect_routes(configurator):
+    configurator.add_route('school-class', '/school-class/{id:\d+}')
+    configurator.add_route('school-class', '/school-class')
