@@ -1,0 +1,11 @@
+[server]
+host="localhost"
+port=10090
+
+[grpc]
+host="localhost"
+port=10020
+
+[rest]
+host="localhost"
+port=10030

@@ -11,7 +11,7 @@ def run_server():
         with Configurator as config:
             config = school_class_routes(config)
             app = config.make_wsgi_app()
-        serve(app, host=config["server"]["host"],
+        serve(app, host=CONFIG["server"]["host"],
               port=config['server']["port"])
     except Exception as e:
         print(e)

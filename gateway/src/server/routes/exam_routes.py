@@ -1,41 +1,55 @@
+from pyramid.view import view_defaults, view_config
 from pyramid.response import Response
 from clients.rest.rest_exam import create_exam, read_exam, update_exam, delete_exam, read_list_exam
+from entities.exam import Exam
+
 
 # https://stackoverflow.com/questions/32615167/restful-design-in-pyramid-view-configuration
 
-BASE_URL = '/exam'
 
-class ExamViews():
-    pass
+# Routes that only require base
+@view_defaults(route_name="school-class", renderer="json")
+class ExamView():
+    def __init__(self, request) -> None:
+        self.request = request
 
-class ExamIdViews():
-    pass
-
-def create(request):
-    return web.Response(text="Hello, world")
-
-
-def read(request):
-    return web.Response(text="Hello, world")
+    @view_config(request_method='POST')
+    def create(self):
+        create_exam(Exam.from_pyramid_request(self.request))
+        return Response("200")
 
 
-def update(request):
-    return web.Response(text="Hello, world")
+    #Still pretty unknown here
+    @view_config(request_method="GET")
+    def read_list(self):
+        return Response(read_list_exam(Exam.from_request_list(self.request)))
 
 
-def delete(request):
-    return web.Response(text="Hello, world")
+# Routes that require id
+@view_defaults(route_name="school-class", renderer="json")
+class ExamIDView():
+    def __init__(self, request) -> None:
+        self.request = request
+
+    @view_config(request_method='PUT')
+    def create(self):
+        update_exam(Exam.from_pyramid_request(some_id_from_somewhere, self.request))
+        return Response("200")
 
 
-def read_list(request):
-    return web.Response(text="Hello, world")
+    @view_config(request_method='DELETE')
+    def delete(self):
+        delete_exam(some_id_from_somewhere)
+        return Response("200")
 
-def collect_exam_routes(configurator):
-    configurator.add_route("create",f'{BASE_URL}/')
+    
+    #Still pretty unknown here
+    @view_config(request_method="GET")
+    def read(self):
+        return Response(read_exam(Exam.from_pyramid_request(self.request)))
 
 
-@routes.post('/exam')
-@routes.get('/exam/{id}')
-@routes.put('/exam/{id}')
-@routes.delete('/exam/{id}')
-@routes.get('/exam')
+def collect_routes(configurator):
+    configurator.add_route('school-class', '/school-class/{id:\d+}')
+    configurator.add_route('school-class', '/school-class')
+    return configurator

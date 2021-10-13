@@ -1,46 +1,56 @@
-from aiohttp import web
+from pyramid.view import view_defaults, view_config
+from pyramid.response import Response
+
 from clients.grpc.grpc_person import (create_person, delete_person,
                                       read_person, read_person_list,
                                       update_person)
 from entities.person import Person
 
-routes = web.RouteTableDef()
 
+
+# Routes that only require base
+@view_defaults(route_name="school-class", renderer="json")
 class PersonView():
-    pass
+    def __init__(self, request) -> None:
+        self.request = request
 
+    @view_config(request_method='POST')
+    def create(self):
+        create_person(Person.from_pyramid_request(self.request))
+        return Response("200")
+
+
+    #Still pretty unknown here
+    @view_config(request_method="GET")
+    def read_list(self):
+        return Response(read_list_person(Person.from_request_list(self.request)))
+
+
+# Routes that require id
+@view_defaults(route_name="school-class", renderer="json")
 class PersonIDView():
-    pass
+    def __init__(self, request) -> None:
+        self.request = request
+
+    @view_config(request_method='PUT')
+    def create(self):
+        update_person(Person.from_pyramid_request(some_id_from_somewhere, self.request))
+        return Response("200")
 
 
+    @view_config(request_method='DELETE')
+    def delete(self):
+        delete_person(some_id_from_somewhere)
+        return Response("200")
+
+    
+    #Still pretty unknown here
+    @view_config(request_method="GET")
+    def read(self):
+        return Response(read_person(Person.from_pyramid_request(self.request)))
 
 
-@routes.post('/person')
-async def create(request):
-    data = request.post()
-    create_person(Person.from_request(data))
-    return web.Response(text="200")
-
-
-@routes.get('/person/{id}')
-async def read(request):
-    data = request.match_info
-    person = read_person(Person.from_request(data))
-    return web.json_response(person)
-
-
-@routes.put('/person/{id}')
-async def update(request):
-    data = dir(request)
-    return web.Response(text="Hello, world")
-
-
-@routes.delete('/person/{id}')
-async def delete(request):
-    dir(request)
-    return web.Response(text="Hello, world")
-
-
-@routes.get('/person')
-async def read_list(request):
-    return web.Response(text="Hello, world")
+def collect_routes(configurator):
+    configurator.add_route('school-class', '/school-class/{id:\d+}')
+    configurator.add_route('school-class', '/school-class')
+    return configurator
