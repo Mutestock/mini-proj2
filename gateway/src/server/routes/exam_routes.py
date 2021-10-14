@@ -8,7 +8,7 @@ from entities.exam import Exam
 
 
 # Routes that only require base
-@view_defaults(route_name="school-class", renderer="json")
+@view_defaults(route_name="school", renderer="json")
 class ExamView():
     def __init__(self, request) -> None:
         self.request = request
@@ -22,11 +22,12 @@ class ExamView():
 
     @view_config(request_method="GET")
     def read_list(self):
-        return Response(read_list_exam(Exam.from_request_list(self.request)))
+        print("boop")
+        return Response(self.request.POST)
 
 
 # Routes that require id
-@view_defaults(route_name="school-class", renderer="json")
+@view_defaults(route_name="school-class-id", renderer="json")
 class ExamIDView():
     def __init__(self, request) -> None:
         self.request = request
@@ -50,6 +51,6 @@ class ExamIDView():
 
 
 def collect_routes(configurator):
-    configurator.add_route('school-class', '/school-class/{id:\d+}')
-    configurator.add_route('school-class', '/school-class')
+    #configurator.add_route('school-class', '/school-class/{id:\d+}')
+    configurator.add_route('school', '/')
     return configurator

@@ -4,10 +4,9 @@ from pyramid.response import Response
 from entities.school_class import SchoolClass
 from clients.soap.soap_school_class import(
     create_school_class,
-    delete_school_class,
+    #delete_school_class,
     read_school_class, read_list_school_class,
-    update_school_class,
-    delete_school_class
+    #update_school_class,
 )
 
 
@@ -35,16 +34,16 @@ class SchoolClassIDView():
     def __init__(self, request) -> None:
         self.request = request
 
-    @view_config(request_method='PUT')
-    def create(self):
-        update_school_class(SchoolClass.from_request(some_id_from_somewhere, self.request))
-        return Response("200")
+    # @view_config(request_method='PUT')
+    # def create(self):
+    #     update_school_class(SchoolClass.from_request(some_id_from_somewhere, self.request))
+    #     return Response("200")
 
 
-    @view_config(request_method='DELETE')
-    def delete(self):
-        delete_school_class(some_id_from_somewhere)
-        return Response("200")
+    #@view_config(request_method='DELETE')
+    #def delete(self):
+    #    delete_school_class(some_id_from_somewhere)
+    #    return Response("200")
 
     
     #Still pretty unknown here
