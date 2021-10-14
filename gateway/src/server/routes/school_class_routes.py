@@ -19,7 +19,7 @@ class SchoolClassView():
 
     @view_config(request_method='POST')
     def create(self):
-        create_school_class(SchoolClass.from_pyramid_request(self.request))
+        create_school_class(SchoolClass.from_request(self.request))
         return Response("200")
 
 
@@ -37,7 +37,7 @@ class SchoolClassIDView():
 
     @view_config(request_method='PUT')
     def create(self):
-        update_school_class(SchoolClass.from_pyramid_request(some_id_from_somewhere, self.request))
+        update_school_class(SchoolClass.from_request(some_id_from_somewhere, self.request))
         return Response("200")
 
 
@@ -50,7 +50,7 @@ class SchoolClassIDView():
     #Still pretty unknown here
     @view_config(request_method="GET")
     def read(self):
-        return Response(read_school_class(SchoolClass.from_pyramid_request(self.request)))
+        return Response(read_school_class(SchoolClass.from_request(self.request)))
 
 
 def collect_routes(configurator):

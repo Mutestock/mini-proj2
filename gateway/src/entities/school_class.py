@@ -7,7 +7,7 @@ class SchoolClass():
         self.email = email
 
     @classmethod
-    def from_pyramid_request(request):
+    def from_request(request):
         return SchoolClass(
             first_name = request.POST.get('first_name'),
             last_name = request.POST.get('last_name'),

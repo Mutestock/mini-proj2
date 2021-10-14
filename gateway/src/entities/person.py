@@ -8,17 +8,7 @@ class Person():
         self.role = role
         
     @classmethod
-    def from_request(data):
-        return Person(
-            first_name=data['first_name'],
-            last_name=data['last_name'],
-            phone_number=data['phone_number'],
-            email=data['email'],
-            role=data['role']
-        )
-
-    @classmethod
-    def from_pyramid_request(request):
+    def from_request(request):
         return Person(
             first_name = request.POST.get('first_name'),
             last_name = request.POST.get('last_name'),

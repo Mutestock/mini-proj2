@@ -1,12 +1,14 @@
 
 class Exam():
-    def __init__(self, name) -> None:
+    def __init__(self, name, examination_date) -> None:
         self.name = name
+        self.examination_date = examination_date
 
     @classmethod
-    def from_pyramid_request(request):
-        return Grade(
-            person_id=request.POST.get('person_id'),
-            exam_id=request.POST.get('exam_id'),
-            symbol=request.POST.get('symbol')
+    def from_request(request):
+        return Exam(
+            name=request.POST.get('name'),
+            examination_date=request.POST.get('examination_date'),
         )
+        
+    

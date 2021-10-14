@@ -15,11 +15,11 @@ class ExamView():
 
     @view_config(request_method='POST')
     def create(self):
-        create_exam(Exam.from_pyramid_request(self.request))
+        create_exam(Exam.from_request(self.request))
         return Response("200")
 
+    # Still pretty unknown here
 
-    #Still pretty unknown here
     @view_config(request_method="GET")
     def read_list(self):
         return Response(read_list_exam(Exam.from_request_list(self.request)))
@@ -33,20 +33,20 @@ class ExamIDView():
 
     @view_config(request_method='PUT')
     def create(self):
-        update_exam(Exam.from_pyramid_request(some_id_from_somewhere, self.request))
+        update_exam(Exam.from_request(self.request.POST.get(
+            "id"), Exam.from_request(self.request)))
         return Response("200")
-
 
     @view_config(request_method='DELETE')
     def delete(self):
-        delete_exam(some_id_from_somewhere)
+        delete_exam(self.request.POST.get("id"))
         return Response("200")
 
-    
-    #Still pretty unknown here
+    # Still pretty unknown here
+
     @view_config(request_method="GET")
     def read(self):
-        return Response(read_exam(Exam.from_pyramid_request(self.request)))
+        return Response(read_exam(self.request.POST.get("id")))
 
 
 def collect_routes(configurator):

@@ -16,7 +16,7 @@ class PersonView():
 
     @view_config(request_method='POST')
     def create(self):
-        create_person(Person.from_pyramid_request(self.request))
+        create_person(Person.from_request(self.request))
         return Response("200")
 
 
@@ -34,7 +34,7 @@ class PersonIDView():
 
     @view_config(request_method='PUT')
     def create(self):
-        update_person(Person.from_pyramid_request(some_id_from_somewhere, self.request))
+        update_person(Person.from_request(some_id_from_somewhere, self.request))
         return Response("200")
 
 
@@ -47,7 +47,7 @@ class PersonIDView():
     #Still pretty unknown here
     @view_config(request_method="GET")
     def read(self):
-        return Response(read_person(Person.from_pyramid_request(self.request)))
+        return Response(read_person(Person.from_request(self.request)))
 
 
 def collect_routes(configurator):

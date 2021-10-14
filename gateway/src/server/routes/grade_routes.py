@@ -18,7 +18,7 @@ class GradeBaseView():
 
     @view_config(request_method='POST')
     def create(self):
-        grade_create(Grade.from_pyramid_request(self.request))
+        grade_create(Grade.from_request(self.request))
         return Response("200")
 
     @view_config(request_method='GET')
