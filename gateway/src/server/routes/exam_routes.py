@@ -1,39 +1,34 @@
 from clients.rest.rest_exam import create_exam, read_exam, update_exam, delete_exam, read_list_exam
 from entities.exam import Exam
-from server_config import app
+from flask import current_app as app
 
 # https://stackoverflow.com/questions/32615167/restful-design-in-pyramid-view-configuration
 
 
-@app.route('/exam', method="POST")
-def create(self):
-    create_exam(Exam.from_request(self.request))
-    return Response("200")
+def exam_route_create():
+    pass
 
 
-@app.route('/exam', method="GET")
-def read_list(self):
-    print("boop")
-    return Response(self.request.POST)
+def exam_route_read_list():
+    pass
 
 
-@app.route('/exam/<int:id>', method="PUT")
-def update(self):
-    update_exam(Exam.from_request(self.request.POST.get(
-        "id"), Exam.from_request(self.request)))
-    return Response("200")
+def exam_route_update(id):
+    pass
 
 
-@app.route('/exam/<int:id>', method="DELETE")
-def delete(self):
-    delete_exam(self.request.POST.get("id"))
-    return Response("200")
-
-
-@app.route('/exam/<int:id>', method="GET")
-def read(self):
-    delete_exam(self.request.POST.get("id"))
-    return Response("200")
+def exam_route_delete(id):
+    pass
 
 
 
+def exam_route_read(id):
+    pass
+
+
+def collect_routes(app):
+    app.add_url_rule("/exam", view_func=exam_route_create, methods=["POST"])
+    app.add_url_rule("/exam", view_func=exam_route_read_list, methods=["GET"])
+    app.add_url_rule("/exam/<int:id>", view_func=exam_route_update, methods=["PUT"])
+    app.add_url_rule("/exam/<int:id>", view_func=exam_route_delete, methods=["DELETE"])
+    app.add_url_rule("/exam/<int:id>", view_func=exam_route_read, methods=["GET"])

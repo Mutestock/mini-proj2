@@ -1,5 +1,4 @@
-from pyramid.view import view_defaults, view_config
-from pyramid.response import Response
+from flask import current_app as app
 
 from entities.school_class import SchoolClass
 from clients.soap.soap_school_class import(
@@ -9,50 +8,32 @@ from clients.soap.soap_school_class import(
     #update_school_class,
 )
 
+  
+def school_class_route_create():
+    pass
 
-# Routes that only require base
-@view_defaults(route_name="school-class", renderer="json")
-class SchoolClassView():
-    def __init__(self, request) -> None:
-        self.request = request
+  
+def school_class_route_read_list():
+    pass
 
-    @view_config(request_method='POST')
-    def create(self):
-        create_school_class(SchoolClass.from_request(self.request))
-        return Response("200")
+# 
+# def school_class_route_create():
+#     update_school_class(SchoolClass.from_request(some_id_from_somewhere, .request))
+#     return Response("200")
 
+# 
+#def school_class_route_delete():
+#    delete_school_class(some_id_from_somewhere)
+#    return Response("200")
 
-    #Still pretty unknown here
-    @view_config(request_method="GET")
-    def read_list(self):
-        return Response(read_list_school_class(SchoolClass.from_request_list(self.request)))
-
-
-# Routes that require id
-@view_defaults(route_name="school-class", renderer="json")
-class SchoolClassIDView():
-    def __init__(self, request) -> None:
-        self.request = request
-
-    # @view_config(request_method='PUT')
-    # def create(self):
-    #     update_school_class(SchoolClass.from_request(some_id_from_somewhere, self.request))
-    #     return Response("200")
+  
+def school_class_route_read(id):
+    pass
 
 
-    #@view_config(request_method='DELETE')
-    #def delete(self):
-    #    delete_school_class(some_id_from_somewhere)
-    #    return Response("200")
-
-    
-    #Still pretty unknown here
-    @view_config(request_method="GET")
-    def read(self):
-        return Response(read_school_class(SchoolClass.from_request(self.request)))
-
-
-def collect_routes(configurator):
-    configurator.add_route('school-class', '/school-class/{id:\d+}')
-    configurator.add_route('school-class', '/school-class')
-    return configurator
+def collect_routes(app):
+    app.add_url_rule("/school-class", view_func=school_class_route_create, methods=["POST"])
+    app.add_url_rule("/school-class", view_func=school_class_route_read_list, methods=["GET"])
+    #app.add_url_rule("/school-class/<int:id>", view_func=school_class_route_update, methods=["PUT"])
+    #app.add_url_rule("/school-class/<int:id>", view_func=school_class_route_delete, methods=["DELETE"])
+    app.add_url_rule("/school-class/<int:id>", view_func=school_class_route_read, methods=["GET"])
