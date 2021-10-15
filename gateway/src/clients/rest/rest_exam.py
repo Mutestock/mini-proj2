@@ -7,13 +7,9 @@ _PREFIX: str = f"http://{_CLIENT_CONFIG['host']}:{_CLIENT_CONFIG['port']}/exam"
 _HEADERS = {"Content-Type":"application/json"}
 
 def create_exam(exam):
-    print(exam)
     try:
-        print(JSON.dumps(exam.__dict__))
         requests.post(_PREFIX, data=JSON.dumps(exam.__dict__), headers=_HEADERS)
-        print("done")
     except Exception as e:
-        print("EEEEEEEEEEEEEE")
         print(e)
 
 
@@ -26,7 +22,7 @@ def read_exam(id):
 
 def update_exam(id, exam):
     try:
-        return requests.put(f"{_PREFIX}/{id}", data=JSON.dumps(exam.__dict__), headers=_HEADERS).text
+        requests.put(f"{_PREFIX}/{id}", data=JSON.dumps(exam.__dict__), headers=_HEADERS)
     except Exception as e:
         print(e)
 

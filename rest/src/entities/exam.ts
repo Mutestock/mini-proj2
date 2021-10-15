@@ -10,11 +10,11 @@ const BASE_URI = `${SITE_URI}/exam`
 
 class NewExam {
     public name: string;
-    public examinationDate: Date;
+    public examination_date: Date;
 
-    constructor(name: string, examinationDate: Date) {
+    constructor(name: string, examination_date: Date) {
         this.name = name;
-        this.examinationDate = examinationDate;
+        this.examination_date = examination_date;
     }
 }
 

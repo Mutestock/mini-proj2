@@ -9,9 +9,8 @@ from flask import request
 
 def exam_route_create():
     try:
-        #print(request.json.get("name"))
         create_exam(Exam.from_json(request.json))
-        return "hi"
+        return "200"
     except Exception as e:
         print(e)
         return "500"
@@ -21,8 +20,15 @@ def exam_route_read_list():
 
 
 def exam_route_update(id):
-    pass
-
+    print(len(request.json))
+    for stuff in request.json:
+        print(stuff)
+    try:
+        update_exam(id, Exam.from_json(request.json))
+        return "200"
+    except Exception as e:
+        print(e)
+        return "500"
 
 def exam_route_delete(id):
     delete_exam(id)

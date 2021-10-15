@@ -8,11 +8,10 @@ function queryCreate(newExam: NewExam){
     const insertQuery = conn.prepareQuery(
         "INSERT INTO exam (name, examination_date) VALUES (:name, :examination_date)",
     );
-    console.log(newExam.examinationDate);
     
     insertQuery.execute({
         name: newExam.name,
-        examination_date: newExam.examinationDate
+        examination_date: newExam.examination_date
     });
 }
 
@@ -32,7 +31,7 @@ function queryUpdate(id: number, newExam: NewExam) {
         "UPDATE exam SET examination_date = :examination_date, name = :name WHERE id = :id"
     )
     return updateQuery.execute({
-        examination_date: newExam.examinationDate,
+        examination_date: newExam.examination_date,
         name: newExam.name,
         id: id,
     })
