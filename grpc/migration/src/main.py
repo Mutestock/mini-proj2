@@ -1,7 +1,7 @@
 import time
 
-from logic.pg_table_exec import migrate_up, migrate_down
-from logic.pg_data_pop import populate
+from logic.table_exec import migrate_up, migrate_down
+from logic.data_pop import populate
 
 """
 For new entities:

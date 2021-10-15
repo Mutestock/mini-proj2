@@ -24,7 +24,7 @@ class Person(AbstractEntity):
     def insert_query(self) -> None:
         conn = make_sqlite_connection()
         cursor = conn.cursor()
-        query = f"INSERT INTO people (first_name, last_name, phone_number, email) VALUES ('{self.first_name}', '{self.last_name}','{self.phone_number}','{self.email}', '{self.role});"
+        query = f"INSERT INTO people (first_name, last_name, phone_number, email, role) VALUES ('{self.first_name}', '{self.last_name}','{self.phone_number}','{self.email}', '{self.role}');"
         cursor.execute(query)
         conn.commit()
         cursor.close()

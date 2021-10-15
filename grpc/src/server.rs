@@ -92,6 +92,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .unwrap();
     let person_con = PersonCon::default();
 
+    println!("Server running on: {}:{}", CONFIG.server.host, CONFIG.server.port);
+
     Server::builder()
         .add_service(PersonServer::new(person_con))
         .serve(addr)
