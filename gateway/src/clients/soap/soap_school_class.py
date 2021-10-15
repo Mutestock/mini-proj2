@@ -1,7 +1,7 @@
 import zeep
 from utils.config import CONFIG
 
-_CLIENT_CONFIG = CONFIG['clients']['soap']['mini-proj']
+_CLIENT_CONFIG = CONFIG["clients"]["soap"]["mini-proj"]
 _WSDL_URL = f"{_CLIENT_CONFIG['host']}:{_CLIENT_CONFIG['port']}/Service.svc?WSDL"
 
 

@@ -13,6 +13,5 @@ _content: str = ""
 
 with open(_filename) as f:
     _content = f.read()
-    
-CONFIG = toml.loads(_content)
 
+CONFIG = toml.loads(_content)

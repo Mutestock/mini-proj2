@@ -20,6 +20,6 @@ person_routes.collect_routes(app)
 def main() -> None:
     app.run(debug=True, host=CONFIG["server"]["host"], port=CONFIG["server"]["port"])
 
+
 if __name__ == "__main__":
     main()
-    

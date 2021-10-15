@@ -4,7 +4,8 @@ import json as JSON
 
 _CLIENT_CONFIG: str = CONFIG["clients"]["rest"]["mini-proj"]
 _PREFIX: str = f"http://{_CLIENT_CONFIG['host']}:{_CLIENT_CONFIG['port']}/exam"
-_HEADERS = {"Content-Type":"application/json"}
+_HEADERS = {"Content-Type": "application/json"}
+
 
 def create_exam(exam):
     try:
@@ -22,7 +23,9 @@ def read_exam(id):
 
 def update_exam(id, exam):
     try:
-        requests.put(f"{_PREFIX}/{id}", data=JSON.dumps(exam.__dict__), headers=_HEADERS)
+        requests.put(
+            f"{_PREFIX}/{id}", data=JSON.dumps(exam.__dict__), headers=_HEADERS
+        )
     except Exception as e:
         print(e)
 

@@ -1,11 +1,18 @@
-from clients.rest.rest_exam import create_exam, read_exam, update_exam, delete_exam, read_list_exam
+from clients.rest.rest_exam import (
+    create_exam,
+    read_exam,
+    update_exam,
+    delete_exam,
+    read_list_exam,
+)
 from entities.exam import Exam
-from flask import request 
+from flask import request
 
 # https://stackoverflow.com/questions/32615167/restful-design-in-pyramid-view-configuration
 
 
-#class ExamCreate(MethodView):
+# class ExamCreate(MethodView):
+
 
 def exam_route_create():
     try:
@@ -14,7 +21,8 @@ def exam_route_create():
     except Exception as e:
         print(e)
         return "500"
-    
+
+
 def exam_route_read_list():
     return read_list_exam()
 
@@ -26,6 +34,7 @@ def exam_route_update(id):
     except Exception as e:
         print(e)
         return "500"
+
 
 def exam_route_delete(id):
     delete_exam(id)
