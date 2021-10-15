@@ -20,19 +20,19 @@ def grade_create(grade):
 
 def grade_read_list():
     try:
-        return requests.get(_PREFIX).json()
+        return JSON.dumps(requests.get(_PREFIX).json())
     except Exception as e:
         print(e)
 
 def grade_read_list_by_person_id():
     try:
-        return requests.get(_PREFIX).json()
+        return JSON.dumps(requests.get(_PREFIX).json())
     except Exception as e:
         print(e)
 
 def grade_read_list_by_exam_id():
     try:
-        return requests.get(_PREFIX).json()
+        return JSON.dumps(requests.get(_PREFIX).json())
     except Exception as e:
         print(e)
 
@@ -41,13 +41,13 @@ def grade_read_list_by_exam_id():
 
 def grade_update_by_person_id(id, grade):
     try:
-        return requests.put(f"{_PREFIX}/p-id?{id}", data=JSON.dumps(grade.__dict__), headers=_HEADERS).text
+        return requests.put(f"{_PREFIX}/p-id={id}", data=JSON.dumps(grade.__dict__), headers=_HEADERS).text
     except Exception as e:
         print(e)
 
 def grade_update_by_exam_id(id, grade):
     try:
-        return requests.put(f"{_PREFIX}/e-id?{id}", data=JSON.dumps(grade.__dict__), headers=_HEADERS).text
+        return requests.put(f"{_PREFIX}/e-id={id}", data=JSON.dumps(grade.__dict__), headers=_HEADERS).text
     except Exception as e:
         print(e)
 
@@ -56,14 +56,14 @@ def grade_update_by_exam_id(id, grade):
 
 def grade_delete_by_person_id(id):
     try:
-        return requests.delete(f"{_PREFIX}/p-id?{id}").text
+        return requests.delete(f"{_PREFIX}/p-id={id}").text
     except Exception as e:
         print(e)
 
 
 def grade_delete_by_exam_id(id):
     try:
-        return requests.delete(f"{_PREFIX}/e-id?{id}").text
+        return requests.delete(f"{_PREFIX}/e-id={id}").text
     except Exception as e:
         print(e)
 

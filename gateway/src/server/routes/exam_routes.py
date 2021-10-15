@@ -20,9 +20,6 @@ def exam_route_read_list():
 
 
 def exam_route_update(id):
-    print(len(request.json))
-    for stuff in request.json:
-        print(stuff)
     try:
         update_exam(id, Exam.from_json(request.json))
         return "200"
@@ -32,7 +29,7 @@ def exam_route_update(id):
 
 def exam_route_delete(id):
     delete_exam(id)
-    return 204
+    return "204"
 
 
 def exam_route_read(id):
@@ -42,7 +39,6 @@ def exam_route_read(id):
 def collect_routes(app):
     app.add_url_rule("/exam", view_func=exam_route_create, methods=["POST"])
     app.add_url_rule("/exam", view_func=exam_route_read_list, methods=["GET"])
-    #app.add_url_rule("/exam", view_func=ExamCreate.as_view('exam'))
     app.add_url_rule("/exam/<int:id>", view_func=exam_route_update, methods=["PUT"])
     app.add_url_rule("/exam/<int:id>", view_func=exam_route_delete, methods=["DELETE"])
     app.add_url_rule("/exam/<int:id>", view_func=exam_route_read, methods=["GET"])

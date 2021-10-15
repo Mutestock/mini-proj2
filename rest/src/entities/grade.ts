@@ -7,27 +7,16 @@ import { classTransformer } from "../../deps.ts";
 const BASE_URI = `${SITE_URI}/grade`
 
 class NewGrade {
-    private _person_id: number;
-    private _exam_id: number;
-    private _symbol: string;
+    public person_id: number;
+    public exam_id: number;
+    public symbol: string;
 
 
     constructor(person_id: number, exam_id: number, symbol: string) {
-        this._person_id=person_id;
-        this._exam_id=exam_id;
-        this._symbol=symbol;
+        this.person_id=person_id;
+        this.exam_id=exam_id;
+        this.symbol=symbol;
     }
-
-    personID(): number{
-        return this._person_id;
-    }
-    examID(): number{
-        return this._exam_id;
-    }
-    symbol(): string{
-        return this._symbol;
-    }
-
 }
 
 class Grade {

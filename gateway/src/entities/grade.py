@@ -5,11 +5,11 @@ class Grade():
         self.symbol = symbol
 
     @classmethod
-    def from_request(request):
+    def from_request(data):
         return Grade(
-            person_id=request.form['person_id'],
-            exam_id=request.form['exam_id'],
-            symbol=request.form['symbol']
+            person_id=request.get('person_id'),
+            exam_id=request.get('exam_id'),
+            symbol=request.get('symbol')
         )
         
         

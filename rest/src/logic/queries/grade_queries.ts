@@ -10,9 +10,9 @@ function queryCreate(newGrade: NewGrade) {
         "INSERT INTO grade (person_id, exam_id, symbol) VALUES (:person_id, :exam_id :symbol)",
     );
     insertQuery.execute({
-        person_id: newGrade.personID(),
-        exam_id: newGrade.examID(),
-        symbol: newGrade.symbol()
+        person_id: newGrade.person_id,
+        exam_id: newGrade.exam_id,
+        symbol: newGrade.symbol
     });
 }
 
@@ -22,8 +22,8 @@ function queryUpdateByExamID(examID: number, grade: NewGrade) {
         "UPDATE grade SET grade_id = :grade_id, symbol = :symbol WHERE exam_id = :exam_id"
     );
     return updateQuery.execute({
-        grade_id: grade.personID(),
-        symbol: grade.symbol(),
+        grade_id: grade.person_id,
+        symbol: grade.symbol,
         exam_id: examID
     });
 }
@@ -35,8 +35,8 @@ function queryUpdateByPersonID(personID: number, grade: NewGrade) {
     );
     return updateQuery.execute({
         person_id: personID,
-        exam_id: grade.examID(),
-        symbol: grade.symbol(),
+        exam_id: grade.exam_id,
+        symbol: grade.symbol,
     });
 }
 

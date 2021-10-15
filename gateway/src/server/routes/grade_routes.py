@@ -11,35 +11,52 @@ from entities.grade import Grade
 
 
 def grade_route_create():
-   pass
+    try:
+        grade_create(Grade.from_json(request.json))
+        return "200"
+    except Exception as e:
+        print(e)
+        return "500"
 
 
 def grade_route_read_list():
-   return "ok"
+   return grade_read_list()
 
 
 def grade_route_read_list_by_exam_id(id):
-   pass
+   return grade_read_list_by_exam_id(id)
 
 
 def grade_route_update_by_exam_id(id):
-   pass
+    try:
+        grade_update_by_exam_id(id, Grade.from_json(request.json))
+        return "200"
+    except Exception as e:
+        print(e)
+        return "500"
 
 
 def grade_route_delete_by_exam_id(id):
-   pass
+   grade_delete_by_exam_id(id)
+   return "204"
 
 
 def grade_route_read_list_by_person_id(id):
-   pass
+   return grade_read_list_by_person_id(id)
 
 
 def grade_route_update_by_person_id(id):
-   pass
+    try:
+        grade_update_by_person_id(id, Grade.from_json(request.json))
+        return "200"
+    except Exception as e:
+        print(e)
+        return "500"
 
 
 def grade_route_delete_by_person_id(id):
-   pass
+   grade_delete_by_person_id(id)
+   return "204"
 
 
 
