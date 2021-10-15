@@ -9,21 +9,13 @@ import { makeSqliteConnection } from "../connection/sqlite_connection.ts"
 const BASE_URI = `${SITE_URI}/exam`
 
 class NewExam {
-    private _name: string;
-    private _examinationDate: Date;
+    public name: string;
+    public examinationDate: Date;
 
     constructor(name: string, examinationDate: Date) {
-        this._name = name;
-        this._examinationDate = examinationDate;
+        this.name = name;
+        this.examinationDate = examinationDate;
     }
-
-    name() {
-        return this._name;
-    }
-    examinationDate(): Date {
-        return this._examinationDate;
-    }
-
 }
 
 class Exam {

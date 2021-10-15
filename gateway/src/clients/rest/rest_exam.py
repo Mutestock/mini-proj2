@@ -6,11 +6,14 @@ _CLIENT_CONFIG: str = CONFIG["clients"]["rest"]["mini-proj"]
 _PREFIX: str = f"http://{_CLIENT_CONFIG['host']}:{_CLIENT_CONFIG['port']}/exam"
 _HEADERS = {"Content-Type":"application/json"}
 
-
 def create_exam(exam):
+    print(exam)
     try:
-        return requests.post(_PREFIX, data=JSON.dumps(exam.__dict__), headers=_HEADERS).text
+        print(JSON.dumps(exam.__dict__))
+        requests.post(_PREFIX, data=JSON.dumps(exam.__dict__), headers=_HEADERS)
+        print("done")
     except Exception as e:
+        print("EEEEEEEEEEEEEE")
         print(e)
 
 
@@ -37,7 +40,7 @@ def delete_exam(id):
 
 def read_list_exam():
     try:
-        return requests.get(_PREFIX).json()
+        return JSON.dumps(requests.get(_PREFIX).json())
     except Exception as e:
         print(e)
         return e

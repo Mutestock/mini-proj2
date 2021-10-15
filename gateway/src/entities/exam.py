@@ -4,11 +4,11 @@ class Exam():
         self.name = name
         self.examination_date = examination_date
 
-    @classmethod
-    def from_request(request):
+    @staticmethod
+    def from_json(data):
         return Exam(
-            name=request.form['name'],
-            examination_date=request.form['examination_date'],
+            name=data.get('name'),
+            examination_date=data.get('examination_date')
         )
         
     

@@ -8,9 +8,11 @@ function queryCreate(newExam: NewExam){
     const insertQuery = conn.prepareQuery(
         "INSERT INTO exam (name, examination_date) VALUES (:name, :examination_date)",
     );
+    console.log(newExam.examinationDate);
+    
     insertQuery.execute({
-        name: newExam.name(),
-        examination_date: newExam.examinationDate()
+        name: newExam.name,
+        examination_date: newExam.examinationDate
     });
 }
 
@@ -24,14 +26,14 @@ function queryRead(id: number): Exam {
     return new Exam(examValues[0], examValues[1], examValues[2], examValues[3], examValues[4]);
 }
 
-function queryUpdate(id: number, exam: NewExam) {
+function queryUpdate(id: number, newExam: NewExam) {
     const conn = makeSqliteConnection();
     const updateQuery = conn.prepareQuery(
         "UPDATE exam SET examination_date = :examination_date, name = :name WHERE id = :id"
     )
     return updateQuery.execute({
-        examination_date: exam.examinationDate(),
-        name: exam.name(),
+        examination_date: newExam.examinationDate,
+        name: newExam.name,
         id: id,
     })
 }
