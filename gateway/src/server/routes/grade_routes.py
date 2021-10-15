@@ -15,7 +15,7 @@ def grade_route_create():
 
 
 def grade_route_read_list():
-   pass
+   return "ok"
 
 
 def grade_route_read_list_by_exam_id(id):

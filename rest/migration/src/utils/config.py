@@ -5,10 +5,9 @@ _ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 _ROOT_DIR = os.path.dirname(_ROOT_DIR)
 
 ROOT_DIR = os.path.dirname(_ROOT_DIR)
-CONFIG_FILE_PATH = ROOT_DIR + "../config.toml"
+CONFIG_FILE_PATH = ROOT_DIR + "/config.toml"
 CONFIG = {}
 DATABASE_CONFIG = {}
-MIGRATIONS_FOLDER_PATH = ""
 
 _filename = CONFIG_FILE_PATH
 _content: str = ""
@@ -21,8 +20,8 @@ DATABASE_CONFIG = CONFIG["database"]
     
 
 MIGRATIONS_FOLDER_PATH = ROOT_DIR + CONFIG["misc"]["migrations_folder"]
-EXAM_MIGRATIONS = MIGRATIONS_FOLDER_PATH+"/people"
-GRADE_MIGRATIONS = MIGRATIONS_FOLDER_PATH+"/exam"
+EXAM_MIGRATIONS = MIGRATIONS_FOLDER_PATH+"/exam"
+GRADE_MIGRATIONS = MIGRATIONS_FOLDER_PATH+"/grade"
 
 
 

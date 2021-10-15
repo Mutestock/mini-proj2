@@ -7,7 +7,7 @@ port=10000
 [clients.rest]
 [clients.rest.mini-proj]
 host = "127.0.0.1"
-port = 10020
+port = 10050
 
 
 [clients.soap]

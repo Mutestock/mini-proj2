@@ -40,3 +40,5 @@ def read_list_exam():
         return requests.get(_PREFIX).json()
     except Exception as e:
         print(e)
+        return e
+        #return "error"

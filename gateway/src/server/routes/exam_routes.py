@@ -10,7 +10,8 @@ def exam_route_create():
 
 
 def exam_route_read_list():
-    pass
+    return read_list_exam()
+    #return 200 
 
 
 def exam_route_update(id):
@@ -21,9 +22,8 @@ def exam_route_delete(id):
     pass
 
 
-
 def exam_route_read(id):
-    pass
+    return id
 
 
 def collect_routes(app):

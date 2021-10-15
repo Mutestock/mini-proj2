@@ -13,29 +13,29 @@ function gradeRoutes(router: oak.Router): oak.Router {
         .get(routePrefix, (context) => {
             context.response.body = readList();
         })
-        .get<{ id: string }>(routePrefix + "/p-id?:id", (context) => {
+        .get<{ id: string }>(routePrefix + "/p-id-:id", (context) => {
             context.response.body = readListByPersonID(context.params.id as unknown as number);
         })
-        .get<{ id: string }>(routePrefix + "/e-id?:id", (context) => {
+        .get<{ id: string }>(routePrefix + "/e-id-:id", (context) => {
             context.response.body = readListByExamID(context.params.id as unknown as number);
         })
         .post(routePrefix, async (context: oak.RouterContext) => {
             await create(context);
             context.response.body = "201"
         })
-        .put<{ id: string }>(routePrefix + "/p-id?:id", async (context: oak.RouterContext<{ id: string }, Record<string, any>>) => {
+        .put<{ id: string }>(routePrefix + "/p-id-:id", async (context: oak.RouterContext<{ id: string }, Record<string, any>>) => {
             await updateByExamID(context);
             context.response.body = "204";
         })
-        .put<{ id: string }>(routePrefix + "/p-id?:id", async (context: oak.RouterContext<{ id: string }, Record<string, any>>) => {
+        .put<{ id: string }>(routePrefix + "/p-id-:id", async (context: oak.RouterContext<{ id: string }, Record<string, any>>) => {
             await updateByPersonID(context);
             context.response.body = "204";
         })
-        .delete<{ id: string }>(routePrefix + "/e-id?:id", async (context) => {
+        .delete<{ id: string }>(routePrefix + "/e-id-:id", async (context) => {
             await deleteByExamID(context.params.id as unknown as number)
             context.response.body = "200"
         })
-        .delete<{ id: string }>(routePrefix + "/p-id?:id", async (context) => {
+        .delete<{ id: string }>(routePrefix + "/p-id-:id", async (context) => {
             await deleteByPersonID(context.params.id as unknown as number)
             context.response.body = "200"
         })

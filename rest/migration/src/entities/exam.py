@@ -12,9 +12,9 @@ class Exam(AbstractEntity):
     name: str
     examination_date: Date
 
-    def __init__(self, name):
+    def __init__(self, name, examination_date):
         self.name = name
-        self.examination_date
+        self.examination_date = examination_date
 
     def insert_query(self) -> None:
         conn = make_sqlite_connection()
