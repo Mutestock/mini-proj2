@@ -14,15 +14,16 @@ def main() -> None:
 
 if __name__ == "__main__":
     #main()
+    host = CONFIG["server"]["host"]
+    port = CONFIG["server"]["port"]
 
     with Configurator() as config:
         #config = school_class_routes(config)
         config = exam_routes.collect_routes(config)
-        
         app = config.make_wsgi_app()
-    print("Starting server server...")
-    server = make_server(CONFIG["server"]["host"],
-                         CONFIG['server']["port"], app)
+        
+    print(f"Starting server at {host}:{port}...")
+    server = make_server(host, port, app)
     server.serve_forever()
 
 

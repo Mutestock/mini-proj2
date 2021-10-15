@@ -13,8 +13,8 @@ nose2 = "^0.10.0"
 zeep = "^4.1.0"
 requests = "^2.26.0"
 asyncio = "^3.4.3"
-pyramid = "^2.0"
 waitress = "^2.0.0"
+Flask = "^2.0.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

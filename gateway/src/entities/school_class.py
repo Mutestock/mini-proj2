@@ -9,9 +9,9 @@ class SchoolClass():
     @classmethod
     def from_request(request):
         return SchoolClass(
-            first_name = request.POST.get('first_name'),
-            last_name = request.POST.get('last_name'),
-            phone_number= request.POST.get('phone_number'),
-            email = request.POST.get('email'),
-            role = request.POST.get('role')
+            first_name = request.form['first_name'],
+            last_name = request.form['last_name'],
+            phone_number= request.form['phone_number'],
+            email = request.form['email'],
+            role = request.form['role']
         )

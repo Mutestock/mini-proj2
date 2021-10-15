@@ -7,8 +7,8 @@ class Exam():
     @classmethod
     def from_request(request):
         return Exam(
-            name=request.POST.get('name'),
-            examination_date=request.POST.get('examination_date'),
+            name=request.form['name'],
+            examination_date=request.form['examination_date'],
         )
         
     

@@ -7,9 +7,9 @@ class Grade():
     @classmethod
     def from_request(request):
         return Grade(
-            person_id=request.POST.get('person_id'),
-            exam_id=request.POST.get('exam_id'),
-            symbol=request.POST.get('symbol')
+            person_id=request.form['person_id'],
+            exam_id=request.form['exam_id'],
+            symbol=request.form['symbol']
         )
         
         
