@@ -75,9 +75,26 @@ function readList(): string {
     return JSON.stringify(gradeList);
 }
 
+function readListWhoPassed(): string {
+    const gradeList: GradeLinked[] = [];
+    queries.queryReadListWhoPassed().forEach(function (grade: Grade) {
+        gradeList.push(GradeLinked.fromParsedObject(grade));
+    });
+    return JSON.stringify(gradeList);
+}
+
+function readListWhoFailed(): string {
+    const gradeList: GradeLinked[] = [];
+    queries.queryReadListWhoFailed().forEach(function (grade: Grade) {
+        gradeList.push(GradeLinked.fromParsedObject(grade));
+    });
+    return JSON.stringify(gradeList);
+}
+
+
 export {
     create,
-    readList, readListByExamID, readListByPersonID,
+    readList, readListByExamID, readListByPersonID, readListWhoFailed, readListWhoPassed,
     deleteByExamID, deleteByPersonID,
     updateByExamID, updateByPersonID
 }

@@ -1,7 +1,7 @@
 import { oak } from "../../deps.ts";
 import {
     create,
-    readList, readListByExamID, readListByPersonID,
+    readList, readListByExamID, readListByPersonID, readListWhoFailed, readListWhoPassed,
     updateByExamID, updateByPersonID,
     deleteByExamID, deleteByPersonID,
 } from "../logic/handlers/grade_handler.ts"
@@ -12,6 +12,12 @@ function gradeRoutes(router: oak.Router): oak.Router {
     router
         .get(routePrefix, (context) => {
             context.response.body = readList();
+        })
+        .get(routePrefix + "/passed", (context) => {
+            context.response.body = readListWhoPassed();
+        })
+        .get(routePrefix + "/failed", (context) => {
+            context.response.body = readListWhoFailed();
         })
         .get<{ id: string }>(routePrefix + "/p-id-:id", (context) => {
             context.response.body = readListByPersonID(context.params.id as unknown as number);

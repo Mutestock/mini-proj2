@@ -40,6 +40,36 @@ function queryUpdateByPersonID(personID: number, grade: NewGrade) {
     });
 }
 
+function queryReadListWhoFailed() {
+    const conn = makeSqliteConnection();
+    const query = conn.prepareQuery<[number, number, string]>(
+        `SELECT * FROM grade 
+        WHERE symbol = "F"
+        `
+    );
+    const gradeList: Grade[] = [];
+    // deno-lint-ignore camelcase
+    for (const [person_id, exam_id, symbol] of query.iter()) {
+        gradeList.push(new Grade(person_id, exam_id, symbol))
+    };
+    return gradeList
+}
+
+
+function queryReadListWhoPassed() {
+    const conn = makeSqliteConnection();
+    const query = conn.prepareQuery<[number, number, string]>(
+        `SELECT * FROM grade 
+        WHERE symbol NOT = "F"
+        `
+    );
+    const gradeList: Grade[] = [];
+    // deno-lint-ignore camelcase
+    for (const [person_id, exam_id, symbol] of query.iter()) {
+        gradeList.push(new Grade(person_id, exam_id, symbol))
+    };
+    return gradeList
+}
 
 function queryDeleteByPersonID(person_id: number) {
     const conn = makeSqliteConnection();
@@ -60,7 +90,7 @@ function queryDeleteByExamID(exam_id: number) {
 function queryReadListByPersonID(personID: number): Grade[] {
     const conn = makeSqliteConnection();
     const readListQuery = conn.prepareQuery<[number, number, string]>(
-        "SELECT * FROM grade where person_id: person_id"
+        "SELECT * FROM grade where person_id = :person_id"
     );
 
     const gradeList: Grade[] = [];
@@ -74,7 +104,7 @@ function queryReadListByPersonID(personID: number): Grade[] {
 function queryReadListByExamID(examId: number): Grade[] {
     const conn = makeSqliteConnection();
     const readListQuery = conn.prepareQuery<[number, number, string]>(
-        "SELECT * FROM grade where exam_id: exam_id"
+        "SELECT * FROM grade where exam_id = :exam_id"
     );
 
     const gradeList: Grade[] = [];
@@ -101,7 +131,7 @@ function queryReadList(): Grade[] {
 
 export {
     queryCreate,
-    queryReadListByPersonID, queryReadList, queryReadListByExamID,
+    queryReadListByPersonID, queryReadList, queryReadListByExamID, queryReadListWhoPassed, queryReadListWhoFailed,
     queryUpdateByPersonID, queryUpdateByExamID,
     queryDeleteByPersonID, queryDeleteByExamID,
 }

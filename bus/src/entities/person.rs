@@ -1,4 +1,4 @@
-//tonic::include_proto!("person");
+tonic::include_proto!("person");
 use serde_derive::{Serialize, Deserialize};
 use chrono::{NaiveDateTime};
 
