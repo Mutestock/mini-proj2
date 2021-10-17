@@ -153,16 +153,5 @@ pub async fn read_list_by_id_list(
     .await
     .expect("Could not read list of people");
     
-    //let thing: Vec<u64> = vec![2,3];
-//
-    //let ppl = sqlx::query_as!(PersonConverter, r#"SELECT * FROM people WHERE id IN ($1)"#, thing)
-    //    .fetch_all(
-    //        &get_db_pool()
-    //            .await
-    //            .expect("herp")
-    //    )
-    //    .await
-    //    .expect("stuff");
-    
     Ok(PersonConverter::to_list_from_id_response(ppl))
 }

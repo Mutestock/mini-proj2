@@ -15,6 +15,3 @@ pub struct Person{
     updated_at: NaiveDateTime,
 }
 
-
-
-

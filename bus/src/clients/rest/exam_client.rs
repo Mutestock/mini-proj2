@@ -15,8 +15,6 @@ pub async fn read_exam_by_id(id: i32) -> Result<String, reqwest::Error>{
     
     println!("{}", body);
 
-    //let exam: Exam = serde_json::from_str(&body)
-    //    .expect("Could not parse json string to exam");
 
     Ok(body)
 }

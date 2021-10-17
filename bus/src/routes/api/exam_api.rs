@@ -5,4 +5,3 @@ macro_rules! read_exam {
             .and_then(grpc_rest_handlers::read_exam_by_id)
     };
 }
-
