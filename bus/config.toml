@@ -9,3 +9,7 @@ port=10020
 [rest]
 host="localhost"
 port=10050
+
+[bus]
+host="localhost"
+port=3030
