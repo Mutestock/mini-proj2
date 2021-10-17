@@ -7,7 +7,10 @@ service Person {
   rpc UpdatePerson(UpdatePersonRequest) returns (UpdatePersonResponse) {}
   rpc DeletePerson(DeletePersonRequest) returns (DeletePersonResponse) {}
   rpc ReadPersonList(ReadPersonListRequest) returns (ReadPersonListResponse) {}
+  rpc ReadPersonListByIDList(ReadPersonListByIDListRequest) returns (ReadPersonListByIDListResponse) {}
 }
+
+// ##### Request #####
 
 message CreatePersonRequest {
   string first_name = 1;
@@ -17,16 +20,6 @@ message CreatePersonRequest {
   string role = 5;
 }
 
-message ReadPersonResponse {
-  string first_name = 1;
-  string last_name = 2;
-  string phone_number = 3;
-  string email = 4;
-  string role = 5;
-  string updated_at = 6;
-  string created_at = 7;
-}
-
 message UpdatePersonRequest {
   int32 id = 1;
   CreatePersonRequest new_person = 2;
@@ -34,13 +27,30 @@ message UpdatePersonRequest {
 
 message DeletePersonRequest{ int32 id = 1;}
 
-message ReadPersonRequest {int32 id = 1;}
+message ReadPersonRequest { int32 id = 1; }
 
 message ReadPersonListRequest{}
+
+message ReadPersonListByIDListRequest{ repeated int32 id_list = 1; }
+
+
+// ##### Response #####
+
+message ReadPersonResponse {
+    string first_name = 1;
+    string last_name = 2;
+    string phone_number = 3;
+    string email = 4;
+    string role = 5;
+    string updated_at = 6;
+    string created_at = 7;
+  }  
 
 message CreatePersonResponse { string message = 1; }
 
 message ReadPersonListResponse { repeated ReadPersonResponse person_list = 1; }
+
+message ReadPersonListByIDListResponse { repeated ReadPersonResponse person_list = 1; }
 
 message UpdatePersonResponse { string message = 1; }
 

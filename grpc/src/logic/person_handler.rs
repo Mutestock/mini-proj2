@@ -123,3 +123,46 @@ pub async fn read_list(
 
     Ok(PersonConverter::to_list_response(people))
 }
+
+
+fn print_type_of<T>(_: &T) {
+    println!("{}", std::any::type_name::<T>())
+}
+
+pub async fn read_list_by_id_list(
+    request: person::ReadPersonListByIdListRequest,
+) -> anyhow::Result<person::ReadPersonListByIdListResponse> {
+
+    let mut thing: Vec<u8> = vec![];
+    for id in request.id_list{
+        thing.push(id as u8);
+    }
+
+    let ppl = sqlx::query_as::<_, PersonConverter>(
+        r#"
+        SELECT * FROM people
+        WHERE id IN ($1)
+        "#,
+    )
+    .bind(thing)
+    .fetch_all(
+        &get_db_pool()
+            .await
+            .expect("Read list person connection failed"),
+    )
+    .await
+    .expect("Could not read list of people");
+    
+    //let thing: Vec<u64> = vec![2,3];
+//
+    //let ppl = sqlx::query_as!(PersonConverter, r#"SELECT * FROM people WHERE id IN ($1)"#, thing)
+    //    .fetch_all(
+    //        &get_db_pool()
+    //            .await
+    //            .expect("herp")
+    //    )
+    //    .await
+    //    .expect("stuff");
+    
+    Ok(PersonConverter::to_list_from_id_response(ppl))
+}

@@ -7,14 +7,14 @@ use chrono::NaiveDateTime;
 // Sqlx => Tonic
 #[derive(sqlx::FromRow)]
 pub struct PersonConverter {
-    id: i32,
-    first_name: String,
-    last_name: String,
-    phone_number: String,
-    email: String,
-    role: String,
-    created_at: NaiveDateTime,
-    updated_at: NaiveDateTime,
+    pub id: i64,
+    pub first_name: String,
+    pub last_name: String,
+    pub phone_number: String,
+    pub email: String,
+    pub role: String,
+    pub created_at: Option<NaiveDateTime>,
+    pub updated_at: Option<NaiveDateTime>,
 }
 
 impl PersonConverter {
@@ -25,17 +25,26 @@ impl PersonConverter {
             phone_number: self.phone_number.clone(),
             email: self.email.clone(),
             role: self.role.clone(),
-            updated_at: self.updated_at.to_string(),
-            created_at: self.created_at.to_string(),
+            updated_at: self.updated_at.unwrap().to_string(),
+            created_at: self.created_at.unwrap().to_string(),
         }
     }
-    pub fn to_list_response(stud_vec: Vec<PersonConverter>) -> ReadPersonListResponse {
+    fn list_collect(stud_vec: Vec<PersonConverter>) -> Vec<ReadPersonResponse> {
         let mut read_list: Vec<ReadPersonResponse> = vec![];
         for person in stud_vec {
             read_list.push(person.to_read_response())
-        }
+        };
+        read_list
+    }
+    pub fn to_list_response(stud_vec: Vec<PersonConverter>) -> ReadPersonListResponse {
         ReadPersonListResponse {
-            person_list: read_list,
+            person_list: PersonConverter::list_collect(stud_vec),
+        }
+    }
+
+    pub fn to_list_from_id_response(stud_vec: Vec<PersonConverter>) -> ReadPersonListByIdListResponse {
+        ReadPersonListByIdListResponse {
+            person_list: PersonConverter::list_collect(stud_vec),
         }
     }
 }

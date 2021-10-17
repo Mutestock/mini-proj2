@@ -83,6 +83,19 @@ impl Person for PersonCon {
                 .expect("Person Read List failed"),
         ))
     }
+
+    async fn read_person_list_by_id_list(
+        &self,
+        request: tonic::Request<person::ReadPersonListByIdListRequest>,
+    ) -> Result<tonic::Response<person::ReadPersonListByIdListResponse>, tonic::Status> {
+        println!("Got a request from {:?}", request.remote_addr());
+
+        Ok(Response::new(
+            person_handler::read_list_by_id_list(request.into_inner())
+                .await
+                .expect("Person Read List failed"),
+        ))
+    }
 }
 
 #[tokio::main]
