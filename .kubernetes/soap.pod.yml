@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: soap-pod
+  labels:
+    name: soap
+spec:
+  containers:
+  - name: soap
+    image: si-miniproject-2_soap
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 5000
+    imagePullPolicy: Never
