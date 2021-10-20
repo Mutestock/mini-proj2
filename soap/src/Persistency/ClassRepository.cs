@@ -51,7 +51,8 @@ namespace SoapService.Persistency
             foreach(Person p in people)
                 if(schoolClass.People.All(x => x.Id != p.Id))
                 {
-                    _context.Persons.Add(p);
+                    if(_context.Persons.All(x => x.Id != p.Id))
+                        _context.Persons.Add(p);
                     schoolClass.People.Add(p);
                 }
 
