@@ -4,6 +4,7 @@ services:
     
   rest:
     build: ./rest
+    image: cph-si/rest:v1.0
     container_name: deno-deploy
     environment:
       - CONTAINERIZED=1
@@ -17,6 +18,7 @@ services:
   grpc:
     restart: always
     build: ./grpc
+    image: cph-si/grpc:v1.0
     container_name: grpc_dev
     environment:
       - CONTAINERIZED=1
@@ -29,6 +31,7 @@ services:
 
   soap:
     build: ./soap
+    image: cph-si/soap:v1.0
     container_name: soap_dev
     ports:
       - 10040:5000
@@ -37,6 +40,7 @@ services:
 
   bus:
     build: ./bus
+    image: cph-si/bus:v1.0
     container_name: bus
     ports:
       - 10060:10060
@@ -45,6 +49,7 @@ services:
     
   gateway:
     build: ./gateway
+    image: cph-si/gateway:v1.0
     container_name: gateway
     ports:
       - 10000:10000

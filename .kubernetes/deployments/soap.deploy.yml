@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: soap-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: soap
+  template:
+    metadata:
+      labels:
+        app: soap
+    spec:
+      containers:
+      - name: soap
+        image: cph-si/soap:v1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 5000
+        imagePullPolicy: Never
