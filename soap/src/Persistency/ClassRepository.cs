@@ -44,11 +44,17 @@ namespace SoapService.Persistency
 
         public void AddPeople(int classId, params Person[] people)
         {
-            SchoolClass schoolClass = _context.Classes.Include(c => c.People).First();
+            SchoolClass schoolClass = _context.Classes
+                                                .Include(x => x.People)
+                                                .First(x => x.Id == classId);
 
             foreach(Person p in people)
                 if(schoolClass.People.All(x => x.Id != p.Id))
+                {
+                    if(_context.Persons.All(x => x.Id != p.Id))
+                        _context.Persons.Add(p);
                     schoolClass.People.Add(p);
+                }
 
             schoolClass.UpdatedAt = DateTime.Now;
             _context.SaveChanges();

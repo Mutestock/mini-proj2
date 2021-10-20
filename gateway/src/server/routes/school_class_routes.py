@@ -1,35 +1,30 @@
 from entities.school_class import SchoolClass
 from clients.soap.soap_school_class import (
     create_school_class,
-    # delete_school_class,
     read_school_class,
     read_list_school_class,
-    # update_school_class,
+    add_person
 )
 from flask import request
+import json
 
 
 def school_class_route_create():
-    pass
-
+    return create_school_class(request.json.get("subject"))
 
 def school_class_route_read_list():
-    pass
+    classes = read_list_school_class()
+    return json.dumps([schoolClass.__dict__ for schoolClass in classes], default=str)
 
-
-#
-# def school_class_route_create():
-#     update_school_class(SchoolClass.from_request(some_id_from_somewhere, .request))
-#     return Response("200")
-
-#
-# def school_class_route_delete():
-#    delete_school_class(some_id_from_somewhere)
-#    return Response("200")
+def school_class_add_person():
+    classId = request.json.get("classId")
+    personId = request.json.get("personId")
+    add_person(classId, personId)
 
 
 def school_class_route_read(id):
-    pass
+    schoolClass = read_school_class(id)
+    return json.dumps(schoolClass.__dict__, default=str)
 
 
 def collect_routes(app):
@@ -39,8 +34,9 @@ def collect_routes(app):
     app.add_url_rule(
         "/school-class", view_func=school_class_route_read_list, methods=["GET"]
     )
-    # app.add_url_rule("/school-class/<int:id>", view_func=school_class_route_update, methods=["PUT"])
-    # app.add_url_rule("/school-class/<int:id>", view_func=school_class_route_delete, methods=["DELETE"])
+    app.add_url_rule(
+        "/school-class/add-person", view_func=school_class_add_person, methods=["POST"]
+    )
     app.add_url_rule(
         "/school-class/<int:id>", view_func=school_class_route_read, methods=["GET"]
     )

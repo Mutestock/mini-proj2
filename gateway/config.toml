@@ -12,7 +12,7 @@ port = 10050
 
 [clients.soap]
 [clients.soap.mini-proj]
-host="soap_dev"
+host="localhost"
 port=10040
 
 
