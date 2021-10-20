@@ -4,7 +4,6 @@ services:
     
   rest:
     build: ./rest
-    image: si-miniproj-rest:0.0.1
     container_name: deno-deploy
     environment:
       - CONTAINERIZED=1
@@ -18,7 +17,6 @@ services:
   grpc:
     restart: always
     build: ./grpc
-    image: si-miniproj-grpc:0.0.1
     container_name: grpc_dev
     environment:
       - CONTAINERIZED=1
@@ -39,7 +37,7 @@ services:
 
   bus:
     build: ./bus
-    image: si-miniproj-bus:0.0.1
+    container_name: bus
     ports:
       - 10060:10060
     networks:
@@ -47,7 +45,7 @@ services:
     
   gateway:
     build: ./gateway
-    image: si-miniproj-gateway:0.0.1
+    container_name: gateway
     ports:
       - 10000:10000
     networks:

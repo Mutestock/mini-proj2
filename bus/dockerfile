@@ -4,5 +4,6 @@ RUN apt-get update
 WORKDIR /usr/src/backend
 COPY . .
 RUN rustup component add rustfmt
+RUN cargo b
 
 CMD ["cargo","r"]
