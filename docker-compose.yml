@@ -39,7 +39,7 @@ services:
     build: ./bus
     container_name: bus
     ports:
-      - 10060:10060
+      - 10060:3030
     networks:
       - app-network
     

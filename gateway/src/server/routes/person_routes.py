@@ -5,7 +5,7 @@ from clients.grpc.grpc_person import (
     read_person_list,
     update_person,
 )
-from clientsr.rest.rest_bus import person_read_list_passed
+from clients.rest.rest_bus import person_read_list_passed
 from entities.person import NewPerson
 from flask import request
 
