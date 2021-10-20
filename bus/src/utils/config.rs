@@ -11,6 +11,19 @@ lazy_static! {
 
 #[derive(Deserialize)]
 pub struct Config {
+    pub default: Default,
+    pub containerized: Containerized,    
+}
+
+#[derive(Deserialize)]
+pub struct Containerized{
+    pub server: Server,
+    pub grpc: Grpc,
+    pub rest: Rest,
+}
+
+#[derive(Deserialize)]
+pub struct Default{
     pub server: Server,
     pub grpc: Grpc,
     pub rest: Rest,
@@ -18,20 +31,28 @@ pub struct Config {
 
 #[derive(Deserialize)]
 pub struct Server {
-    pub host: String,
-    pub port: i32,
+    pub host: [u8;4],
+    pub port: u16,
 }
 
 #[derive(Deserialize)]
 pub struct Rest {
     pub host: String,
-    pub port: i32,
+    pub port: u16,
 }
 
 #[derive(Deserialize)]
 pub struct Grpc {
     pub host: String,
-    pub port: i32,
+    pub port: u16,
+}
+
+
+pub fn is_containerized_mode() -> bool {
+    match env::var_os("CONTAINERIZED") {
+        Some(_) => true,
+        None => false,
+    }
 }
 
 

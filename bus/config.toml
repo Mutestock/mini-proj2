@@ -1,15 +1,28 @@
-[server]
-host="localhost"
-port=10090
+[default]
 
-[grpc]
+[default.grpc]
 host="localhost"
 port=10020
 
-[rest]
+[default.rest]
 host="localhost"
 port=10050
 
-[bus]
-host="localhost"
+[default.server]
+host=[0,0,0,0]
 port=3030
+
+[containerized]
+
+[containerized.grpc]
+host="grpc_dev"
+port=13000
+
+[containerized.rest]
+host="deno-deploy"
+port=15000
+
+[containerized.server]
+host=[0,0,0,0]
+port=3030
+
