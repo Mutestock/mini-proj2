@@ -1,4 +1,4 @@
-class SchoolClass2:
+class SchoolClass:
     def __init__(self, id, subject, created_at, updated_at) -> None:
         self.id = id
         self.subject = subject
@@ -7,7 +7,7 @@ class SchoolClass2:
 
     @staticmethod
     def from_json(request):
-        return SchoolClass2(
+        return SchoolClass(
             id=request.get("id"),
             subject=request.get("subject"),
             created_at=request.get("created_at"),

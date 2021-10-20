@@ -1,5 +1,5 @@
 from requests.api import request
-from entities.school_class import SchoolClass2
+from entities.school_class import SchoolClass
 import zeep
 from utils.config import CONFIG
 
@@ -11,26 +11,21 @@ def _create_client():
     return zeep.Client(wsdl=_WSDL_URL)
 
 
-def create_school_class(new_school_class):
-    _create_client().service.CreateNewClass(new_school_class)
+def create_school_class(subject: str) -> int:
+    return _create_client().service.CreateNewClass(subject)
 
 
-def read_school_class(id):
-    _create_client().service.GetClass(id)
+def read_school_class(id: int) -> SchoolClass:
+    response = _create_client().service.GetClass(id)
+    schoolClass = SchoolClass(response.Id, response.Subject, response.CreatedAt, response.UpdatedAt)
+    schoolClass.people = [person.Id for person in response.People.Person]
+    return schoolClass
 
+def read_list_school_class() -> list[SchoolClass]:
+    return [
+        SchoolClass(schoolClass.Id, schoolClass.Subject, schoolClass.CreatedAt, schoolClass.UpdatedAt) 
+        for schoolClass in _create_client().service.GetAllClasses()
+    ] 
 
-def read_list_school_class():
-    classes = []
-    for schoolClass in _create_client().service.GetAllClasses():\
-        classes.append(SchoolClass2(schoolClass.Id, schoolClass.Subject, schoolClass.CreatedAt, schoolClass.UpdatedAt))
-    print(_WSDL_URL)
-    print(classes)
-    return classes
-
-
-def add_person_class(classId, personId):
+def add_person(classId: int, personId: int) -> None:
     _create_client().service.AddPersonClass(classId, personId)
-
-
-def add_people_class(classId, personIds):
-    _create_client().service.AddPeopleClass(classId, personIds)
