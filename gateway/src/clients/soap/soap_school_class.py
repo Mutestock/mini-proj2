@@ -1,8 +1,10 @@
+from requests.api import request
+from entities.school_class import SchoolClass2
 import zeep
 from utils.config import CONFIG
 
 _CLIENT_CONFIG = CONFIG["clients"]["soap"]["mini-proj"]
-_WSDL_URL = f"{_CLIENT_CONFIG['host']}:{_CLIENT_CONFIG['port']}/Service.svc?WSDL"
+_WSDL_URL = f"http://{_CLIENT_CONFIG['host']}:{_CLIENT_CONFIG['port']}/Service.svc?WSDL"
 
 
 def _create_client():
@@ -18,7 +20,12 @@ def read_school_class(id):
 
 
 def read_list_school_class():
-    _create_client().service.GetAllClasses()
+    classes = []
+    for schoolClass in _create_client().service.GetAllClasses():\
+        classes.append(SchoolClass2(schoolClass.Id, schoolClass.Subject, schoolClass.CreatedAt, schoolClass.UpdatedAt))
+    print(_WSDL_URL)
+    print(classes)
+    return classes
 
 
 def add_person_class(classId, personId):

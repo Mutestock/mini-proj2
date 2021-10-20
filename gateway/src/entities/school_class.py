@@ -1,16 +1,15 @@
-class SchoolClass:
-    def __init__(self, first_name, last_name, phone_number, email) -> None:
-        self.first_name = first_name
-        self.last_name = last_name
-        self.phone_number = phone_number
-        self.email = email
+class SchoolClass2:
+    def __init__(self, id, subject, created_at, updated_at) -> None:
+        self.id = id
+        self.subject = subject
+        self.created_at = created_at
+        self.updated_at = updated_at
 
     @staticmethod
     def from_json(request):
-        return SchoolClass(
-            first_name=data.get("first_name"),
-            last_name=data.get("last_name"),
-            phone_number=data.get("phone_number"),
-            email=data.get("email"),
-            role=data.get("role"),
+        return SchoolClass2(
+            id=request.get("id"),
+            subject=request.get("subject"),
+            created_at=request.get("created_at"),
+            updated_at=request.get("updated_at")
         )

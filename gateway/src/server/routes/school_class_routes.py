@@ -1,4 +1,4 @@
-from entities.school_class import SchoolClass
+from entities.school_class import SchoolClass2
 from clients.soap.soap_school_class import (
     create_school_class,
     # delete_school_class,
@@ -7,6 +7,7 @@ from clients.soap.soap_school_class import (
     # update_school_class,
 )
 from flask import request
+import json
 
 
 def school_class_route_create():
@@ -14,7 +15,8 @@ def school_class_route_create():
 
 
 def school_class_route_read_list():
-    pass
+    classes = read_list_school_class()
+    return json.dumps(classes[0].subject)
 
 
 #
