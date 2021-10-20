@@ -1,22 +1,27 @@
 [server]
 host="0.0.0.0"
-port=10060
+port=10000
 
 [clients]
 
 [clients.rest]
 [clients.rest.mini-proj]
-host = "127.0.0.1"
+host = "deno-deploy"
 port = 10050
 
 
 [clients.soap]
 [clients.soap.mini-proj]
-host="localhost"
+host="soap_dev"
 port=10040
 
 
 [clients.grpc]
 [clients.grpc.mini-proj]
-host="[::1]"
-port=45000
+host="grpc_dev"
+port=10030
+
+[clients.bus]
+[clients.bus.mini-proj]
+host="0.0.0.0"
+port=10060
