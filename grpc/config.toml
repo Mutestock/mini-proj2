@@ -1,7 +1,7 @@
 
 [server]
-port=45000
-host="[::1]"
+port=10060
+host="0.0.0.0"
 
 [database]
 port=15100

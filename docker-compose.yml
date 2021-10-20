@@ -4,6 +4,7 @@ services:
     
   rest:
     build: ./rest
+    image: si-miniproj-rest:0.0.1
     container_name: deno-deploy
     environment:
       - CONTAINERIZED=1
@@ -12,11 +13,12 @@ services:
     networks:
       - app-network
     volumes:
-      - ./rest/person.db:/app/person.db
+      - ./rest/data:/app/data
 
   grpc:
     restart: always
     build: ./grpc
+    image: si-miniproj-grpc:0.0.1
     container_name: grpc_dev
     environment:
       - CONTAINERIZED=1
@@ -25,13 +27,29 @@ services:
     networks:
       - app-network
     volumes:
-      - ./grpc/person.db:/usr/src/backend/person.db
+      - ./grpc/data:/usr/src/backend/data
 
   soap:
     build: ./soap
     container_name: soap_dev
     ports:
       - 10040:5000
+    networks:
+      - app-network
+
+  bus:
+    build: ./bus
+    image: si-miniproj-bus:0.0.1
+    ports:
+      - 10060:10060
+    networks:
+      - app-network
+    
+  gateway:
+    build: ./gateway
+    image: si-miniproj-gateway:0.0.1
+    ports:
+      - 10000:10000
     networks:
       - app-network
 
