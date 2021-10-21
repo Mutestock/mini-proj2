@@ -1,5 +1,5 @@
 ![Deploy](https://github.com/Mutestock/mini-project-loner-edition/actions/workflows/deploy.yml/badge.svg)
-
+ 
  This project requires REST, SOAP and gRPC. 
 
  Since all of these technologies should be relatively universal and interoperable, we'll be making this assignment in various different languages and frameworks as an exercise 
