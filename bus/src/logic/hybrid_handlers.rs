@@ -32,20 +32,21 @@ pub async fn read_people_list_by_passed() -> Result<impl warp::Reply, warp::Reje
         .await
         .expect("Could not fetch exam list from rest service");
 
+    println!("{}", exams_json);
+
     let exams: Vec<Exam> =
         serde_json::from_str(&exams_json).expect("Could not serialize json string to exam list");
 
     let people_with_stats: Vec<PersonStats> = person_list
-        .iter()  
+        .iter()
         .map(|person| PersonStats {
             person: person.clone().to_owned(),
             exams: exams
                 .iter()
                 .map(|exam| ExamStats {
                     name: exam.name.clone(),
-                    examination_date: exam.examination_date,
+                    examination_date: exam.examination_date.clone(),
                     mark: Grade::search_matching_symbol(&grades, &person, &exam)
-                        .expect("No matching result found"),
                 })
                 .collect(),
         })

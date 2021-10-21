@@ -21,7 +21,7 @@ class NewExam {
 class Exam {
     public id: number;
     public name: string;
-    public examimation_date: Date;
+    public examination_date: Date;
     public created_at: string;
     public updated_at: string;
 
@@ -29,7 +29,7 @@ class Exam {
     constructor(id: number, name: string, examination_date: Date, created_at: string, updated_at: string) {
         this.id = id;
         this.name = name;
-        this.examimation_date = examination_date
+        this.examination_date = examination_date
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
@@ -47,7 +47,7 @@ class ExamLinked {
     constructor(exam: Exam) {
         this.id = exam.id;
         this.name = exam.name;
-        this.examination_date = exam.examimation_date;
+        this.examination_date = exam.examination_date;
         this.created_at = exam.created_at;
         this.updated_at = exam.updated_at;
         this.links = [

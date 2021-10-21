@@ -21,14 +21,14 @@ impl Grade {
             None
         }
     }
-    pub fn search_matching_symbol(grade_vector: &Vec<Grade>, person: &Person, exam: &Exam) -> std::result::Result<String, String> {
+    pub fn search_matching_symbol(grade_vector: &Vec<Grade>, person: &Person, exam: &Exam) -> String {
         for grade in grade_vector {
             match grade.match_grade(person, exam) {
-                Some(v) => return Ok(v.symbol.clone()),
-                None => (),
+                Some(v) => return v.symbol.clone(),
+                None => ()
             };
         };
-        Err("No matching symbol found".to_owned())
+        String::from("")
     }
 }
 

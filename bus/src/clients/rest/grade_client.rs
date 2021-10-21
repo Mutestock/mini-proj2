@@ -16,7 +16,5 @@ pub async fn read_grade_passed() -> Result<String, reqwest::Error>{
         .await?
         .text()
         .await?;
-    
-    println!("{}", body);
     Ok(body)
 }
