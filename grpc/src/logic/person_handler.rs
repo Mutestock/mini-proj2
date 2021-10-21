@@ -133,18 +133,11 @@ pub async fn read_list_by_id_list(
     request: person::ReadPersonListByIdListRequest,
 ) -> anyhow::Result<person::ReadPersonListByIdListResponse> {
 
-    let mut thing: Vec<u8> = vec![];
-    for id in request.id_list{
-        thing.push(id as u8);
-    }
-
     let ppl = sqlx::query_as::<_, PersonConverter>(
         r#"
         SELECT * FROM people
-        WHERE id IN ($1)
         "#,
     )
-    .bind(thing)
     .fetch_all(
         &get_db_pool()
             .await
@@ -153,5 +146,9 @@ pub async fn read_list_by_id_list(
     .await
     .expect("Could not read list of people");
     
-    Ok(PersonConverter::to_list_from_id_response(ppl))
+    Ok(PersonConverter::to_list_from_id_response(ppl
+        .into_iter()
+        .filter(|stud| request.id_list
+            .contains(&(stud.id as i32)))
+        .collect()))
 }

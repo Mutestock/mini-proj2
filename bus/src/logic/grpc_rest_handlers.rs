@@ -1,10 +1,9 @@
-use warp::{Rejection, Reply};
-use serde_json;
 
 use crate::clients::rest::exam_client;
 use crate::clients::rest::grade_client;
 use crate::clients::grpc::person_client;
-use crate::entities::grade::GradeList;
+use crate::entities::grade::{Grade};
+use crate::entities::person::Person;
 
 pub async fn read_exam_by_id(id: i32) -> Result<impl warp::Reply, warp::Rejection> {
     let res= &exam_client::read_exam_by_id(id)
@@ -20,14 +19,12 @@ pub async fn read_people_list_by_passed() -> Result<impl warp::Reply, warp::Reje
     let res= &grade_client::read_grade_passed()
         .await
         .expect("Could not retrieve data from read exam by id path");
+        
 
-    println!("{:#?}", res);
-
-    let grades: GradeList = serde_json::from_str(res)
+    let grades: Vec<Grade> = serde_json::from_str(res)
         .expect("Could not serialize json string to grade list");
     
     let person_id_list: Vec<i32> = grades
-        .grades
         .into_iter()
         .map(|grade| grade.person_id)
         .collect();
@@ -37,6 +34,6 @@ pub async fn read_people_list_by_passed() -> Result<impl warp::Reply, warp::Reje
         .expect("Could not parse gRPC read person list passed call");
     
     Ok(warp::reply::json(
-        &format!("{:#?}", person_list)
+        &Person::from_list_response(person_list.person_list)
     ))
 }

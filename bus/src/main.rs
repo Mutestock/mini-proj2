@@ -38,7 +38,7 @@ async fn main() {
     let hybrid_routes = read_people_list_by_passed!();
     let routes = exam_routes.or(hybrid_routes);
 
-
+    println!("Server running on {:?}:{}", HOST.to_owned(), PORT.to_owned());
     warp::serve(routes).run((HOST.to_owned(), PORT.to_owned())).await;
 }
 
