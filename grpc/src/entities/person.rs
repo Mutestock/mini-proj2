@@ -7,7 +7,7 @@ use chrono::NaiveDateTime;
 // Sqlx => Tonic
 #[derive(sqlx::FromRow)]
 pub struct PersonConverter {
-    pub id: i64,
+    pub id: i32,
     pub first_name: String,
     pub last_name: String,
     pub phone_number: String,
@@ -20,6 +20,7 @@ pub struct PersonConverter {
 impl PersonConverter {
     pub fn to_read_response(&self) -> ReadPersonResponse {
         ReadPersonResponse {
+            id: self.id.clone(),
             first_name: self.first_name.clone(),
             last_name: self.last_name.clone(),
             phone_number: self.phone_number.clone(),

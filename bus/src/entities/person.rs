@@ -2,20 +2,24 @@ tonic::include_proto!("person");
 use chrono::NaiveDateTime;
 use serde_derive::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+use super::exam::ExamStats;
+
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Person {
-    first_name: String,
-    last_name: String,
-    phone_number: String,
-    email: String,
-    role: String,
-    created_at: String,
-    updated_at: String,
+    pub id: i32,
+    pub first_name: String,
+    pub last_name: String,
+    pub phone_number: String,
+    pub email: String,
+    pub role: String,
+    pub created_at: String,
+    pub updated_at: String,
 }
 
 impl Person {
     pub fn from_response(resp: ReadPersonResponse) -> Self {
         Self {
+            id: resp.id,
             first_name: resp.first_name,
             last_name: resp.last_name,
             phone_number: resp.phone_number,
@@ -31,4 +35,10 @@ impl Person {
             .map(|resp| Person::from_response(resp))
             .collect()
     }
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct PersonStats{
+    person: Person,
+    exams: Vec<ExamStats>
 }

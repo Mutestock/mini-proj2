@@ -61,10 +61,6 @@ class ExamLinked {
     }
 }
 
-
-
-
-// For response with relevant values
 export {
     NewExam, ExamLinked, Exam
 }

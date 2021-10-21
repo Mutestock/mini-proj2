@@ -1,4 +1,8 @@
+use std::fmt::Result;
+
 use serde_derive::{Serialize, Deserialize};
+
+use super::{exam::Exam, person::Person};
 
 #[derive(Serialize, Deserialize)]
 pub struct Grade{
@@ -7,9 +11,27 @@ pub struct Grade{
     pub exam_id: i32,
 }
 
-#[derive(Serialize, Deserialize)]
-pub struct GradeList{
-    pub grades: Vec<Grade>,
+pub enum CustomErrors{
+    NoMatchingSymbols
 }
 
+impl Grade {
+    fn match_grade(&self, person: &Person, exam: &Exam) -> Option<&Grade>{
+        if self.person_id == person.id && self.exam_id == exam.id {
+            Some(self)
+        }
+        else{
+            None
+        }
+    }
+    pub fn search_matching_symbol(grade_vector: &Vec<Grade>, person: &Person, exam: &Exam) -> std::result::Result<String, String> {
+        for grade in grade_vector {
+            match grade.match_grade(person, exam) {
+                Some(v) => return Ok(v.symbol),
+                None => (),
+            };
+        };
+        Err("No matching symbol found".to_owned())
+    }
+}
 

@@ -12,7 +12,7 @@ mod utils;
 use crate::utils::config::{CONFIG,is_containerized_mode};
 
 use self::{
-    logic::grpc_rest_handlers,
+    logic::hybrid_handlers,
     routes::{exam_routes, hybrid_routes},
 };
 

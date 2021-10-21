@@ -1,25 +1,32 @@
-use crate::{entities::exam::Exam, utils::config::{CONFIG, is_containerized_mode}};
+use crate::{
+    utils::config::{is_containerized_mode, CONFIG},
+};
 use reqwest;
-use serde_json::{Value};
 
 lazy_static! {
     static ref PATH_PREFIX: String = {
-        match is_containerized_mode(){
-            true => format!("{}:{}/exam", CONFIG.containerized.rest.host, CONFIG.containerized.rest.port),
-            false => format!("{}:{}/exam", CONFIG.default.rest.host, CONFIG.default.rest.port),
+        match is_containerized_mode() {
+            true => format!(
+                "http://{}:{}/exam",
+                CONFIG.containerized.rest.host, CONFIG.containerized.rest.port
+            ),
+            false => format!(
+                "http://{}:{}/exam",
+                CONFIG.default.rest.host, CONFIG.default.rest.port
+            ),
         }
     };
 }
 
-pub async fn read_exam_by_id(id: i32) -> Result<String, reqwest::Error>{
-    println!("{}", PATH_PREFIX.to_owned());
-    let body = reqwest::get(format!("http://{}/{}",PATH_PREFIX.to_owned(), id))
+pub async fn read_exam_by_id(id: i32) -> Result<String, reqwest::Error> {
+    let body = reqwest::get(format!("{}/{}", PATH_PREFIX.to_owned(), id))
         .await?
         .text()
         .await?;
-    
-    println!("{}", body);
+    Ok(body)
+}
 
-
+pub async fn read_exam_list() -> Result<String, reqwest::Error> {
+    let body = reqwest::get(PATH_PREFIX.to_owned()).await?.text().await?;
     Ok(body)
 }

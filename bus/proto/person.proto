@@ -37,14 +37,15 @@ message ReadPersonListByIDListRequest{ repeated int32 id_list = 1; }
 // ##### Response #####
 
 message ReadPersonResponse {
-    string first_name = 1;
-    string last_name = 2;
-    string phone_number = 3;
-    string email = 4;
-    string role = 5;
-    string updated_at = 6;
-    string created_at = 7;
-  }  
+    int32 id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string phone_number = 4;
+    string email = 5;
+    string role = 6;
+    string updated_at = 7;
+    string created_at = 8;
+}  
 
 message CreatePersonResponse { string message = 1; }
 

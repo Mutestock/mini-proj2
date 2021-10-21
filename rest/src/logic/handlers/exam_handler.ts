@@ -19,7 +19,7 @@ async function create(context: oak.RouterContext) {
 
 function read(id: string) {
     const exam = queries.queryRead(id as unknown as number);
-    return JSON.stringify(new ExamLinked(exam));
+    return JSON.stringify(exam);
 }
 
 
@@ -44,9 +44,9 @@ function _delete(id: string) {
 
 
 function readList() {
-    const examList: ExamLinked[] = [];
+    const examList: Exam[] = [];
     queries.queryReadList().forEach(function (exam: Exam) {
-        examList.push(ExamLinked.fromParsedObject(exam));
+        examList.push(exam);
     });
     return JSON.stringify(examList);
 }
