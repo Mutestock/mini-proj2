@@ -1,14 +1,31 @@
 
-[server]
-port=15000
-host="localhost"
+[containerized]
 
-[database]
+[containeried.server]
+port=15000
+host="0.0.0.0"
+
+[containeried.database]
 port=15100
 user="test_user"
 pass="test_pass"
 db ="data/rest"
 host="localhost"
 
-[misc]
+[containeried.misc]
+gateway_uri="localhost"
+
+[development]
+[development.server]
+port=15000
+host="localhost"
+
+[development.database]
+port=15100
+user="test_user"
+pass="test_pass"
+db ="data/rest"
+host="localhost"
+
+[development.misc]
 gateway_uri="localhost"

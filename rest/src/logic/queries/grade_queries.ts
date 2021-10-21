@@ -44,7 +44,7 @@ function queryReadListWhoFailed() {
     const conn = makeSqliteConnection();
     const query = conn.prepareQuery<[number, number, string]>(
         `SELECT * FROM grade 
-        WHERE symbol = "F"
+        WHERE symbol = 'F'
         `
     );
     const gradeList: Grade[] = [];
@@ -60,7 +60,7 @@ function queryReadListWhoPassed() {
     const conn = makeSqliteConnection();
     const query = conn.prepareQuery<[number, number, string]>(
         `SELECT * FROM grade 
-        WHERE symbol NOT = "F"
+        WHERE symbol IS NOT 'F'
         `
     );
     const gradeList: Grade[] = [];
