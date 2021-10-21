@@ -41,10 +41,18 @@ def person_route_delete(id):
 
 
 def person_route_read(id):
-    return read_person(id)
+    try:
+        return read_person(id)
+    except Exception as e:
+        print(e)
+        return "500"
 
 def person_route_read_list_passed():
-    return person_read_list_passed()
+    try:
+        return person_read_list_passed()
+    except Exception as e:
+        print(e)
+        return "500"
 
 
 def collect_routes(app):

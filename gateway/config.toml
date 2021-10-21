@@ -23,5 +23,5 @@ port=10030
 
 [clients.bus]
 [clients.bus.mini-proj]
-host="0.0.0.0"
-port=10060
+host="localhost"
+port=3030
