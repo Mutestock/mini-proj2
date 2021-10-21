@@ -21,6 +21,8 @@ pub async fn read_people_list_by_passed() -> Result<impl warp::Reply, warp::Reje
         .await
         .expect("Could not retrieve data from read exam by id path");
 
+    println!("{:#?}", res);
+
     let grades: GradeList = serde_json::from_str(res)
         .expect("Could not serialize json string to grade list");
     

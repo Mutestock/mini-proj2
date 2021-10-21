@@ -8,5 +8,6 @@ fn path_prefix() -> BoxedFilter<()> {
 pub fn read_people_list_by_passed() -> BoxedFilter<()> {
     warp::get()
         .and(path_prefix())
+        .and(warp::path("passed"))
         .boxed()
 }

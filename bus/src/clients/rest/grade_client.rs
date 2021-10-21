@@ -5,8 +5,8 @@ use serde_json::{Value};
 lazy_static! {
     static ref PATH_PREFIX: String = {
         match is_containerized_mode(){
-            true => format!("{}:{}/exam", CONFIG.containerized.rest.host, CONFIG.containerized.rest.port),
-            false => format!("{}:{}/exam", CONFIG.default.rest.host, CONFIG.default.rest.port),
+            true => format!("{}:{}/grade", CONFIG.containerized.rest.host, CONFIG.containerized.rest.port),
+            false => format!("{}:{}/grade", CONFIG.default.rest.host, CONFIG.default.rest.port),
         }
     };
 }
