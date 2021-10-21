@@ -11,9 +11,6 @@ pub struct Grade{
     pub exam_id: i32,
 }
 
-pub enum CustomErrors{
-    NoMatchingSymbols
-}
 
 impl Grade {
     fn match_grade(&self, person: &Person, exam: &Exam) -> Option<&Grade>{
@@ -27,7 +24,7 @@ impl Grade {
     pub fn search_matching_symbol(grade_vector: &Vec<Grade>, person: &Person, exam: &Exam) -> std::result::Result<String, String> {
         for grade in grade_vector {
             match grade.match_grade(person, exam) {
-                Some(v) => return Ok(v.symbol),
+                Some(v) => return Ok(v.symbol.clone()),
                 None => (),
             };
         };

@@ -39,6 +39,6 @@ impl Person {
 
 #[derive(Serialize, Deserialize)]
 pub struct PersonStats{
-    person: Person,
-    exams: Vec<ExamStats>
+    pub person: Person,
+    pub exams: Vec<ExamStats>
 }

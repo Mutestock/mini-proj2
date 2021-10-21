@@ -16,9 +16,9 @@ pub struct Exam {
 // Stats for single person exam results
 #[derive(Serialize, Deserialize)]
 pub struct ExamStats {
-    name: String,
-    examination_date: NaiveDate,
-    mark: String,
+    pub name: String,
+    pub examination_date: NaiveDate,
+    pub mark: String,
 }
 
 impl ExamStats {
