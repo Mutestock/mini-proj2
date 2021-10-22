@@ -18,5 +18,8 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
+        env:
+          - name: CONTAINERIZED
+            value: "1"
         ports:
         - containerPort: 10060
