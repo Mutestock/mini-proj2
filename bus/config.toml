@@ -15,12 +15,12 @@ port=3030
 [containerized]
 
 [containerized.grpc]
-host="grpc_dev"
-port=13000
+host="grpc-service"
+port=80
 
 [containerized.rest]
-host="deno-deploy"
-port=15000
+host="rest-service"
+port=80
 
 [containerized.server]
 host=[0,0,0,0]
