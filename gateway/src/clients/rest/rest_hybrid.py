@@ -11,7 +11,6 @@ _PREFIX: str = f"http://{_CLIENT_CONFIG['host']}:{_CLIENT_CONFIG['port']}/api/hy
 
 
 def person_read_list_passed():
-    print(_PREFIX)
     try:
         return JSON.dumps(requests.get(f"{_PREFIX}/passed").json())
     except Exception as e:
@@ -19,7 +18,6 @@ def person_read_list_passed():
 
 
 def person_read_list_passed_by_exam_name(exam_name):
-    print(_PREFIX)
     try:
         return JSON.dumps(requests.get(f"{_PREFIX}/passed/{exam_name}").json())
     except Exception as e:

@@ -7,7 +7,7 @@ class Grade:
     @classmethod
     def from_request(data):
         return Grade(
-            person_id=request.get("person_id"),
-            exam_id=request.get("exam_id"),
-            symbol=request.get("symbol"),
+            person_id=data.get("person_id"),
+            exam_id=data.get("exam_id"),
+            symbol=data.get("symbol"),
         )

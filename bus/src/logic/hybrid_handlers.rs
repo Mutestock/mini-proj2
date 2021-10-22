@@ -1,11 +1,11 @@
-use crate::clients::grpc::person_client::{self, read_person_list_by_id_lists};
+use crate::clients::grpc::person_client::{self};
 use crate::clients::rest::{exam_client, grade_client};
 use crate::entities::exam::{Exam, ExamStats};
 use crate::entities::grade::Grade;
 use crate::entities::person::{Person, PersonStats};
 
 pub async fn read_exam_by_id(id: i32) -> Result<impl warp::Reply, warp::Rejection> {
-    let res = &exam_client::read_exam_by_id(id)
+    let res = &exam_client::read_exam(id)
         .await
         .expect("Could not retrieve data from read exam by id path");
 
@@ -55,7 +55,7 @@ async fn read_people_by_id_list_and_collect(person_id_list: Vec<i32>) -> Vec<Per
         .await
         .expect("Could not parse gRPC read person list passed call");
 
-    Person::from_list_response(person_list.person_list)
+    Person::from_read_list_response(person_list.person_list)
 }
 
 fn collect_person_id_list(grades: &Vec<Grade>) -> Vec<i32> {

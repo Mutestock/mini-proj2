@@ -6,8 +6,6 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-grpcio = "^1.40.0"
-grpcio-tools = "^1.40.0"
 toml = "^0.10.2"
 nose2 = "^0.10.0"
 zeep = "^4.1.0"
