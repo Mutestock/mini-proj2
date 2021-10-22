@@ -12,12 +12,23 @@ spec:
       labels:
         app: rest
     spec:
+      volumes:
+        - name: examdb
+          hostPath:
+            path: /srv/db/exam
+            type: DirectoryOrCreate
       containers:
       - name: rest
         image: cph-si/rest:v1.0
+        volumeMounts:
+          - mountPath: /app/data
+            name: examdb
         resources:
           limits:
-            memory: "128Mi"
+            memory: "256Mi"
             cpu: "500m"
+        env:
+          - name: CONTAINERIZED
+            value: "1"
         ports:
         - containerPort: 15000
