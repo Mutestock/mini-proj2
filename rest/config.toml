@@ -24,7 +24,7 @@ host="localhost"
 port=15100
 user="test_user"
 pass="test_pass"
-db ="data/rest"
+db ="migration/data/rest"
 host="localhost"
 
 [development.misc]

@@ -1,6 +1,6 @@
 import {asserts} from "../deps.ts"
 import {config} from "../src/utils/config.ts";
-import { queryHealthCheck } from "../src/logic/handler_utils.ts"
+import { queryHealthCheck } from "../src/logic/handlers/handler_utils.ts"
 
 
 // Assert not failed. See documentation on asserts.ts for details.

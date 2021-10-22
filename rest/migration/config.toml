@@ -3,7 +3,7 @@
 port=15100
 user="test_user"
 pass="test_pass"
-db ="../data/rest"
+db ="data/rest"
 host="localhost"
 max_pool_connections=20
 

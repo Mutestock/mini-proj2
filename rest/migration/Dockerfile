@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends netcat
-RUN apt-get install libpq-dev -y
+RUN apt-get install libpq-dev sqlite3 -y
 
 # Cython and psycopg2
 ENV DEBIAN_FRONTEND noninteractive
@@ -22,7 +22,6 @@ COPY . .
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
-# RUN nose2 -v
+RUN sqlite3 data/rest.db ".backup main backup:Sqlite"
 
 CMD ["python", "src/main.py"]

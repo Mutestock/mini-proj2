@@ -8,12 +8,6 @@ from clients.rest.rest_exam import (
 from entities.exam import Exam
 from flask import request
 
-# https://stackoverflow.com/questions/32615167/restful-design-in-pyramid-view-configuration
-
-
-# class ExamCreate(MethodView):
-
-
 def exam_route_create():
     try:
         create_exam(Exam.from_json(request.json))
