@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rest-migration
+spec:
+  backoffLimit: 1
+  ttlSecondsAfterFinished: 0
+  completions: 1
+  template:
+    spec:
+      volumes:
+        - name: examdb
+          hostPath:
+            path: /srv/db/exam
+            type: DirectoryOrCreate
+      containers:
+      - name: rest-migration
+        image: cph-si/rest-migration:v1.0
+        imagePullPolicy: Never
+        volumeMounts:
+          - mountPath: /usr/src/data
+            name: examdb
+      restartPolicy: Never
