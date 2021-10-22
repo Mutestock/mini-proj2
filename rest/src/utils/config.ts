@@ -11,7 +11,7 @@ let config: any;
 
 try {
     if(CONTAINERIZED=="1"){
-        config = toml.parse(CONFIG).containerized;
+        config = toml.parse(CONFIG).containeried;
         console.log("Rest running in containerized mode");
     }
     else{
