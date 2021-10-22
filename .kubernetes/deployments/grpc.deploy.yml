@@ -22,7 +22,7 @@ spec:
         image: cph-si/grpc:v1.0
         resources:
           limits:
-            memory: "128Mi"
+            memory: "1Gi"
             cpu: "500m"
         volumeMounts:
           - mountPath: /usr/src/backend/data
