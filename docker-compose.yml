@@ -56,6 +56,14 @@ services:
     networks:
       - app-network
 
+  grpc-migration:
+    build: ./grpc/migration
+    image: cph-si/grpc-migration:v1.0
+
+  rest-migration:
+    build: ./rest/migration
+    image: cph-si/rest-migration:v1.0
+
 networks:
   app-network:
     driver: "bridge"
