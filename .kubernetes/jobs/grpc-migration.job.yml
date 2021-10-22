@@ -18,6 +18,6 @@ spec:
         image: cph-si/grpc-migration:v1.0
         imagePullPolicy: Never
         volumeMounts:
-          - mountPath: /usr/src/data
+          - mountPath: /usr/src/app/data
             name: persondb
       restartPolicy: Never
