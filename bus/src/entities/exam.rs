@@ -16,3 +16,10 @@ pub struct ExamStats {
     pub examination_date: String,
     pub mark: String,
 }
+
+
+#[derive(Serialize, Deserialize)]
+pub struct NewExam {
+    pub name: String,
+    pub examination_date: String,
+}

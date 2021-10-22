@@ -5,7 +5,7 @@ use crate::entities::grade::Grade;
 use crate::entities::person::{Person, PersonStats};
 
 pub async fn read_exam_by_id(id: i32) -> Result<impl warp::Reply, warp::Rejection> {
-    let res = &exam_client::read_exam_by_id(id)
+    let res = &exam_client::read_exam(id)
         .await
         .expect("Could not retrieve data from read exam by id path");
 
