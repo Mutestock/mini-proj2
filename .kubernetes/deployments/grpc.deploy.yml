@@ -12,6 +12,11 @@ spec:
       labels:
         app: grpc
     spec:
+      volumes:
+        - name: persondb
+          hostPath:
+            path: /srv/db/person
+            type: DirectoryOrCreate
       containers:
       - name: grpc
         image: cph-si/grpc:v1.0
@@ -19,5 +24,11 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
+        volumeMounts:
+          - mountPath: /usr/src/backend/data
+            name: persondb
+        env:
+          - name: CONTAINERIZED
+            value: "1"
         ports:
         - containerPort: 13000

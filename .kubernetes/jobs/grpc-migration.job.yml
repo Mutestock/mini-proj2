@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: grpc-migration
+spec:
+  backoffLimit: 1
+  ttlSecondsAfterFinished: 0
+  completions: 1
+  template:
+    spec:
+      volumes:
+        - name: persondb
+          hostPath:
+            path: /srv/db/person
+            type: DirectoryOrCreate
+      containers:
+      - name: grpc-migration
+        image: cph-si/grpc-migration:v1.0
+        imagePullPolicy: Never
+        volumeMounts:
+          - mountPath: /usr/src/data
+            name: persondb
+      restartPolicy: Never
