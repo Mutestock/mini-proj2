@@ -1,4 +1,4 @@
-use crate::clients::grpc::person_client::{self, read_person_list_by_id_lists};
+use crate::clients::grpc::person_client::{self};
 use crate::clients::rest::{exam_client, grade_client};
 use crate::entities::exam::{Exam, ExamStats};
 use crate::entities::grade::Grade;
@@ -55,7 +55,7 @@ async fn read_people_by_id_list_and_collect(person_id_list: Vec<i32>) -> Vec<Per
         .await
         .expect("Could not parse gRPC read person list passed call");
 
-    Person::from_list_response(person_list.person_list)
+    Person::from_read_list_response(person_list.person_list)
 }
 
 fn collect_person_id_list(grades: &Vec<Grade>) -> Vec<i32> {

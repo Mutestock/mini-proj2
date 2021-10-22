@@ -1,6 +1,4 @@
-use crate::{
-    utils::config::{is_containerized_mode, CONFIG},
-};
+use crate::utils::config::{is_containerized_mode, CONFIG};
 use reqwest;
 
 lazy_static! {

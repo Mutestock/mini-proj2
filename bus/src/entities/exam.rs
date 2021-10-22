@@ -1,7 +1,4 @@
-use chrono::{NaiveDate, NaiveDateTime};
 use serde_derive::{Deserialize, Serialize};
-
-use super::grade::Grade;
 
 #[derive(Serialize, Deserialize, PartialEq)]
 pub struct Exam {
@@ -18,14 +15,4 @@ pub struct ExamStats {
     pub name: String,
     pub examination_date: String,
     pub mark: String,
-}
-
-impl ExamStats {
-    pub fn new(name: String, examination_date: String, grade: Grade) -> Self {
-        Self {
-            name: name,
-            examination_date: examination_date,
-            mark: grade.symbol,
-        }
-    }
 }

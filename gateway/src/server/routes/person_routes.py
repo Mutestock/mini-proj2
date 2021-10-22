@@ -1,11 +1,11 @@
-from clients.grpc.grpc_person import (
+from clients.rest.rest_person import (
     create_person,
     delete_person,
     read_person,
     read_person_list,
     update_person,
 )
-from clients.rest.rest_bus import (
+from clients.rest.rest_hybrid import (
     person_read_list_passed,
     person_read_list_passed_by_exam_name,
 )

@@ -14,8 +14,8 @@ use crate::{
 };
 
 use self::{
-    logic::hybrid_handlers,
-    routes::{exam_routes, hybrid_routes},
+    logic::{hybrid_handlers, person_handlers},
+    routes::{exam_routes, hybrid_routes, person_routes},
 };
 
 lazy_static! {
@@ -38,7 +38,16 @@ async fn main() {
     let exam_routes = read_exam!();
     let hybrid_routes =
         read_people_list_by_passed!().or(read_people_list_by_passed_and_exam_subject!());
-    let routes = exam_routes.or(hybrid_routes);
+
+    let person_routes = read_person!()
+        .or(create_person!())
+        .or(update_person!())
+        .or(delete_person!())
+        .or(read_person_list!());
+
+    let routes = exam_routes
+        .or(hybrid_routes)
+        .or(person_routes);
 
     println!(
         "Server running on {:?}:{}",
