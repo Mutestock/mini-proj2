@@ -29,16 +29,16 @@ def grade_read_list():
         print(e)
 
 
-def grade_read_list_by_person_id():
+def grade_read_list_by_person_id(id: int):
     try:
-        return JSON.dumps(requests.get(_PREFIX).json())
+        return JSON.dumps(requests.get(f"{_PREFIX}/p-id/{id}").json())
     except Exception as e:
         print(e)
 
 
-def grade_read_list_by_exam_id():
+def grade_read_list_by_exam_id(id: int):
     try:
-        return JSON.dumps(requests.get(_PREFIX).json())
+        return JSON.dumps(requests.get(f"{_PREFIX}/e-id/{id}").json())
     except Exception as e:
         print(e)
 

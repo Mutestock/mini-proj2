@@ -63,7 +63,7 @@ pub async fn read_grade_list() -> Result<String, reqwest::Error> {
 }
 
 pub async fn read_grade_by_person_id(id: i32) -> Result<String, reqwest::Error> {
-    let body = reqwest::get(format!("{}/p-id={}", PATH_PREFIX.to_owned(), id))
+    let body = reqwest::get(format!("{}/p-id/{}", PATH_PREFIX.to_owned(), id))
         .await?
         .text()
         .await?;
@@ -71,7 +71,7 @@ pub async fn read_grade_by_person_id(id: i32) -> Result<String, reqwest::Error> 
 }
 
 pub async fn read_grade_by_exam_id(id: i32) -> Result<String, reqwest::Error> {
-    let body = reqwest::get(format!("{}/e-id={}", PATH_PREFIX.to_owned(), id))
+    let body = reqwest::get(format!("{}/e-id/{}", PATH_PREFIX.to_owned(), id))
         .await?
         .text()
         .await?;

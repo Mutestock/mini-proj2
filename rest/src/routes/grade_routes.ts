@@ -19,10 +19,10 @@ function gradeRoutes(router: oak.Router): oak.Router {
         .get(routePrefix + "/failed", (context) => {
             context.response.body = readListWhoFailed();
         })
-        .get<{ id: string }>(routePrefix + "/p-id-:id", (context) => {
+        .get<{ id: string }>(routePrefix + "/p-id/:id", (context) => {
             context.response.body = readListByPersonID(context.params.id as unknown as number);
         })
-        .get<{ id: string }>(routePrefix + "/e-id-:id", (context) => {
+        .get<{ id: string }>(routePrefix + "/e-id/:id", (context) => {
             context.response.body = readListByExamID(context.params.id as unknown as number);
         })
         .post(routePrefix, async (context: oak.RouterContext) => {

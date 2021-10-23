@@ -109,7 +109,7 @@ function queryReadListByExamID(examId: number): Grade[] {
 
     const gradeList: Grade[] = [];
     // deno-lint-ignore camelcase
-    for (const [person_id, exam_id, symbol] of readListQuery.iter({ "eaxm_id": examId })) {
+    for (const [person_id, exam_id, symbol] of readListQuery.iter({ "exam_id": examId })) {
         gradeList.push(new Grade(person_id, exam_id, symbol))
     };
     return gradeList

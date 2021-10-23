@@ -66,32 +66,32 @@ def collect_routes(app):
 
     app.add_url_rule("/grade", view_func=grade_route_read_list, methods=["GET"])
     app.add_url_rule(
-        "/grade/e-id?<int:id>",
+        "/grade/exam/<int:id>",
         view_func=grade_route_read_list_by_exam_id,
         methods=["GET"],
     )
     app.add_url_rule(
-        "/grade/p-id?<int:id>",
+        "/grade/person/<int:id>",
         view_func=grade_route_read_list_by_person_id,
         methods=["GET"],
     )
 
     app.add_url_rule(
-        "/grade/e-id?<int:id>", view_func=grade_route_update_by_exam_id, methods=["PUT"]
+        "/grade/exam/<int:id>", view_func=grade_route_update_by_exam_id, methods=["PUT"]
     )
     app.add_url_rule(
-        "/grade/p-id?<int:id>",
+        "/grade/grade/<int:id>",
         view_func=grade_route_update_by_person_id,
         methods=["PUT"],
     )
 
     app.add_url_rule(
-        "/grade/p-id?<int:id>",
+        "/grade/person/<int:id>",
         view_func=grade_route_delete_by_person_id,
         methods=["DELETE"],
     )
     app.add_url_rule(
-        "/grade/e-id?<int:id>",
+        "/grade/exam/<int:id>",
         view_func=grade_route_delete_by_exam_id,
         methods=["DELETE"],
     )
