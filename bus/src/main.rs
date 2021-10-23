@@ -9,13 +9,7 @@ mod logic;
 mod routes;
 mod utils;
 
-use crate::{
-    clients::rest::grade_client::read_grade_by_exam_id,
-    logic::hybrid_handlers::{
-        read_people_list_by_failed, read_people_list_by_failed_and_exam_subject,
-    },
-    utils::config::{is_containerized_mode, CONFIG},
-};
+use crate::utils::config::{is_containerized_mode, CONFIG};
 
 use self::{
     logic::{exam_handlers, grade_handlers, hybrid_handlers, person_handlers},

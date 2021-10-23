@@ -6,7 +6,6 @@ fn path_prefix() -> BoxedFilter<()> {
     path!("api" / "exam" / ..).boxed()
 }
 
-
 pub fn read_exam() -> BoxedFilter<(i32,)> {
     warp::get()
         .and(path_prefix())

@@ -17,7 +17,6 @@ pub struct ExamStats {
     pub mark: String,
 }
 
-
 #[derive(Serialize, Deserialize)]
 pub struct NewExam {
     pub name: String,

@@ -46,7 +46,6 @@ pub async fn read_grade_passed() -> Result<String, reqwest::Error> {
     Ok(body)
 }
 
-
 pub async fn read_grade_failed() -> Result<String, reqwest::Error> {
     let body = reqwest::get(format!("{}/failed", PATH_PREFIX.to_owned()))
         .await?

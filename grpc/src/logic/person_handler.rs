@@ -40,11 +40,7 @@ pub async fn read(
         "#,
     )
     .bind(request.id)
-    .fetch_one(
-        &get_db_pool()
-        .await
-        .expect("Read person connection failed")
-    )
+    .fetch_one(&get_db_pool().await.expect("Read person connection failed"))
     .await
     .expect("Could not read person");
 
@@ -54,9 +50,7 @@ pub async fn read(
 pub async fn update(
     request: person::UpdatePersonRequest,
 ) -> anyhow::Result<person::UpdatePersonResponse> {
-    let update_person = request
-        .new_person
-        .expect("Error in person request object");
+    let update_person = request.new_person.expect("Error in person request object");
 
     sqlx::query(
         r#"
@@ -124,7 +118,6 @@ pub async fn read_list(
     Ok(PersonConverter::to_list_response(people))
 }
 
-
 fn print_type_of<T>(_: &T) {
     println!("{}", std::any::type_name::<T>())
 }
@@ -132,7 +125,6 @@ fn print_type_of<T>(_: &T) {
 pub async fn read_list_by_id_list(
     request: person::ReadPersonListByIdListRequest,
 ) -> anyhow::Result<person::ReadPersonListByIdListResponse> {
-
     let ppl = sqlx::query_as::<_, PersonConverter>(
         r#"
         SELECT * FROM people
@@ -145,19 +137,17 @@ pub async fn read_list_by_id_list(
     )
     .await
     .expect("Could not read list of people");
-    
-    Ok(PersonConverter::to_list_from_id_response(ppl
-        .into_iter()
-        .filter(|stud| request.id_list
-            .contains(&(stud.id as i32)))
-        .collect()))
-}
 
+    Ok(PersonConverter::to_list_from_id_response(
+        ppl.into_iter()
+            .filter(|stud| request.id_list.contains(&(stud.id as i32)))
+            .collect(),
+    ))
+}
 
 pub async fn read_person_list_by_role(
     request: person::ReadPersonListByRoleRequest,
 ) -> anyhow::Result<person::ReadPersonListByRoleResponse> {
-
     let ppl = sqlx::query_as::<_, PersonConverter>(
         r#"
         SELECT * FROM people
@@ -172,7 +162,6 @@ pub async fn read_person_list_by_role(
     )
     .await
     .expect("Could not read list of people");
-    
+
     Ok(PersonConverter::to_list_response_by_role(ppl))
 }
-

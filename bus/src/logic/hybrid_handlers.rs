@@ -4,14 +4,6 @@ use crate::entities::exam::{Exam, ExamStats};
 use crate::entities::grade::Grade;
 use crate::entities::person::{Person, PersonStats};
 
-pub async fn read_exam_by_id(id: i32) -> Result<impl warp::Reply, warp::Rejection> {
-    let res = &exam_client::read_exam(id)
-        .await
-        .expect("Could not retrieve data from read exam by id path");
-
-    Ok(warp::reply::json(res))
-}
-
 async fn collect_people_stats(
     person_list: Vec<Person>,
     exams: Vec<Exam>,
@@ -40,7 +32,7 @@ async fn read_grades_and_collect(passed: bool) -> Vec<Grade> {
             .await
             .expect("Could not retrieve data from read exam by id path"),
 
-        false => grade_client::read_grade_passed()
+        false => grade_client::read_grade_failed()
             .await
             .expect("Could not retrieve data from read exam by id path"),
     };
