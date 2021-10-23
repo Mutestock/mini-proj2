@@ -11,9 +11,7 @@ def populate() -> None:
         Person("Herb", "Derp", "02-39-42", "apsdofk@asd.cs", "teacher"),
         Person("Ice", "Cone",
                 "92-03-49-02", "jason@bourne.asc", "student"),
-        Person("To", "Heck", "234-02-93-78-8", "aosdk@aacs.acsc", "teacher"),
-        Person("Newt", "Fisher", "23-94-23-84", "ccasa@acsåpo.asd", "student"),
-        Person("Purd", "Norton", "99-12-31-2", "cmcmcam@qwweqwd.xzc", "student")
+        Person("To", "Heck", "234-02-93-78-8", "aosdk@aacs.acsc", "teacher")
     ]:
         person.insert_query()
 
