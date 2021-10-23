@@ -27,7 +27,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./grpc/data:/usr/src/backend/data
+      - ./grpc/migration/data:/usr/src/backend/migration/data
 
   soap:
     build: ./soap
@@ -59,10 +59,18 @@ services:
   grpc-migration:
     build: ./grpc/migration
     image: cph-si/grpc-migration:v1.0
+    volumes:
+      - ./grpc/migration/data:/usr/src/app/data
+    environment:
+      - CONTAINERIZED=1
 
   rest-migration:
     build: ./rest/migration
     image: cph-si/rest-migration:v1.0
+    volumes:
+      - ./rest/migration/data:/usr/src/app/data
+    environment:
+      - CONTAINERIZED=1
 
   soap-migration:
     build: ./soap/migration
