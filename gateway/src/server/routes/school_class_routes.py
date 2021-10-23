@@ -31,14 +31,14 @@ def school_class_route_read(id):
 
 def collect_routes(app):
     app.add_url_rule(
-        "/school-class", view_func=school_class_route_create, methods=["POST"]
+        "/class", view_func=school_class_route_create, methods=["POST"]
     )
     app.add_url_rule(
-        "/school-class", view_func=school_class_route_read_list, methods=["GET"]
+        "/class", view_func=school_class_route_read_list, methods=["GET"]
     )
     app.add_url_rule(
-        "/school-class/add-person", view_func=school_class_add_person, methods=["POST"]
+        "/class/add-person", view_func=school_class_add_person, methods=["POST"]
     )
     app.add_url_rule(
-        "/school-class/<int:id>", view_func=school_class_route_read, methods=["GET"]
+        "/class/<int:id>", view_func=school_class_route_read, methods=["GET"]
     )
