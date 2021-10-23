@@ -12,9 +12,17 @@ spec:
       labels:
         app: soap
     spec:
+      volumes:
+        - name: classdb
+          hostPath:
+            path: /srv/db/class
+            type: DirectoryOrCreate
       containers:
       - name: soap
         image: cph-si/soap:v1.0
+        volumeMounts:
+          - mountPath: /app/data
+            name: classdb
         resources:
           limits:
             memory: "128Mi"

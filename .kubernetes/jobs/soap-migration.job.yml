@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: soap-migration
+spec:
+  backoffLimit: 1
+  ttlSecondsAfterFinished: 0
+  completions: 1
+  template:
+    spec:
+      volumes:
+        - name: classdb
+          hostPath:
+            path: /srv/db/class
+            type: DirectoryOrCreate
+      containers:
+      - name: soap-migration
+        image: cph-si/soap-migration:v1.0
+        imagePullPolicy: Never
+        volumeMounts:
+          - mountPath: /usr/src/app/data
+            name: classdb
+      restartPolicy: Never

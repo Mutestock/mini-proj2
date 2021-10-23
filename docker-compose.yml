@@ -76,7 +76,7 @@ services:
     build: ./soap/migration
     image: cph-si/soap-migration:v1.0
     volumes:
-      - ./soap/src:/usr/src/app/data
+      - ./soap/src/data:/usr/src/app/data
     environment:
       - CONTAINERIZED=1
 
