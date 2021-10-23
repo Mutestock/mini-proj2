@@ -96,6 +96,19 @@ impl Person for PersonCon {
                 .expect("Person Read List failed"),
         ))
     }
+
+    async fn read_person_list_by_role(
+        &self,
+        request: tonic::Request<person::ReadPersonListByRoleRequest>,
+    ) -> Result<tonic::Response<person::ReadPersonListByRoleResponse>, tonic::Status> {
+        println!("Got a request from {:?}", request.remote_addr());
+
+        Ok(Response::new(
+            person_handler::read_person_list_by_role(request.into_inner())
+                .await
+                .expect("Person Read List failed"),
+        ))
+    }
 }
 
 #[tokio::main]
@@ -105,7 +118,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .unwrap();
     let person_con = PersonCon::default();
 
-    println!("Server running on: {}:{}", CONFIG.server.host, CONFIG.server.port);
+    println!(
+        "Server running on: {}:{}",
+        CONFIG.server.host, CONFIG.server.port
+    );
 
     Server::builder()
         .add_service(PersonServer::new(person_con))

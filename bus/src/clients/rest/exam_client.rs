@@ -62,10 +62,10 @@ pub async fn update_exam(new_exam: NewExam, id: i32) -> Result<String, reqwest::
     Ok(res)
 }
 
-
 pub async fn delete_exam(id: i32) -> Result<String, reqwest::Error> {
     let client = reqwest::Client::new();
-    let body = client.delete(format!("{}/{}", PATH_PREFIX.to_owned(), id))
+    let body = client
+        .delete(format!("{}/{}", PATH_PREFIX.to_owned(), id))
         .send()
         .await?
         .text()

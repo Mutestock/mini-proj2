@@ -10,12 +10,13 @@ mod routes;
 mod utils;
 
 use crate::{
+    clients::rest::grade_client::read_grade_by_exam_id,
     utils::config::{is_containerized_mode, CONFIG},
 };
 
 use self::{
-    logic::{hybrid_handlers, person_handlers},
-    routes::{exam_routes, hybrid_routes, person_routes},
+    logic::{exam_handlers, grade_handlers, hybrid_handlers, person_handlers},
+    routes::{exam_routes, hybrid_routes, person_routes, grade_routes},
 };
 
 lazy_static! {
@@ -35,7 +36,6 @@ lazy_static! {
 
 #[tokio::main]
 async fn main() {
-    let exam_routes = read_exam!();
     let hybrid_routes =
         read_people_list_by_passed!().or(read_people_list_by_passed_and_exam_subject!());
 
@@ -43,11 +43,25 @@ async fn main() {
         .or(create_person!())
         .or(update_person!())
         .or(delete_person!())
-        .or(read_person_list!());
+        .or(read_person_list!())
+        .or(read_person_list_by_role!());
+
+    let exam_routes = read_exam!()
+        .or(create_exam!())
+        .or(update_exam!())
+        .or(delete_exam!())
+        .or(read_exam_list!());
+
+    let grade_routes = read_grade_by_exam_id!()
+        .or(read_grade_by_person_id!())
+        .or(create_grade!())
+        .or(delete_grade!())
+        .or(read_grade_list!());
 
     let routes = exam_routes
         .or(hybrid_routes)
-        .or(person_routes);
+        .or(person_routes)
+        .or(grade_routes);
 
     println!(
         "Server running on {:?}:{}",

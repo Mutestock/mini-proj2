@@ -66,22 +66,24 @@ pub async fn read_people_list_by_passed() -> Result<impl warp::Reply, warp::Reje
     let grades = read_grades_and_collect().await;
     let exams = read_exams_and_collect().await;
     let person_id_list: Vec<i32> = collect_person_id_list(&grades);
-    let person_list= read_people_by_id_list_and_collect(person_id_list).await;
+    let person_list = read_people_by_id_list_and_collect(person_id_list).await;
 
     Ok(warp::reply::json(
         &collect_people_stats(person_list, exams, grades).await,
     ))
 }
 
-pub async fn read_people_list_by_passed_and_exam_subject(subject: String) -> Result<impl warp::Reply, warp::Rejection> {
+pub async fn read_people_list_by_passed_and_exam_subject(
+    subject: String,
+) -> Result<impl warp::Reply, warp::Rejection> {
     let grades = read_grades_and_collect().await;
     let exams = read_exams_and_collect()
         .await
         .into_iter()
-        .filter(|exam|exam.name==subject)
+        .filter(|exam| exam.name == subject)
         .collect();
     let person_id_list: Vec<i32> = collect_person_id_list(&grades);
-    let person_list= read_people_by_id_list_and_collect(person_id_list).await;
+    let person_list = read_people_by_id_list_and_collect(person_id_list).await;
 
     Ok(warp::reply::json(
         &collect_people_stats(person_list, exams, grades).await,

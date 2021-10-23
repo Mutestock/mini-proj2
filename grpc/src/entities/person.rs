@@ -34,7 +34,7 @@ impl PersonConverter {
         let mut read_list: Vec<ReadPersonResponse> = vec![];
         for person in stud_vec {
             read_list.push(person.to_read_response())
-        };
+        }
         read_list
     }
     pub fn to_list_response(stud_vec: Vec<PersonConverter>) -> ReadPersonListResponse {
@@ -43,8 +43,18 @@ impl PersonConverter {
         }
     }
 
-    pub fn to_list_from_id_response(stud_vec: Vec<PersonConverter>) -> ReadPersonListByIdListResponse {
+    pub fn to_list_from_id_response(
+        stud_vec: Vec<PersonConverter>,
+    ) -> ReadPersonListByIdListResponse {
         ReadPersonListByIdListResponse {
+            person_list: PersonConverter::list_collect(stud_vec),
+        }
+    }
+
+    pub fn to_list_response_by_role(
+        stud_vec: Vec<PersonConverter>,
+    ) -> ReadPersonListByRoleResponse {
+        ReadPersonListByRoleResponse {
             person_list: PersonConverter::list_collect(stud_vec),
         }
     }

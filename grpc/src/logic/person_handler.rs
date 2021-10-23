@@ -152,3 +152,27 @@ pub async fn read_list_by_id_list(
             .contains(&(stud.id as i32)))
         .collect()))
 }
+
+
+pub async fn read_person_list_by_role(
+    request: person::ReadPersonListByRoleRequest,
+) -> anyhow::Result<person::ReadPersonListByRoleResponse> {
+
+    let ppl = sqlx::query_as::<_, PersonConverter>(
+        r#"
+        SELECT * FROM people
+        WHERE role = $1
+        "#,
+    )
+    .bind(request.role)
+    .fetch_all(
+        &get_db_pool()
+            .await
+            .expect("Read list person connection failed"),
+    )
+    .await
+    .expect("Could not read list of people");
+    
+    Ok(PersonConverter::to_list_response_by_role(ppl))
+}
+

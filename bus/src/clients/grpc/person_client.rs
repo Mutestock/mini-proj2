@@ -2,8 +2,9 @@ use crate::entities::person::NewPerson;
 use crate::entities::person::{
     person_client::PersonClient, CreatePersonRequest, CreatePersonResponse, DeletePersonRequest,
     DeletePersonResponse, ReadPersonListByIdListRequest, ReadPersonListByIdListResponse,
-    ReadPersonListRequest, ReadPersonListResponse, ReadPersonRequest, ReadPersonResponse,
-    UpdatePersonRequest, UpdatePersonResponse,
+    ReadPersonListByRoleRequest, ReadPersonListByRoleResponse, ReadPersonListRequest,
+    ReadPersonListResponse, ReadPersonRequest, ReadPersonResponse, UpdatePersonRequest,
+    UpdatePersonResponse,
 };
 use crate::utils::config::{is_containerized_mode, CONFIG};
 
@@ -92,4 +93,14 @@ pub async fn read_person_list() -> Result<ReadPersonListResponse, Box<dyn std::e
     let request = tonic::Request::new(ReadPersonListRequest {});
 
     Ok(client.read_person_list(request).await?.into_inner())
+}
+
+pub async fn read_person_list_by_role(
+    role: String,
+) -> Result<ReadPersonListByRoleResponse, Box<dyn std::error::Error>> {
+    let mut client = PersonClient::connect(CONNECTION_STRING.to_owned()).await?;
+
+    let request = tonic::Request::new(ReadPersonListByRoleRequest { role: role });
+
+    Ok(client.read_person_list_by_role(request).await?.into_inner())
 }

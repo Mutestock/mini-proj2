@@ -7,7 +7,10 @@ service Person {
   rpc UpdatePerson(UpdatePersonRequest) returns (UpdatePersonResponse) {}
   rpc DeletePerson(DeletePersonRequest) returns (DeletePersonResponse) {}
   rpc ReadPersonList(ReadPersonListRequest) returns (ReadPersonListResponse) {}
-  rpc ReadPersonListByIDList(ReadPersonListByIDListRequest) returns (ReadPersonListByIDListResponse) {}
+  rpc ReadPersonListByIDList(ReadPersonListByIDListRequest)
+      returns (ReadPersonListByIDListResponse) {}
+  rpc ReadPersonListByRole(ReadPersonListByRoleRequest)
+      returns (ReadPersonListByRoleResponse) {}
 }
 
 // ##### Request #####
@@ -25,34 +28,41 @@ message UpdatePersonRequest {
   CreatePersonRequest new_person = 2;
 }
 
-message DeletePersonRequest{ int32 id = 1;}
+message DeletePersonRequest { int32 id = 1; }
 
 message ReadPersonRequest { int32 id = 1; }
 
-message ReadPersonListRequest{}
+message ReadPersonListRequest {}
 
-message ReadPersonListByIDListRequest{ repeated int32 id_list = 1; }
+message ReadPersonListByIDListRequest { repeated int32 id_list = 1; }
 
+message ReadPersonListByRoleRequest { string role = 1; }
 
 // ##### Response #####
 
 message ReadPersonResponse {
-    int32 id = 1;
-    string first_name = 2;
-    string last_name = 3;
-    string phone_number = 4;
-    string email = 5;
-    string role = 6;
-    string updated_at = 7;
-    string created_at = 8;
-}  
+  int32 id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string phone_number = 4;
+  string email = 5;
+  string role = 6;
+  string updated_at = 7;
+  string created_at = 8;
+}
 
 message CreatePersonResponse { string message = 1; }
 
 message ReadPersonListResponse { repeated ReadPersonResponse person_list = 1; }
 
-message ReadPersonListByIDListResponse { repeated ReadPersonResponse person_list = 1; }
+message ReadPersonListByIDListResponse {
+  repeated ReadPersonResponse person_list = 1;
+}
 
 message UpdatePersonResponse { string message = 1; }
 
 message DeletePersonResponse { string message = 1; }
+
+message ReadPersonListByRoleResponse {
+  repeated ReadPersonResponse person_list = 1;
+}
