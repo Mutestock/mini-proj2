@@ -16,13 +16,7 @@ namespace SoapService
     {
         public static void Main(string[] args)
         {
-            IHost host = CreateHostBuilder(args).Build();
-            using (IServiceScope scope = host.Services.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<SchoolClassContext>();
-                context.Database.Migrate();
-            }
-            host.Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
