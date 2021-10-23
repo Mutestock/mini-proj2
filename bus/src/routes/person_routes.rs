@@ -6,7 +6,6 @@ fn path_prefix() -> BoxedFilter<()> {
     path!("api" / "person" / ..).boxed()
 }
 
-
 pub fn read_person() -> BoxedFilter<(i32,)> {
     warp::get()
         .and(path_prefix())
@@ -48,7 +47,7 @@ pub fn read_person_list() -> BoxedFilter<()> {
         .boxed()
 }
 
-pub fn read_person_list_by_role() -> BoxedFilter<(String, )> {
+pub fn read_person_list_by_role() -> BoxedFilter<(String,)> {
     warp::get()
         .and(path_prefix())
         .and(warp::path::param::<String>())

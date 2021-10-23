@@ -1,34 +1,33 @@
-
-use serde_derive::{Serialize, Deserialize};
+use serde_derive::{Deserialize, Serialize};
 
 use super::{exam::Exam, person::Person};
 
 #[derive(Serialize, Deserialize)]
-pub struct Grade{
+pub struct Grade {
     pub person_id: i32,
     pub symbol: String,
     pub exam_id: i32,
 }
 
-
 impl Grade {
-    fn match_grade(&self, person: &Person, exam: &Exam) -> Option<&Grade>{
+    fn match_grade(&self, person: &Person, exam: &Exam) -> Option<&Grade> {
         if self.person_id == person.id && self.exam_id == exam.id {
             Some(self)
-        }
-        else{
+        } else {
             None
         }
     }
-    pub fn search_matching_symbol(grade_vector: &Vec<Grade>, person: &Person, exam: &Exam) -> String {
+    pub fn search_matching_symbol(
+        grade_vector: &Vec<Grade>,
+        person: &Person,
+        exam: &Exam,
+    ) -> String {
         for grade in grade_vector {
             match grade.match_grade(person, exam) {
                 Some(v) => return v.symbol.clone(),
-                None => ()
+                None => (),
             };
-        };
+        }
         String::from("")
     }
 }
-
-

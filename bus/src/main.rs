@@ -9,14 +9,11 @@ mod logic;
 mod routes;
 mod utils;
 
-use crate::{
-    clients::rest::grade_client::read_grade_by_exam_id,
-    utils::config::{is_containerized_mode, CONFIG},
-};
+use crate::utils::config::{is_containerized_mode, CONFIG};
 
 use self::{
     logic::{exam_handlers, grade_handlers, hybrid_handlers, person_handlers},
-    routes::{exam_routes, hybrid_routes, person_routes, grade_routes},
+    routes::{exam_routes, grade_routes, hybrid_routes, person_routes},
 };
 
 lazy_static! {
@@ -36,8 +33,10 @@ lazy_static! {
 
 #[tokio::main]
 async fn main() {
-    let hybrid_routes =
-        read_people_list_by_passed!().or(read_people_list_by_passed_and_exam_subject!());
+    let hybrid_routes = read_people_list_by_passed!()
+        .or(read_people_list_by_passed_and_exam_subject!())
+        .or(read_people_list_by_failed!())
+        .or(read_people_list_by_failed_and_exam_subject!());
 
     let person_routes = read_person!()
         .or(create_person!())

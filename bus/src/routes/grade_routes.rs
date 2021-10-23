@@ -6,7 +6,6 @@ fn path_prefix() -> BoxedFilter<()> {
     path!("api" / "grade" / ..).boxed()
 }
 
-
 pub fn read_grade_by_person_id() -> BoxedFilter<(i32,)> {
     warp::get()
         .and(path_prefix())

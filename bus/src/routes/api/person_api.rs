@@ -1,5 +1,3 @@
-use crate::routes::person_routes::read_person_list_by_role;
-
 #[macro_export]
 macro_rules! read_person {
     () => {
@@ -38,6 +36,7 @@ macro_rules! read_person_list {
 #[macro_export]
 macro_rules! read_person_list_by_role {
     () => {
-        person_routes::read_person_list_by_role().and_then(person_handlers::read_person_list_by_role)
+        person_routes::read_person_list_by_role()
+            .and_then(person_handlers::read_person_list_by_role)
     };
 }

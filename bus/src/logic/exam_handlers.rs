@@ -1,5 +1,5 @@
 use crate::clients::rest::exam_client;
-use crate::entities::exam::{Exam, NewExam};
+use crate::entities::exam::{NewExam};
 
 pub async fn create_exam(exam: NewExam) -> Result<impl warp::Reply, warp::Rejection> {
     Ok(warp::reply::json(
