@@ -64,6 +64,14 @@ services:
     build: ./rest/migration
     image: cph-si/rest-migration:v1.0
 
+  soap-migration:
+    build: ./soap/migration
+    image: cph-si/soap-migration:v1.0
+    volumes:
+      - ./soap/src:/usr/src/app/data
+    environment:
+      - CONTAINERIZED=1
+
 networks:
   app-network:
     driver: "bridge"
