@@ -1,42 +1,60 @@
-![Deploy](https://github.com/Mutestock/mini-project-loner-edition/actions/workflows/deploy.yml/badge.svg)
+# Overview
 
- This project requires REST, SOAP and gRPC. 
+Project by cph-hw98 & cph-sn311.
 
- Since all of these technologies should be relatively universal and interoperable, we'll be making this assignment in various different languages and frameworks as an exercise 
-
+Since all of these technologies should be relatively universal and interoperable, we'll be making this assignment in various different languages and frameworks as an exercise 
 
 - REST: Typescript (deno) 
-- SOAP: C# (ASP.NET Core)
-- gRPC: Rust (tonic) 
+- SOAP: C# (<span>ASP.NET</span> Core)
+- gRPC: Rust (tonic)
+- Service bus (REST):  
 - Migration: Python
-- Frontend: Typescript (Angular)
 
-Additionally a separate Python container will be doing the migration
-Docker-compose up --build
+The assignment definition can be found at [mini-proj2/A4-MP-MS.pdf](https://github.com/Mutestock/mini-proj2/blob/master/A4-MP-MS.pdf)
 
-This project is made by cph-hw98 & cph-sn311
-The assignment definition can be seen in A3-MP-API.pdf
+# Run
 
-# Installation
+## Prerequisites:
 
-To run locally(requires docker & docker-compose):
-> docker-compose up
+This project requires Docker and Kubernetes to run locally. Kubernetes can either be installed with [Docker Desktop](https://www.docker.com/products/docker-desktop) for Mac and Windows or with [Minikube](https://minikube.sigs.k8s.io/docs/).
 
-Be advised that pulling the containers and compiling their contents will take some time.
+## Run: Minikube
 
-# Deployment 
+To run the project on a system with minikube installed just run the shell script in the root folder of the git repo [mini-proj2/startup.sh](https://github.com/Mutestock/mini-proj2/blob/master/startup.sh)
 
-The solution is at the time of writing this file deployed at:
+```
+$ sudo chmod x+ startup.sh
+$ ./startup.sh
+```
 
-## front:
-  http://159.65.54.148/
+This will start minikube with the docker driver and then build all the images inside the minikube container. It will finish off by running all Kubernetes configuration files located in [mini-proj2/.kubernetes](https://github.com/Mutestock/mini-proj2/tree/master/.kubernetes) folder.
 
+## Run: Docker Desktop
 
-## backend:
-- REST - http://159.65.54.148:10020
-- gRPC - http://159.65.54.148:10030
-- SOAP - http://159.65.54.148:10040
-- Envoy Proxy - http://159.65.54.148:10050
+If Kubernetes is installed through Docker Desktop you can use docker compose to build all images and then manually apply the k8s configuration files
+
+```
+$ docker-compose build
+$ kubectl apply -R -f .kubernetes 
+```
+
+## Access running services
+
+All services are exposed by a kubernetes NodePort service on the following ports:
+
+- Gateway: `30000`
+- Person Service: `30010`
+- Exam/Grade Service: `30020`
+- Class Service: `30030`
+- Service Bus: `30040`
+
+When using Docker Desktop all NodePorts can be access on localhost (ex. `localhost:30000`). This is not possible with Minikube instead run the following command to get the Minikube node IP to access the services on:
+```
+$ minikube services
+```
+
+# Gateway Endpoints
+
 
 
 # Techstack
@@ -73,24 +91,3 @@ There are multiple reasons why we've decided to solve the assignment like this
 3. Using multiple and completely different languages in the context of SOAP, REST and gRPC and being able to use them together cooperatively on the same platform (frontend Angular), 
     showcases the interoperability and independance of the technologies.
 4. Creating the services like this allows us to easily reuse and expand them for future projects.
-
-## Envoy proxy
-Envoy is required because our frontend is communicating directly with a gRPC server over gRPC-web. There are some message transportation errors since gRPC-web [uses http/2](https://grpc.io/blog/state-of-grpc-web/)
-
-
-# Ports
-- Postgres DB: 10010
-- REST service: 10020
-- gRPC service: 10030
-- SOAP service: 10040
-- Web Application: 80
-- Envoy Proxy: 10050
-- Soap to rest translater service: 10060
-
-# Diagrams
-Note that:
-- Rest is responsibile for Grades and relations
-- gRPC is responsible for Student
-- SOAP is responsible for Teachers
-
-![alt text](/resources/er_diagram.png "er_diagram")
