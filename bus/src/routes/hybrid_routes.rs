@@ -19,3 +19,19 @@ pub fn read_people_list_by_passed_and_exam_subject() -> BoxedFilter<(String,)> {
         .and(warp::path::param::<String>())
         .boxed()
 }
+
+pub fn read_people_list_by_failed() -> BoxedFilter<()> {
+    warp::get()
+        .and(path_prefix())
+        .and(warp::path("failed"))
+        .and(warp::path::end())
+        .boxed()
+}
+
+pub fn read_people_list_by_failed_and_exam_subject() -> BoxedFilter<(String,)> {
+    warp::get()
+        .and(path_prefix())
+        .and(warp::path("failed"))
+        .and(warp::path::param::<String>())
+        .boxed()
+}

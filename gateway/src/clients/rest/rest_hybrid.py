@@ -23,6 +23,19 @@ def person_read_list_passed_by_exam_name(exam_name):
     except Exception as e:
         print()
 
+def person_read_list_failed():
+    try:
+        return JSON.dumps(requests.get(f"{_PREFIX}/failed").json())
+    except Exception as e:
+        print()
+
+
+def person_read_list_failed_by_exam_name(exam_name):
+    try:
+        return JSON.dumps(requests.get(f"{_PREFIX}/failed/{exam_name}").json())
+    except Exception as e:
+        print()
+
 
 ##### Put #####
 

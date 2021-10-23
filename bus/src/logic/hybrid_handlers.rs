@@ -34,12 +34,18 @@ async fn collect_people_stats(
 }
 
 // Insert logic for passed
-async fn read_grades_and_collect() -> Vec<Grade> {
-    let grade_json = &grade_client::read_grade_passed()
-        .await
-        .expect("Could not retrieve data from read exam by id path");
+async fn read_grades_and_collect(passed: bool) -> Vec<Grade> {
+    let grade_json = match &passed {
+        true => grade_client::read_grade_passed()
+            .await
+            .expect("Could not retrieve data from read exam by id path"),
 
-    serde_json::from_str(grade_json).expect("Could not serialize json string to grade list")
+        false => grade_client::read_grade_passed()
+            .await
+            .expect("Could not retrieve data from read exam by id path"),
+    };
+
+    serde_json::from_str(&grade_json).expect("Could not serialize json string to grade list")
 }
 
 async fn read_exams_and_collect() -> Vec<Exam> {
@@ -63,7 +69,7 @@ fn collect_person_id_list(grades: &Vec<Grade>) -> Vec<i32> {
 }
 
 pub async fn read_people_list_by_passed() -> Result<impl warp::Reply, warp::Rejection> {
-    let grades = read_grades_and_collect().await;
+    let grades = read_grades_and_collect(true).await;
     let exams = read_exams_and_collect().await;
     let person_id_list: Vec<i32> = collect_person_id_list(&grades);
     let person_list = read_people_by_id_list_and_collect(person_id_list).await;
@@ -76,7 +82,35 @@ pub async fn read_people_list_by_passed() -> Result<impl warp::Reply, warp::Reje
 pub async fn read_people_list_by_passed_and_exam_subject(
     subject: String,
 ) -> Result<impl warp::Reply, warp::Rejection> {
-    let grades = read_grades_and_collect().await;
+    let grades = read_grades_and_collect(true).await;
+    let exams = read_exams_and_collect()
+        .await
+        .into_iter()
+        .filter(|exam| exam.name == subject)
+        .collect();
+    let person_id_list: Vec<i32> = collect_person_id_list(&grades);
+    let person_list = read_people_by_id_list_and_collect(person_id_list).await;
+
+    Ok(warp::reply::json(
+        &collect_people_stats(person_list, exams, grades).await,
+    ))
+}
+
+pub async fn read_people_list_by_failed() -> Result<impl warp::Reply, warp::Rejection> {
+    let grades = read_grades_and_collect(false).await;
+    let exams = read_exams_and_collect().await;
+    let person_id_list: Vec<i32> = collect_person_id_list(&grades);
+    let person_list = read_people_by_id_list_and_collect(person_id_list).await;
+
+    Ok(warp::reply::json(
+        &collect_people_stats(person_list, exams, grades).await,
+    ))
+}
+
+pub async fn read_people_list_by_failed_and_exam_subject(
+    subject: String,
+) -> Result<impl warp::Reply, warp::Rejection> {
+    let grades = read_grades_and_collect(false).await;
     let exams = read_exams_and_collect()
         .await
         .into_iter()
