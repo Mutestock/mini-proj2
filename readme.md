@@ -85,7 +85,7 @@ You can use this URL with the routes in the gateway endpoints (see Gateway Endpo
      * ![Image not found =(](/resources/answers/system_integration.png "System integration final exam")
    * Number of students who haven't completed the mini project 2
      * Answer: GET /person/failed/Mini Project 2
-     * ![Image not found =(](/resources/answers/mini_project_failed "mini project failed")
+     * ![Image not found =(](/resources/answers/mini_project_failed.png"mini project failed")
 1. Deploy and Orchestrate your microservice applications in an appropriate environment (e.g. the Netflix Deployment services)
    * Answer: Kubernetes. See .kubernetes
 
