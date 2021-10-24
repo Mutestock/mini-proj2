@@ -1,3 +1,4 @@
+from typing import List
 from requests.api import request
 from entities.school_class import SchoolClass
 import zeep
@@ -29,3 +30,9 @@ def read_list_school_class() -> list[SchoolClass]:
 
 def add_person(classId: int, personId: int) -> None:
     _create_client().service.AddPersonClass(classId, personId)
+
+def delete_school_class(id: int) -> None:
+    _create_client().service.RemoveClass(id)
+
+def remove_person(id: int, personId: int) -> None:
+    _create_client().service.RemovePerson(id, personId)
