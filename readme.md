@@ -68,6 +68,21 @@ Find the gateway URL. It'll look something like:
 
 You can use this URL with the routes in the gateway endpoints (see Gateway Endpoints in this readme)
 
+# Objective Answers
+
+1. Extend the students information system  by adding new services that process:
+   * Teacher's data
+     * Answer: GET /person/role/teacher
+   * Exams and exam dates
+     * Answer: GET /exam
+2. Enable the clients of the application to see: 
+   * List of students who have passed their exam on System Integration, together with their grades
+     * Answer: GET /person/passed/System Integration 
+   * Number of students who haven't completed the mini project 2
+     * Answer: GET /person/failed/Mini Project 2
+1. Deploy and Orchestrate your microservice applications in an appropriate environment (e.g. the Netflix Deployment services)
+   * Answer: Kubernetes. See .kubernetes
+
 
 # Gateway Endpoints
 
@@ -137,6 +152,9 @@ You can use this URL with the routes in the gateway endpoints (see Gateway Endpo
 
 ### Utilities:
 - Github
+
+# Architecture
+![Image not found =(](/resources/mini_proj_architecture.png "Architecture")
 
 
 # Reasoning
