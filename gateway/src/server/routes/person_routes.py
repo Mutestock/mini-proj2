@@ -4,6 +4,7 @@ from clients.rest.rest_person import (
     read_person,
     read_person_list,
     update_person,
+    read_person_list_by_role
 )
 from clients.rest.rest_hybrid import (
     person_read_list_passed,
@@ -84,6 +85,14 @@ def person_route_read_list_failed_by_exam_name(name):
     except Exception as e:
         print(e)
         return "500"
+    
+def person_route_read_list_by_role(role):
+    try:
+        return read_person_list_by_role(role)
+    except Exception as e:
+        print(e)
+        return "500"
+    
 
 
 def collect_routes(app):
@@ -103,6 +112,11 @@ def collect_routes(app):
     app.add_url_rule(
         "/person/failed/<string:name>",
         view_func=person_route_read_list_failed_by_exam_name,
+        methods=["GET"],
+    )
+    app.add_url_rule(
+        "/person/role/<string:name>",
+        view_func=person_route_read_list_by_role,
         methods=["GET"],
     )
     app.add_url_rule("/person/<int:id>", view_func=person_route_update, methods=["PUT"])
