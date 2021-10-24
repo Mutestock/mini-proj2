@@ -22,7 +22,7 @@ The systems consist of the following gateway, service bus, and three main data h
 | Name        | Protocol | Programming Language<br>& Framework  | Description
 | -           | -        | -                      | -
 | Gateway     | REST     | Python (Flask)         | Main gateway service used by consumers of the system. The gateway contains integrations to the other services.
-| Service Bus | REST     | Rust (Wrap)            | Contains business logic for combining exam and person data together.
+| Service Bus | REST     | Rust (Warp)            | Contains business logic for combining exam and person data together.
 | Exam        | REST     | Deno/Typescript (Oak)  | Handles data related to exams and grades.
 | Person      | gRPC     | Rust (Tonic)           | Handles data related to students and teachers.
 | Class       | SOAP     | C# (SoapCore)          | Handles data related to classes in a school.
