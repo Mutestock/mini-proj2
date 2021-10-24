@@ -21,6 +21,10 @@ namespace SoapService
         void AddPersonClass(int classId, int personId);
         [OperationContract]
         void AddPeopleClass(int classId, params int[] peopleIds);
+        [OperationContract]
+        void RemoveClass(int classId);
+        [OperationContract]
+        void RemovePerson(int classId, int personId);
     }
 
     public class ClassService : IClassService
@@ -46,5 +50,11 @@ namespace SoapService
 
         public void AddPeopleClass(int classId, params int[] peopleIds)
             => _repository.AddPeople(classId, peopleIds.Select(pId => new Person { Id = pId}).ToArray());
+
+        public void RemoveClass(int classId)
+            => _repository.Delete(classId);
+
+        public void RemovePerson(int classId, int personId)
+            => _repository.Delete(classId, personId);
     }
 }
