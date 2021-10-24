@@ -55,6 +55,53 @@ $ minikube services
 
 # Gateway Endpoints
 
+## Exam
+
+| Endpoint      | HTTP Method   | Description |
+| -             | :---------:   | -
+| /exam         | `GET`         |
+| /exam/\<id>   | `GET`         |
+| /exam         | `POST`        |
+| /exam/\<id>   | `PUT`         |
+| /exam/\<id>   | `DELETE`      |
+
+## Grade
+
+| Endpoint                      | HTTP Method   | Description |
+| -                             | :-:           | -
+| /grade                        | `GET`         |
+| /grade/exam/\<exam-id>        | `GET`         |
+| /grade/person/\<person-id>    | `GET`         |
+| /grade                        | `POST`        |
+| /grade/exam/\<exam-id>        | `PUT`         |
+| /grade/person/\<person-id>    | `PUT`         |
+| /grade/exam/\<exam-id>        | `DELETE`      |
+| /grade/person/\<person-id>    | `DELETE`      |
+
+## Person
+
+| Endpoint                      | HTTP Method   | Description |
+| -                             | :-:           | -
+| /person                       | `GET`         |
+| /person/\<id>                 | `GET`         |
+| /person/passed                | `GET`         |
+| /person/passed/\<exam-name>   | `GET`         |
+| /person/failed                | `GET`         |
+| /person/failed/\<exam-name>   | `GET`         |
+| /person                       | `POST`        |
+| /person/\<id>                 | `PUT`         |
+| /person/\<id>                 | `DELETE`      |
+
+## Class
+
+| Endpoint                          | HTTP Method   | Description |
+| -                                 | :-:           | -
+| /class                            | `GET`         |
+| /class/\<id>                      | `GET`         |
+| /class/\<id>                      | `POST`        |
+| /class/\<id>/person               | `POST`        |
+| /class/\<id>                      | `DELETE`      |
+| /class/\<id>/person/\<person-id>  | `DELETE`      |
 
 
 # Techstack
