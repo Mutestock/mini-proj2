@@ -29,36 +29,8 @@ def grade_route_read_list_by_exam_id(id):
     return grade_read_list_by_exam_id(id)
 
 
-def grade_route_update_by_exam_id(id):
-    try:
-        grade_update_by_exam_id(id, Grade.from_json(request.json))
-        return "200"
-    except Exception as e:
-        print(e)
-        return "500"
-
-
-def grade_route_delete_by_exam_id(id):
-    grade_delete_by_exam_id(id)
-    return "204"
-
-
 def grade_route_read_list_by_person_id(id):
     return grade_read_list_by_person_id(id)
-
-
-def grade_route_update_by_person_id(id):
-    try:
-        grade_update_by_person_id(id, Grade.from_json(request.json))
-        return "200"
-    except Exception as e:
-        print(e)
-        return "500"
-
-
-def grade_route_delete_by_person_id(id):
-    grade_delete_by_person_id(id)
-    return "204"
 
 
 def collect_routes(app):
@@ -74,24 +46,4 @@ def collect_routes(app):
         "/grade/person/<int:id>",
         view_func=grade_route_read_list_by_person_id,
         methods=["GET"],
-    )
-
-    app.add_url_rule(
-        "/grade/exam/<int:id>", view_func=grade_route_update_by_exam_id, methods=["PUT"]
-    )
-    app.add_url_rule(
-        "/grade/grade/<int:id>",
-        view_func=grade_route_update_by_person_id,
-        methods=["PUT"],
-    )
-
-    app.add_url_rule(
-        "/grade/person/<int:id>",
-        view_func=grade_route_delete_by_person_id,
-        methods=["DELETE"],
-    )
-    app.add_url_rule(
-        "/grade/exam/<int:id>",
-        view_func=grade_route_delete_by_exam_id,
-        methods=["DELETE"],
     )

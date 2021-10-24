@@ -92,55 +92,69 @@ You can use this URL with the routes in the gateway endpoints (see Gateway Endpo
 
 # Gateway Endpoints
 
+| Endpoint      | HTTP Method   | Description |
+| -             | :-:           | -
+| /             | `GET`         |
+| /health       | `GET`         |
+
 ## Exam
 
 | Endpoint      | HTTP Method   | Description |
 | -             | :---------:   | -
-| /exam         | `GET`         |
-| /exam/\<id>   | `GET`         |
-| /exam         | `POST`        |
-| /exam/\<id>   | `PUT`         |
-| /exam/\<id>   | `DELETE`      |
+| /exam         | `GET`         | Get a list of all exams
+| /exam/\<id>   | `GET`         | Get a specific exam by its id
+| /exam/\<id>   | `DELETE`      | Remove an exam from the system
+
+| Endpoint      | Http Method   | Request Body  | Description
+| -             | :-:           | -             |   -
+| /exam         | `POST`        | <pre>{<br>  "name": "string"<br>  "examination_date": "string"<br>}</pre> | Create a new exam
+| /exam/\<id>   | `PUT`         | <pre>{<br>  "name": "string"<br>  "examination_date": "string"<br>}</pre> | Update an existing exam
+
 
 ## Grade
 
 | Endpoint                      | HTTP Method   | Description |
 | -                             | :-:           | -
-| /grade                        | `GET`         |
-| /grade/exam/\<exam-id>        | `GET`         |
-| /grade/person/\<person-id>    | `GET`         |
-| /grade                        | `POST`        |
-| /grade/exam/\<exam-id>        | `PUT`         |
-| /grade/person/\<person-id>    | `PUT`         |
-| /grade/exam/\<exam-id>        | `DELETE`      |
-| /grade/person/\<person-id>    | `DELETE`      |
+| /grade                        | `GET`         | Get a list of all grades
+| /grade/exam/\<exam-id>        | `GET`         | Get a list of all grades for a given exam
+| /grade/person/\<person-id>    | `GET`         | Get a list of a persons grades
+
+| Endpoint                      | Http Method   | Request Body  | Description
+| -                             | :-:           | -             |   -
+| /grade                        | `POST`        | <pre>{<br>  "person_id": 0<br>  "exam_id": 0<br>  "symbol": "string"<br>}</pre>   | Add a new grade
+
 
 ## Person
 
 | Endpoint                      | HTTP Method   | Description |
 | -                             | :-:           | -
-| /person                       | `GET`         |
-| /person/\<id>                 | `GET`         |
-| /person/passed                | `GET`         |
-| /person/passed/\<exam-name>   | `GET`         |
-| /person/failed                | `GET`         |
-| /person/failed/\<exam-name>   | `GET`         |
-| /person/role/\<role-name>     | `GET`         |
-| /person                       | `POST`        |
-| /person/\<id>                 | `PUT`         |
-| /person/\<id>                 | `DELETE`      |
+| /person                       | `GET`         | Get a list of all people
+| /person/\<id>                 | `GET`         | Get a specific person by their id
+| /person/passed                | `GET`         | Get all people who have a passing grade
+| /person/passed/\<exam-name>   | `GET`         | Get all people who have passed a specific exam
+| /person/failed                | `GET`         | Get all people who have a failing grade
+| /person/failed/\<exam-name>   | `GET`         | Get all people who have failed a specific exam
+| /person/role/\<role-name>     | `GET`         | Get person by their role
+| /person/\<id>                 | `DELETE`      | Remove a person
+
+| Endpoint      | Http Method   | Request Body  | Description
+| -             | :-:           | -             |   -
+| /person       | `POST`        | <pre>{<br>  "first_name": "string"<br>  "last_name": "string"<br>  "phone_number": "string"<br>  "email": "string"<br>  "role": "string"<br>}</pre>   | Add a new person
+| /person/\<id> | `PUT`         | <pre>{<br>  "first_name": "string"<br>  "last_name": "string"<br>  "phone_number": "string"<br>  "email": "string"<br>  "role": "string"<br>}</pre>   | Update data for an existing person
 
 ## Class
 
 | Endpoint                          | HTTP Method   | Description |
 | -                                 | :-:           | -
-| /class                            | `GET`         |
-| /class/\<id>                      | `GET`         |
-| /class/\<id>                      | `POST`        |
-| /class/\<id>/person               | `POST`        |
-| /class/\<id>                      | `DELETE`      |
-| /class/\<id>/person/\<person-id>  | `DELETE`      |
+| /class                            | `GET`         | Get a list of all classes
+| /class/\<id>                      | `GET`         | Get a spcific class with all people related to it
+| /class/\<id>                      | `DELETE`      | Remove a class
+| /class/\<id>/person/\<person-id>  | `DELETE`      | Remove a person from a class
 
+| Endpoint              | Http Method   | Request Body  | Description
+| -                     | :-:           | -             |   -
+| /class/\<id>          | `POST`        | <pre>{ "subject": "string" }</pre>    | Add a new class
+| /class/\<id>/person   | `POST`        | <pre>{ "person_id": 0 }</pre>         | Add a person to an existing class
 
 # Techstack
 
