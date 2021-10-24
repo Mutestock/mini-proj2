@@ -2,16 +2,38 @@
 
 Project by cph-hw98 & cph-sn311.
 
-Since all of these technologies should be relatively universal and interoperable, we'll be making this assignment in various different languages and frameworks as an exercise 
+This assignment is a continuation of the previous Mini Project 1 (see [mini-project-loner-edition](https://github.com/Mutestock/mini-project-loner-edition)). 
 
-- REST: Typescript (deno) 
-- SOAP: C# (<span>ASP.NET</span> Core)
-- gRPC: Rust
-- Service bus: Rust  
-- Migrations: Python
-- Gateway: Python
+The main objectives is as follows:
+- Extend project 1 with exam and teacher data.
+- Add new feature so it’s possible to query people based on passed or failed exams.
+- Use an orchestration tool to manage deployment and communication between services.
+
+In the previous project we used an Angular frontend to integrate with our services. This time we chose to remove the frontend in favor of a more general API gateway that exposes our system's functionality through REST endpoints.
+
+We have chosen to continue developing our services with various languages and frameworks, since we strongly believe that all services should be universal and interoperable with each other, regardless of their programming language.
 
 The assignment definition can be found at [mini-proj2/A4-MP-MS.pdf](https://github.com/Mutestock/mini-proj2/blob/master/A4-MP-MS.pdf)
+
+# Services & Techstack
+
+The systems consist of the following gateway, service bus, and three main data handling services.
+
+| Name        | Protocol | Programming Language<br>& Framework  | Description
+| -           | -        | -                      | -
+| Gateway     | REST     | Python (Flask)         | Main gateway service used by consumers of the system. The gateway contains integrations to the other services.
+| Service Bus | REST     | Rust (Wrap)            | Contains business logic for combining exam and person data together.
+| Exam        | REST     | Deno/Typescript (Oak)  | Handles data related to exams and grades.
+| Person      | gRPC     | Rust (Tonic)           | Handles data related to students and teachers.
+| Class       | SOAP     | C# (SoapCore)          | Handles data related to classes in a school.
+
+The Exam, Person, and Class services each have a separate __Sqlite__ database to store their data. Migration for each database is handled by a custom python migration service which is run before the service starts. 
+
+## Deployment
+
+All services can be built into docker images with their accompanying Dockerfile. This makes it possible to run each service without having the required SDKs installed for each service.
+
+Orchestration of all services are handled by Kubernetes (k8s). We chose to use k8s because of two reasons 1. It lets us easily manage deployment of all our services and automatically handles recovery for the services should any of them fail. 2. K8s removes the need for hardcoded IP addressed with its Service Objects that can route traffic between our services based on the Service Objects name.
 
 # Run
 
@@ -21,9 +43,15 @@ This project requires Docker and Kubernetes to run locally. Kubernetes can eithe
 
 ## Run: Minikube
 
+On Linux, your user must be added to the docker group before you can run the shell script. If you haven't done this, type:
+
+```bash
+$ usermod -aG docker $USER
+```
+
 To run the project on a system with minikube installed just run the shell script in the root folder of the git repo [mini-proj2/startup.sh](https://github.com/Mutestock/mini-proj2/blob/master/startup.sh)
 
-```
+```bash
 $ sudo chmod +x startup.sh
 $ ./startup.sh
 ```
@@ -34,7 +62,7 @@ This will start minikube with the docker driver and then build all the images in
 
 If Kubernetes is installed through Docker Desktop you can use docker compose to build all images and then manually apply the k8s configuration files
 
-```
+```bash
 $ docker-compose build
 $ kubectl apply -R -f .kubernetes 
 ```
@@ -52,9 +80,11 @@ All services are exposed by a kubernetes NodePort service on the following ports
 - Service Bus: `30040`
 
 When using Docker Desktop all NodePorts can be access on localhost (ex. `localhost:30000`). This is not possible with Minikube. Instead run the following command to get the Minikube node IP to access the services on:
-```
+
+```bash
 $ minikube service list
 ```
+
 Find the gateway URL. It'll look something like:
 
 
@@ -155,23 +185,6 @@ You can use this URL with the routes in the gateway endpoints (see Gateway Endpo
 | -                     | :-:           | -             |   -
 | /class/\<id>          | `POST`        | <pre>{ "subject": "string" }</pre>    | Add a new class
 | /class/\<id>/person   | `POST`        | <pre>{ "person_id": 0 }</pre>         | Add a person to an existing class
-
-# Techstack
-
-### Backend:
-- REST: Typescript (deno) 
-- SOAP: C# (<span>ASP.NET</span> Core)
-- gRPC: Rust
-- Service bus: Rust  
-- Migrations: Python
-- Gateway: Python
-
-
-### Databases:
-- sqlite
-
-### Utilities:
-- Github
 
 # Architecture
 ![Image not found =(](/resources/mini_proj_architecture.png "Architecture")
