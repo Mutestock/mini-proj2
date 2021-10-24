@@ -52,6 +52,5 @@ pub fn read_person_list_by_role() -> BoxedFilter<(String,)> {
         .and(path_prefix())
         .and(warp::path("role"))
         .and(warp::path::param::<String>())
-        .and(warp::path::end())
         .boxed()
 }

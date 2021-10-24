@@ -41,6 +41,8 @@ $ kubectl apply -R -f .kubernetes
 
 ## Access running services
 
+Ingress is beyond the scope of this assignment.
+
 All services are exposed by a kubernetes NodePort service on the following ports:
 
 - Gateway: `30000`
@@ -73,13 +75,17 @@ You can use this URL with the routes in the gateway endpoints (see Gateway Endpo
 1. Extend the students information system  by adding new services that process:
    * Teacher's data
      * Answer: GET /person/role/teacher
+     * ![Image not found =(](/resources/answers/role_teacher.png "role teacher")
    * Exams and exam dates
      * Answer: GET /exam
+     * ![Image not found =(](/resources/answers/exam.png "exams")
 2. Enable the clients of the application to see: 
    * List of students who have passed their exam on System Integration, together with their grades
-     * Answer: GET /person/passed/System Integration 
+     * Answer: GET /person/passed/System Integration: Final Exam
+     * ![Image not found =(](/resources/answers/system_integration.png "System integration final exam")
    * Number of students who haven't completed the mini project 2
      * Answer: GET /person/failed/Mini Project 2
+     * ![Image not found =(](/resources/answers/mini_project_failed "mini project failed")
 1. Deploy and Orchestrate your microservice applications in an appropriate environment (e.g. the Netflix Deployment services)
    * Answer: Kubernetes. See .kubernetes
 

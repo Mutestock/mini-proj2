@@ -45,6 +45,7 @@ def read_person_list():
 
 def read_person_list_by_role(role):
     try:
-        return requests.get(f"{_PREFIX}/role/{role}").json()
+        print(requests.get(f"{_PREFIX}/role/{role}").json())
+        return JSON.dumps(requests.get(f"{_PREFIX}/role/{role}").json())
     except Exception as e:
         print(e)

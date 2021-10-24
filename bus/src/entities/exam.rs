@@ -1,6 +1,6 @@
 use serde_derive::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, PartialEq)]
+#[derive(Serialize, Deserialize, PartialEq, Debug)]
 pub struct Exam {
     pub id: i32,
     pub name: String,
@@ -10,7 +10,7 @@ pub struct Exam {
 }
 
 // Stats for single person exam results
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct ExamStats {
     pub name: String,
     pub examination_date: String,

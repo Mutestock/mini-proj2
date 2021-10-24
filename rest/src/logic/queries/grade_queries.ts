@@ -60,7 +60,7 @@ function queryReadListWhoPassed() {
     const conn = makeSqliteConnection();
     const query = conn.prepareQuery<[number, number, string]>(
         `SELECT * FROM grade 
-        WHERE symbol IS NOT 'F'
+        WHERE symbol IN ('A+','A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-','D+','D','D-')
         `
     );
     const gradeList: Grade[] = [];

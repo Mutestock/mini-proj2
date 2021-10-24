@@ -4,6 +4,43 @@ use crate::entities::exam::{Exam, ExamStats};
 use crate::entities::grade::Grade;
 use crate::entities::person::{Person, PersonStats};
 
+const LEGAL_SYMBOLS: [&str; 13] = [
+    "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F",
+];
+
+async fn filter_grades_illegal_symbols(grades: Vec<Grade>) -> Vec<Grade> {
+    grades
+        .into_iter()
+        .filter(|grade| LEGAL_SYMBOLS.contains(&grade.symbol.as_str()))
+        .collect()
+}
+
+async fn filter_exams_by_subject(exams: Vec<Exam>, subject: &str) -> Vec<Exam> {
+    exams
+        .into_iter()
+        .filter(|exam| exam.name == subject)
+        .collect()
+}
+
+async fn filter_people_stats_illegal_marks(mut ppl_stats: Vec<PersonStats>) -> Vec<PersonStats> {
+    let mut ppl_state_intermediate = ppl_stats.clone();
+    for person_stats in ppl_stats.iter_mut() {
+        let mut person_stats_intermediate = person_stats.clone();
+        for exam in person_stats.exams.iter() {
+            if !LEGAL_SYMBOLS.contains(&exam.mark.as_str()) || exam.mark.as_str().is_empty() {
+                person_stats_intermediate
+                    .exams
+                    .retain(|e| e.name != exam.name);
+            }
+        }
+        if person_stats.exams.is_empty() {
+            ppl_state_intermediate.retain(|p| p.person.id != person_stats.person.id);
+        }
+        *person_stats = person_stats_intermediate;
+    }
+    ppl_state_intermediate
+}
+
 async fn collect_people_stats(
     person_list: Vec<Person>,
     exams: Vec<Exam>,
@@ -66,26 +103,27 @@ pub async fn read_people_list_by_passed() -> Result<impl warp::Reply, warp::Reje
     let person_id_list: Vec<i32> = collect_person_id_list(&grades);
     let person_list = read_people_by_id_list_and_collect(person_id_list).await;
 
-    Ok(warp::reply::json(
-        &collect_people_stats(person_list, exams, grades).await,
-    ))
+    let mut people_stats = collect_people_stats(person_list, exams, grades).await;
+    people_stats = filter_people_stats_illegal_marks(people_stats).await;
+
+    Ok(warp::reply::json(&people_stats))
 }
 
 pub async fn read_people_list_by_passed_and_exam_subject(
     subject: String,
 ) -> Result<impl warp::Reply, warp::Rejection> {
-    let grades = read_grades_and_collect(true).await;
-    let exams = read_exams_and_collect()
-        .await
-        .into_iter()
-        .filter(|exam| exam.name == subject)
-        .collect();
+    let mut grades = read_grades_and_collect(true).await;
+    grades = filter_grades_illegal_symbols(grades).await;
+    let subject = subject.replace("%20", " ");
+    let mut exams = read_exams_and_collect().await;
+    exams = filter_exams_by_subject(exams, &subject).await;
     let person_id_list: Vec<i32> = collect_person_id_list(&grades);
     let person_list = read_people_by_id_list_and_collect(person_id_list).await;
 
-    Ok(warp::reply::json(
-        &collect_people_stats(person_list, exams, grades).await,
-    ))
+    let mut people_stats = collect_people_stats(person_list, exams, grades).await;
+    people_stats = filter_people_stats_illegal_marks(people_stats).await;
+
+    Ok(warp::reply::json(&people_stats))
 }
 
 pub async fn read_people_list_by_failed() -> Result<impl warp::Reply, warp::Rejection> {
@@ -94,24 +132,25 @@ pub async fn read_people_list_by_failed() -> Result<impl warp::Reply, warp::Reje
     let person_id_list: Vec<i32> = collect_person_id_list(&grades);
     let person_list = read_people_by_id_list_and_collect(person_id_list).await;
 
-    Ok(warp::reply::json(
-        &collect_people_stats(person_list, exams, grades).await,
-    ))
+    let mut people_stats = collect_people_stats(person_list, exams, grades).await;
+    people_stats = filter_people_stats_illegal_marks(people_stats).await;
+
+    Ok(warp::reply::json(&people_stats))
 }
 
 pub async fn read_people_list_by_failed_and_exam_subject(
     subject: String,
 ) -> Result<impl warp::Reply, warp::Rejection> {
-    let grades = read_grades_and_collect(false).await;
-    let exams = read_exams_and_collect()
-        .await
-        .into_iter()
-        .filter(|exam| exam.name == subject)
-        .collect();
+    let mut grades = read_grades_and_collect(false).await;
+    grades = filter_grades_illegal_symbols(grades).await;
+    let subject = subject.replace("%20", " ");
+    let mut exams = read_exams_and_collect().await;
+    exams = filter_exams_by_subject(exams, &subject).await;
     let person_id_list: Vec<i32> = collect_person_id_list(&grades);
     let person_list = read_people_by_id_list_and_collect(person_id_list).await;
 
-    Ok(warp::reply::json(
-        &collect_people_stats(person_list, exams, grades).await,
-    ))
+    let mut people_stats = collect_people_stats(person_list, exams, grades).await;
+    people_stats = filter_people_stats_illegal_marks(people_stats).await;
+
+    Ok(warp::reply::json(&people_stats))
 }

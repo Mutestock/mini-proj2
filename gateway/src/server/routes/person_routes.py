@@ -115,7 +115,7 @@ def collect_routes(app):
         methods=["GET"],
     )
     app.add_url_rule(
-        "/person/role/<string:name>",
+        "/person/role/<string:role>",
         view_func=person_route_read_list_by_role,
         methods=["GET"],
     )

@@ -42,8 +42,8 @@ async fn main() {
         .or(create_person!())
         .or(update_person!())
         .or(delete_person!())
-        .or(read_person_list!())
-        .or(read_person_list_by_role!());
+        .or(read_person_list_by_role!())
+        .or(read_person_list!());
 
     let exam_routes = read_exam!()
         .or(create_exam!())

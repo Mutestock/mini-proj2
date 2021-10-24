@@ -66,17 +66,19 @@ function readListByPersonID(id: number): string {
 }
 
 function readListByExamID(id: number): string {
-    const gradeList: GradeLinked[] = [];
+    //const gradeList: GradeLinked[] = [];
+    const gradeList: Grade[] = [];
     queries.queryReadListByExamID(id).forEach(function (grade: Grade) {
-        gradeList.push(GradeLinked.fromParsedObject(grade));
+        gradeList.push(grade);
     });
     return JSON.stringify(gradeList);
 }
 
 function readList(): string {
-    const gradeList: GradeLinked[] = [];
+    //const gradeList: GradeLinked[] = [];
+    const gradeList: Grade[] = [];
     queries.queryReadList().forEach(function (grade: Grade) {
-        gradeList.push(GradeLinked.fromParsedObject(grade));
+        gradeList.push(grade);
     });
     return JSON.stringify(gradeList);
 }
@@ -90,9 +92,9 @@ function readListWhoPassed(): string {
 }
 
 function readListWhoFailed(): string {
-    const gradeList: GradeLinked[] = [];
+    const gradeList: Grade[] = [];
     queries.queryReadListWhoFailed().forEach(function (grade: Grade) {
-        gradeList.push(GradeLinked.fromParsedObject(grade));
+        gradeList.push(grade);
     });
     return JSON.stringify(gradeList);
 }

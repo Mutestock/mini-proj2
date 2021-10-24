@@ -1,5 +1,5 @@
 use crate::clients::rest::exam_client;
-use crate::entities::exam::{NewExam};
+use crate::entities::exam::{Exam, NewExam};
 
 pub async fn create_exam(exam: NewExam) -> Result<impl warp::Reply, warp::Rejection> {
     Ok(warp::reply::json(
@@ -10,11 +10,13 @@ pub async fn create_exam(exam: NewExam) -> Result<impl warp::Reply, warp::Reject
 }
 
 pub async fn read_exam(id: i32) -> Result<impl warp::Reply, warp::Rejection> {
-    Ok(warp::reply::json(
+    let serialized: Exam = serde_json::from_str(
         &exam_client::read_exam(id)
             .await
             .expect("Could not read exam"),
-    ))
+    )
+    .expect("Could not serialize exam list");
+    Ok(warp::reply::json(&serialized))
 }
 
 pub async fn update_exam(id: i32, exam: NewExam) -> Result<impl warp::Reply, warp::Rejection> {
@@ -34,9 +36,11 @@ pub async fn delete_exam(id: i32) -> Result<impl warp::Reply, warp::Rejection> {
 }
 
 pub async fn read_exam_list() -> Result<impl warp::Reply, warp::Rejection> {
-    Ok(warp::reply::json(
+    let serialized: Vec<Exam> = serde_json::from_str(
         &exam_client::read_exam_list()
             .await
             .expect("Could not read exam list"),
-    ))
+    )
+    .expect("Could not serialize exam list");
+    Ok(warp::reply::json(&serialized))
 }
