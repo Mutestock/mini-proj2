@@ -43,6 +43,8 @@ This project requires Docker and Kubernetes to run locally. Kubernetes can eithe
 
 ## Run: Minikube
 
+_NOTE: It is possible to run the project with Minikube on Windows by executing the script through WSL._
+
 On Linux, your user must be added to the docker group before you can run the shell script. If you haven't done this, type:
 
 ```bash
