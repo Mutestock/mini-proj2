@@ -2,12 +2,7 @@ from clients.rest.rest_grade import (
     grade_create,
     grade_read_list,
     grade_read_list_by_exam_id,
-    grade_read_list_by_person_id,
-    grade_update_by_exam_id,
-    grade_update_by_person_id,
-    grade_delete_by_exam_id,
-    grade_delete_by_person_id,
-)
+    grade_read_list_by_person_id
 
 from entities.grade import Grade
 
